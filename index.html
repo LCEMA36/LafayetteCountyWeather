@@ -176,6 +176,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
     <button class="ntab" onclick="setPanel('alerts',this)">⚡ Alerts</button>
     <button class="ntab" onclick="setPanel('megbrief',this)">📑 MEG Briefing</button>
     <button class="ntab" onclick="setPanel('afd',this)">🌐 AFD</button>
+    <button class="ntab" onclick="setPanel('products',this)">📚 MEG Products</button>
     <button class="ntab" onclick="setPanel('metar',this)">✈️ METAR</button>
     <button class="ntab" onclick="setPanel('radar',this)">📡 Radar</button>
     <button class="ntab" onclick="setPanel('radarstatus',this)">🛰️ Radar Status</button>
@@ -307,6 +308,29 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
   </div>
 </div>
 
+<!-- MEG PRODUCTS PANEL -->
+<div class="panel" id="panel-products">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📚 NWS Memphis (MEG) — Product Type Catalog</span>
+      <div class="card-actions">
+        <span id="products-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadProductTypes()">Refresh</button>
+        <a class="alink" href="https://api.weather.gov/products/locations/MEG/types" target="_blank">JSON Feed ↗</a>
+      </div>
+    </div>
+    <div class="znote">Complete catalog of text product types issued by NWS Memphis. Click any product type to load the most recent issuance. Includes Area Forecast Discussions, Hazardous Weather Outlooks, Local Storm Reports, Public Information Statements, Special Weather Statements, and more.</div>
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:14px;">
+      <div id="products-list" style="max-height:calc(100vh - 340px);overflow-y:auto;"><div class="lmsg">Loading product types...</div></div>
+      <div id="product-viewer">
+        <div style="background:var(--bg);border-radius:8px;padding:20px;color:var(--muted);font-size:12px;text-align:center;border:1px dashed var(--border);">
+          👈 Select a product type from the list to view the most recent issuance from NWS Memphis.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- METAR PANEL -->
 <div class="panel" id="panel-metar">
   <div class="card">
@@ -346,11 +370,43 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 <div class="panel" id="panel-radar">
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title">📡 NWS KNQA Memphis — Radar Loop · Lafayette County, MS</span>
-      <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Full NWS Radar ↗</a>
+      <span class="card-title">📡 Regional Radar View — Lafayette County, MS</span>
+      <div class="card-actions">
+        <button class="btn" onclick="cycleRadar('radar1')">🔄 Reload</button>
+        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJ3ZWF0aGVyIiwiY2VudGVyIjpbLTg5LjQ4NSwzNC4zNTddLCJsb2NhdGlvbiI6Wy04OS40ODUsMzQuMzU3XSwiem9vbSI6NywibGF5ZXIiOiJicmVmX3FjZCJ9LCJhbmltYXRpbmciOmZhbHNlLCJiYXNlIjoic3RhbmRhcmQiLCJhcnRjYyI6ZmFsc2UsImNvdW50eSI6ZmFsc2UsImN3YSI6ZmFsc2UsInJmYyI6ZmFsc2UsInN0YXRlIjpmYWxzZSwibWVudSI6dHJ1ZSwic2hvcnRGdXNlZE9ubHkiOmZhbHNlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
+      </div>
     </div>
+    <div class="znote">Base reflectivity (quality-controlled) mosaic centered on Lafayette County (34.357°N / 89.485°W). Regional view showing all nearby radar coverage.</div>
     <div class="radar-full">
-      <iframe src="https://radar.weather.gov/ridge/standard/KNQA_loop.gif" title="KNQA Memphis Radar Loop" loading="lazy"></iframe>
+      <iframe id="radar1" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJ3ZWF0aGVyIiwiY2VudGVyIjpbLTg5LjQ4NSwzNC4zNTddLCJsb2NhdGlvbiI6Wy04OS40ODUsMzQuMzU3XSwiem9vbSI6NywibGF5ZXIiOiJicmVmX3FjZCJ9LCJhbmltYXRpbmciOmZhbHNlLCJiYXNlIjoic3RhbmRhcmQiLCJhcnRjYyI6ZmFsc2UsImNvdW50eSI6ZmFsc2UsImN3YSI6ZmFsc2UsInJmYyI6ZmFsc2UsInN0YXRlIjpmYWxzZSwibWVudSI6dHJ1ZSwic2hvcnRGdXNlZE9ubHkiOmZhbHNlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="Regional Radar Lafayette County" loading="lazy" style="height:600px;"></iframe>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📡 KNQA Memphis — Super-Res Base Reflectivity</span>
+      <div class="card-actions">
+        <button class="btn" onclick="cycleRadar('radar2')">🔄 Reload</button>
+        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS44NzMsMzUuMzQ1XSwibG9jYXRpb24iOm51bGwsInpvb20iOjcsImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktOUUEifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
+      </div>
+    </div>
+    <div class="znote">Primary radar for the NWS Memphis CWA — the main radar covering the northern half of Lafayette County. Super-resolution base reflectivity with short-fused warnings overlay only.</div>
+    <div class="radar-full">
+      <iframe id="radar2" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS44NzMsMzUuMzQ1XSwibG9jYXRpb24iOm51bGwsInpvb20iOjcsImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktOUUEifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="KNQA Memphis Super-Res" loading="lazy" style="height:600px;"></iframe>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📡 KGWX Columbus AFB — Super-Res Base Reflectivity</span>
+      <div class="card-actions">
+        <button class="btn" onclick="cycleRadar('radar3')">🔄 Reload</button>
+        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS41OTMsMzQuMjA2XSwibG9jYXRpb24iOm51bGwsInpvb20iOjksImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktHV1gifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
+      </div>
+    </div>
+    <div class="znote">Alternate radar coverage from KGWX Columbus AFB — the primary radar covering the southeastern half of Lafayette County. Zoomed tight on the county at zoom level 9 for detail on developing storms.</div>
+    <div class="radar-full">
+      <iframe id="radar3" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS41OTMsMzQuMjA2XSwibG9jYXRpb24iOm51bGwsInpvb20iOjksImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktHV1gifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="KGWX Columbus AFB Super-Res" loading="lazy" style="height:600px;"></iframe>
     </div>
   </div>
 </div>
@@ -613,7 +669,20 @@ function renderSPC(){
 
 /* ── FORECAST ── */
 function wIcon(s){const f=(s||'').toLowerCase();if(f.includes('tornado'))return'🌪️';if(f.includes('thunder')||f.includes('storm'))return'⛈️';if(f.includes('rain')||f.includes('shower'))return'🌧️';if(f.includes('snow'))return'❄️';if(f.includes('fog'))return'🌫️';if(f.includes('cloud'))return'☁️';if(f.includes('partly'))return'⛅';if(f.includes('sunny')||f.includes('clear'))return'☀️';return'🌡️';}
-function rLvl(t){const f=(t||'').toLowerCase();if(f.includes('tornado'))return{c:'r-high',l:'High Risk'};if(f.includes('thunder')||f.includes('storm')||f.includes('severe'))return{c:'r-mod',l:'Storm Threat'};if(f.includes('rain')||f.includes('shower'))return{c:'r-low',l:'Rain'};return{c:'r-none',l:'Low Risk'};}
+function riskColor(idx){
+  // Official SPC categorical color codes
+  const colors=['#c1e9c1','#7fc57f','#f6f67f','#e9c56b','#ff7f7f','#ff007f'];
+  return colors[idx]||'#c1e9c1';
+}
+function rLvl(t,spcIdx){
+  const f=(t||'').toLowerCase();
+  // Only highlight as storm threat if SPC outlook is 1+ AND weather mentions storm/thunder
+  if(spcIdx>=1&&(f.includes('tornado')||f.includes('thunder')||f.includes('storm')||f.includes('severe'))){
+    return{c:'',l:['General Thunder','Marginal 1/5','Slight 2/5','Enhanced 3/5','Moderate 4/5','High 5/5'][spcIdx],bg:riskColor(spcIdx),color:spcIdx>=3?'#fff':'#1a1d23'};
+  }
+  if(f.includes('rain')||f.includes('shower'))return{c:'r-low',l:'Rain'};
+  return{c:'r-none',l:'Low Risk'};
+}
 
 async function loadForecast(){
   document.getElementById('forecast-strip').innerHTML='<div class="lmsg">Loading...</div>';
@@ -627,9 +696,10 @@ async function loadForecast(){
     document.getElementById('forecast-strip').innerHTML=`<div class="fc-strip">${dayP.map(p=>{
       const nm=nights.find(n=>n.name&&p.name&&n.name.includes(p.name.split(' ')[0]));
       const lo=nm?nm.temperature+'°F':'--';
-      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''));
+      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),window._spcIdx??0);
       const lbl=p.name==='Today'?'Today':new Date(p.startTime).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-      return`<div class="fc-card"><div class="fc-day">${lbl}</div><div class="fc-icon">${wIcon(p.shortForecast)}</div><div class="fc-hi">${p.temperature}°F</div><div class="fc-lo">Low ${lo}</div><div class="fc-desc">${p.shortForecast}</div><div class="fc-risk ${risk.c}">${risk.l}</div></div>`;
+      const riskStyle=risk.bg?`background:${risk.bg};color:${risk.color};`:'';
+      return`<div class="fc-card"><div class="fc-day">${lbl}</div><div class="fc-icon">${wIcon(p.shortForecast)}</div><div class="fc-hi">${p.temperature}°F</div><div class="fc-lo">Low ${lo}</div><div class="fc-desc">${p.shortForecast}</div><div class="fc-risk ${risk.c}" style="${riskStyle}">${risk.l}</div></div>`;
     }).join('')}</div>`;
 
     const now=periods[0];
@@ -666,10 +736,11 @@ async function loadPointForecast(){
     const elev=d.properties?.elevation?.value;
     let html=`<div style="font-size:10px;color:var(--muted);margin-bottom:10px;background:var(--bg);padding:6px 10px;border-radius:6px;">Generated: ${generated} CT${elev?` · Elevation: ${Math.round(elev*3.28084)} ft`:''} · Updated: ${d.properties?.updated?new Date(d.properties.updated).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):''}</div>`;
     html+=periods.slice(0,14).map(p=>{
-      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''));
+      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),window._spcIdx??0);
       const dtStart=p.startTime?new Date(p.startTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',hour12:true}):'';
       const dtEnd=p.endTime?new Date(p.endTime).toLocaleString('en-US',{weekday:'short',hour:'numeric',hour12:true}):'';
       const bgColor=p.isDaytime?'#fff':'#f8f9fb';
+      const riskStyle=risk.bg?`background:${risk.bg};color:${risk.color};`:'';
       return`<div class="detailed-day" style="background:${bgColor};padding:11px 13px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${p.isDaytime?'var(--gold)':'var(--navy)'};">
         <div class="detailed-row">
           <div class="detailed-icon">${wIcon(p.shortForecast)}</div>
@@ -677,7 +748,7 @@ async function loadPointForecast(){
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
               <span class="detailed-name" style="font-size:13px;">${p.name}</span>
               <span style="font-size:9px;color:var(--muted);">${dtStart} → ${dtEnd}</span>
-              <span class="fc-risk ${risk.c}" style="font-size:9px;">${risk.l}</span>
+              <span class="fc-risk ${risk.c}" style="font-size:9px;${riskStyle}">${risk.l}</span>
             </div>
             <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;">
               <span style="font-size:20px;font-weight:700;color:${p.isDaytime?'var(--red)':'var(--navy)'};">${p.temperature}°${p.temperatureUnit||'F'}</span>
@@ -747,6 +818,173 @@ async function loadMesoscale(){
   }catch(e){
     box.innerHTML=`<div class="no-alerts">Unable to fetch Mesoscale Discussions: ${e.message}</div>`;
     meta.textContent='Error';
+  }
+}
+
+/* ── RADAR RELOAD ── */
+function cycleRadar(id){
+  const frame=document.getElementById(id);
+  if(!frame)return;
+  const src=frame.src;
+  frame.src='about:blank';
+  setTimeout(()=>{frame.src=src;},100);
+}
+
+/* ── MEG PRODUCT CATALOG ── */
+// Human-friendly descriptions for common NWS product codes
+const PRODUCT_DESCRIPTIONS={
+  AFD:'Area Forecast Discussion — Detailed technical narrative from forecasters',
+  HWO:'Hazardous Weather Outlook — 7-day hazard summary',
+  LSR:'Local Storm Report — Observed severe weather reports',
+  PNS:'Public Information Statement — General public info',
+  SPS:'Special Weather Statement — Non-warning weather info',
+  NOW:'Short Term Forecast — Next few hours',
+  FWF:'Fire Weather Planning Forecast',
+  FWO:'Fire Weather Observation',
+  RFW:'Red Flag Warning',
+  RTP:'Regional Temperature/Precipitation Summary',
+  RVA:'River Statement',
+  RVS:'River Statement',
+  CLI:'Climate Report',
+  CF6:'Preliminary Climatological Data',
+  RER:'Record Event Report',
+  ZFP:'Zone Forecast Product',
+  CWF:'Coastal Waters Forecast',
+  MWS:'Marine Weather Statement',
+  DGT:'Drought Information Statement',
+  AWU:'Area Weather Update',
+  ADM:'Administrative Message',
+  ADR:'Administrative Message',
+  FTM:'Free Text Message',
+  RWR:'Regional Weather Roundup',
+  RWS:'Regional Weather Summary',
+  SIG:'Significant Weather Advisory',
+  SVR:'Severe Thunderstorm Warning',
+  SVS:'Severe Weather Statement',
+  TOR:'Tornado Warning',
+  FFW:'Flash Flood Warning',
+  FFS:'Flash Flood Statement',
+  FFA:'Flood Watch',
+  FLW:'Flood Warning',
+  FLS:'Flood Statement',
+  WSW:'Winter Weather Warnings/Watches/Advisories',
+  NPW:'Non-Precipitation Warnings/Watches/Advisories',
+  WCN:'Watch County Notification',
+  SEL:'Severe Local Storm Watch',
+  SLS:'Severe Local Storm Watch Cancellation',
+  SEV:'SPC Watch Point Information',
+  WOU:'Watch Outline Update',
+  TCP:'Tropical Cyclone Public Advisory',
+  TCM:'Tropical Cyclone Marine Advisory',
+  MIS:'Miscellaneous Local Product',
+  FZL:'Freezing Level Data',
+  AVA:'Avalanche Watch',
+  AVW:'Avalanche Warning'
+};
+
+const PRODUCT_ICONS={
+  AFD:'📄',HWO:'⚠️',LSR:'📢',PNS:'📣',SPS:'💬',NOW:'⏱️',
+  FWF:'🔥',FWO:'🔥',RFW:'🚩',RTP:'🌡️',RVA:'🌊',RVS:'🌊',
+  CLI:'📊',CF6:'📊',RER:'🏆',ZFP:'🗺️',CWF:'🌊',MWS:'⚓',
+  DGT:'☀️',AWU:'📡',ADM:'📋',ADR:'📋',FTM:'✍️',RWR:'☁️',
+  RWS:'☁️',SIG:'⚠️',SVR:'⛈️',SVS:'⛈️',TOR:'🌪️',FFW:'💧',
+  FFS:'💧',FFA:'💧',FLW:'💧',FLS:'💧',WSW:'❄️',NPW:'💨',
+  WCN:'👁️',SEL:'👁️',SLS:'👁️',SEV:'👁️',WOU:'👁️',TCP:'🌀',
+  TCM:'🌀',MIS:'📌',FZL:'❄️',AVA:'🏔️',AVW:'🏔️'
+};
+
+async function loadProductTypes(){
+  const list=document.getElementById('products-list');
+  const meta=document.getElementById('products-meta');
+  list.innerHTML='<div class="lmsg">Fetching MEG product type catalog...</div>';
+  meta.textContent='';
+  try{
+    const r=await fetch('https://api.weather.gov/products/locations/MEG/types',{headers:HDR});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    const types=d['@graph']||d.productTypes||d.types||[];
+    if(!types.length){
+      list.innerHTML='<div class="no-alerts"><span class="sdot"></span>No product types available.</div>';
+      meta.textContent='0 types';return;
+    }
+    // Sort alphabetically by product code
+    types.sort((a,b)=>{
+      const ac=(a.productCode||a.code||a.id||'').toString();
+      const bc=(b.productCode||b.code||b.id||'').toString();
+      return ac.localeCompare(bc);
+    });
+    meta.textContent=`${types.length} product type${types.length!==1?'s':''} available`;
+    list.innerHTML=types.map(t=>{
+      const code=t.productCode||t.code||t.id||'';
+      const name=t.productName||t.name||'';
+      const icon=PRODUCT_ICONS[code]||'📄';
+      const desc=PRODUCT_DESCRIPTIONS[code]||name||'NWS text product';
+      return`<div class="product-item" onclick="loadProduct('${code}','${name.replace(/'/g,"\\'")}')" style="padding:10px 12px;border-radius:8px;background:var(--card);border:1px solid var(--border);margin-bottom:7px;cursor:pointer;transition:all .15s;border-left:3px solid var(--navy);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;flex-shrink:0;">${icon}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:12px;font-weight:700;color:var(--navy);">${code}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4;">${desc}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Add hover effect via CSS
+    if(!document.getElementById('product-hover-style')){
+      const st=document.createElement('style');
+      st.id='product-hover-style';
+      st.textContent=`.product-item:hover{background:var(--bg)!important;border-left-color:var(--red)!important;transform:translateX(2px);}.product-item.active{background:#fff7d6!important;border-left-color:var(--red)!important;}`;
+      document.head.appendChild(st);
+    }
+  }catch(e){
+    list.innerHTML=`<div class="no-alerts">Unable to fetch product types: ${e.message}<br><br><a class="alink" href="https://api.weather.gov/products/locations/MEG/types" target="_blank">Try the raw feed ↗</a></div>`;
+    meta.textContent='Error';
+  }
+}
+
+async function loadProduct(code,name){
+  const viewer=document.getElementById('product-viewer');
+  // Mark active in the list
+  document.querySelectorAll('.product-item').forEach(el=>el.classList.remove('active'));
+  event.target.closest('.product-item')?.classList.add('active');
+
+  viewer.innerHTML=`<div class="lmsg">Fetching latest ${code} from NWS Memphis...</div>`;
+  try{
+    // Get the list of recent products of this type from MEG
+    const r=await fetch(`https://api.weather.gov/products/types/${code}/locations/MEG`,{headers:HDR});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    const products=d['@graph']||[];
+    if(!products.length){
+      viewer.innerHTML=`<div class="hazard-card">
+        <div class="hazard-top"><span class="abadge b-other">${code}</span><span class="hazard-name">${name||PRODUCT_DESCRIPTIONS[code]||code}</span></div>
+        <div class="hazard-desc">No recent ${code} products issued by NWS Memphis. This product type may be event-driven and only issued during specific conditions (e.g., ${code}==='TOR'?'active tornado events':code==='SVR'?'active severe thunderstorm events':'relevant weather situations'}).</div>
+      </div>`;
+      return;
+    }
+    // Fetch the latest one
+    const latest=products[0];
+    const r2=await fetch(latest['@id'],{headers:HDR});
+    const d2=await r2.json();
+    const issued=d2.issuanceTime?new Date(d2.issuanceTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const text=d2.productText||'No text available.';
+    const icon=PRODUCT_ICONS[code]||'📄';
+    viewer.innerHTML=`
+      <div class="card" style="margin:0;">
+        <div class="card-hdr">
+          <span class="card-title">${icon} ${code} — ${name||PRODUCT_DESCRIPTIONS[code]||'NWS Product'}</span>
+          <div class="card-actions">
+            <button class="btn" onclick="loadProduct('${code}','${(name||'').replace(/'/g,"\\'")}')">Refresh</button>
+            <a class="alink" href="https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=${code}" target="_blank">weather.gov ↗</a>
+          </div>
+        </div>
+        <div class="afd-meta">Issued: <strong>${issued}</strong> · Product ID: ${d2.id||latest.id||'N/A'} · Office: NWS Memphis (MEG)</div>
+        ${products.length>1?`<div style="font-size:10px;color:var(--muted);margin-bottom:8px;">📚 ${products.length} recent ${code} product${products.length!==1?'s':''} available. Showing the most recent.</div>`:''}
+        <div class="afd-box" style="height:calc(100vh - 460px);min-height:400px;">${text}</div>
+      </div>`;
+  }catch(e){
+    viewer.innerHTML=`<div class="no-alerts">Unable to fetch ${code}: ${e.message}</div>`;
   }
 }
 
@@ -1143,6 +1381,7 @@ async function refreshAll(){
   loadMEGBriefing();
   loadMETAR();
   loadRadarStatus();
+  loadProductTypes();
   btn.classList.remove('spinning');btn.textContent='🔄 Refresh All Data';
 }
 
@@ -1157,6 +1396,7 @@ loadMesoscale();
 loadMEGBriefing();
 loadMETAR();
 loadRadarStatus();
+loadProductTypes();
 </script>
 </body>
 </html>
