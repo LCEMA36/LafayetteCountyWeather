@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lafayette County EMA — Weather Command Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#1C2B5E;--red:#C8102E;--gold:#F5A623;--green:#1a6b2e;--amber:#8a5c00;--watch-yellow:#F5C518;--bg:#f4f5f7;--card:#fff;--border:#e0e3ea;--text:#1a1d23;--muted:#6b7280;--mono:ui-monospace,monospace;}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);}
+
+/* HEADER */
+.hdr{background:#fff;border-bottom:3px solid var(--red);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;}
+.hdr-logo{display:flex;align-items:center;}
+.hdr-logo svg{height:64px;display:block;}
+.hdr-meta{text-align:right;}
+.hdr-title{font-size:13px;font-weight:600;color:var(--navy);letter-spacing:.3px;}
+.hdr-sub{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.2px;}
+.hdr-clock{font-size:10px;font-family:var(--mono);color:var(--muted);margin-top:3px;}
+
+/* THREAT BANNER */
+.threat{background:var(--red);padding:8px 22px;display:flex;align-items:center;gap:10px;transition:background .3s;}
+.threat.none{background:var(--green);}.threat.moderate{background:var(--watch-yellow);}.threat.low{background:#2a6e2a;}
+.threat.moderate .tlt,.threat.moderate .tlb,.threat.moderate .threat-refresh{color:#1a1d23;}
+.tlb{font-size:9px;font-weight:700;background:rgba(0,0,0,.25);color:#fff;padding:2px 8px;border-radius:3px;white-space:nowrap;letter-spacing:1px;text-transform:uppercase;}
+.tlt{font-size:12px;color:#fff;font-weight:500;flex:1;}
+.threat-refresh{font-size:9px;padding:2px 9px;cursor:pointer;border-radius:4px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;}
+
+/* NAV */
+.nav{background:var(--navy);display:flex;overflow-x:auto;justify-content:space-between;align-items:center;padding-right:14px;}
+.nav-tabs{display:flex;}
+.ntab{font-size:10px;padding:11px 22px;cursor:pointer;border-bottom:2px solid transparent;color:rgba(255,255,255,.5);background:transparent;border-top:none;border-left:none;border-right:none;letter-spacing:.7px;text-transform:uppercase;transition:all .15s;white-space:nowrap;font-weight:500;}
+.ntab.active{border-bottom-color:var(--red);color:#fff;}
+.ntab:hover{color:rgba(255,255,255,.85);}
+.refresh-all{font-size:10px;padding:5px 12px;cursor:pointer;border-radius:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-weight:500;}
+.refresh-all:hover{background:rgba(255,255,255,.2);}
+.refresh-all.spinning{opacity:.6;}
+
+/* PANELS */
+.panel{display:none;padding:14px;}.panel.active{display:block;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-top:2px solid var(--navy);margin-bottom:12px;}
+.card:last-child{margin-bottom:0;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.card-title{font-size:9px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:1px;}
+.card-actions{display:flex;gap:6px;align-items:center;}
+.btn{font-size:10px;padding:3px 10px;cursor:pointer;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);}
+.btn:hover{background:var(--bg);}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy);font-size:10px;padding:3px 11px;cursor:pointer;border-radius:6px;}
+.alink{font-size:10px;color:#2563eb;text-decoration:underline;cursor:pointer;}
+
+.sec-head{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px;padding-bottom:4px;border-bottom:1px solid var(--red);}
+.znote{font-size:9px;color:var(--muted);margin-bottom:8px;padding:4px 9px;background:var(--bg);border-radius:6px;border-left:2px solid var(--navy);}
+
+/* ALERTS — color coded by warning/watch/advisory */
+.alert-item{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.alert-item:last-child{border-bottom:none;padding-bottom:0;}
+.abadge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;letter-spacing:.4px;margin-top:1px;}
+.b-warning{background:var(--red);color:#fff;}
+.b-watch{background:var(--watch-yellow);color:#1a1d23;}
+.b-advisory{background:#c85c00;color:#fff;}
+.b-statement{background:#6b7280;color:#fff;}
+.b-other{background:#e5e7eb;color:#374151;}
+.a-name{font-size:13px;font-weight:600;color:var(--text);}
+.a-meta{font-size:10px;color:var(--muted);margin-top:2px;}
+.a-area{font-size:10px;color:var(--navy);margin-top:2px;font-weight:500;}
+.a-desc{font-size:11px;color:var(--text);margin-top:6px;line-height:1.6;background:var(--bg);padding:8px 11px;border-radius:6px;white-space:pre-wrap;}
+.no-alerts{text-align:center;padding:24px 0;font-size:12px;color:var(--muted);}
+.sdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;margin-right:5px;}
+.lmsg{text-align:center;padding:16px 0;font-size:12px;color:var(--muted);}
+.alert-scroll{max-height:500px;overflow-y:auto;}
+.cwa-summary{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.cwa-stat{background:var(--bg);padding:6px 10px;border-radius:6px;font-size:10px;color:var(--text);border-left:2px solid var(--navy);}
+.cwa-stat strong{color:var(--red);font-size:13px;font-weight:700;}
+
+/* SPC */
+.spc-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:6px;}
+.spc-badge{border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid rgba(0,0,0,.07);}
+.spc-num{font-size:26px;font-weight:700;line-height:1;}
+.spc-lbl{font-size:8px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
+.spc-sub{font-size:9px;opacity:.8;text-align:center;}
+.s0{background:#e8f5e9;}.s0 .spc-num,.s0 .spc-lbl{color:#1b5e20;}
+.s1{background:#fffde7;}.s1 .spc-num,.s1 .spc-lbl{color:#5d4037;}
+.s2{background:#fff3e0;}.s2 .spc-num,.s2 .spc-lbl{color:#bf360c;}
+.s3{background:#fce4ec;}.s3 .spc-num,.s3 .spc-lbl{color:#880e4f;}
+.s4{background:#f3e5f5;}.s4 .spc-num,.s4 .spc-lbl{color:#4a148c;}
+.s5{background:#ffebee;}.s5 .spc-num,.s5 .spc-lbl{color:#b71c1c;}
+
+/* FORECAST 5-DAY */
+.fc-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.fc-card{background:var(--navy);border-radius:8px;padding:10px 8px;text-align:center;color:#fff;}
+.fc-day{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;}
+.fc-icon{font-size:18px;margin-bottom:3px;}
+.fc-hi{font-size:20px;font-weight:700;color:var(--gold);line-height:1.1;}
+.fc-lo{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:4px;}
+.fc-desc{font-size:9px;color:rgba(255,255,255,.6);line-height:1.4;}
+.fc-risk{font-size:8px;font-weight:600;padding:2px 6px;border-radius:4px;margin-top:5px;display:inline-block;}
+.r-high{background:var(--red);color:#fff;}.r-mod{background:var(--amber);color:#fff;}.r-low{background:var(--green);color:#fff;}.r-none{background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);}
+
+/* CURRENT + 5-DAY DETAILED */
+.now-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;background:var(--bg);padding:14px 16px;border-radius:8px;border-left:3px solid var(--navy);}
+.now-icon{font-size:46px;}
+.now-info{flex:1;}
+.now-temp{font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
+.now-cond{font-size:14px;font-weight:500;color:var(--text);margin-top:3px;}
+.now-detail{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.detailed-day{padding:11px 0;border-bottom:1px solid var(--border);}
+.detailed-day:last-child{border-bottom:none;}
+.detailed-row{display:flex;gap:14px;align-items:flex-start;}
+.detailed-icon{font-size:24px;flex-shrink:0;width:34px;text-align:center;}
+.detailed-info{flex:1;}
+.detailed-name{font-size:12px;font-weight:600;color:var(--navy);}
+.detailed-temp{font-size:11px;color:var(--text);font-weight:500;margin-left:8px;}
+.detailed-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.55;}
+
+/* HAZARDS — full details */
+.hazard-card{padding:11px 13px;border-radius:8px;background:var(--bg);margin-bottom:9px;border-left:3px solid var(--red);}
+.hazard-card.watch{border-left-color:var(--watch-yellow);}
+.hazard-card.advisory{border-left-color:#c85c00;}
+.hazard-card:last-child{margin-bottom:0;}
+.hazard-top{display:flex;align-items:center;gap:9px;margin-bottom:5px;flex-wrap:wrap;}
+.hazard-name{font-size:13px;font-weight:700;color:var(--text);}
+.hazard-meta{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.hazard-area{font-size:11px;color:var(--navy);margin-bottom:6px;font-weight:500;}
+.hazard-desc{font-size:11px;color:var(--text);line-height:1.6;white-space:pre-wrap;background:#fff;padding:9px 12px;border-radius:6px;border:1px solid var(--border);}
+.hazard-instruction{font-size:11px;color:var(--text);line-height:1.6;white-space:pre-wrap;background:#fff7d6;padding:8px 11px;border-radius:6px;border:1px solid #fde68a;margin-top:6px;}
+.hazard-instruction-label{font-size:9px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+
+.bf{font-size:10px;color:var(--muted);background:var(--bg);padding:9px 12px;border-radius:6px;border-left:3px solid var(--navy);line-height:1.6;margin-top:14px;}
+
+/* AFD */
+.afd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.afd-meta{font-size:10px;color:var(--muted);margin-bottom:6px;}
+.afd-box{font-size:10px;font-family:var(--mono);color:var(--text);background:var(--bg);border-radius:6px;padding:10px 12px;height:480px;overflow-y:auto;line-height:1.6;white-space:pre-wrap;word-break:break-word;border-left:3px solid var(--navy);}
+.md-box{background:var(--bg);border-radius:6px;padding:10px 12px;height:480px;overflow-y:auto;border-left:3px solid var(--red);}
+.md-item{padding:9px 0;border-bottom:1px solid var(--border);}
+.md-item:last-child{border-bottom:none;padding-bottom:0;}
+.md-num{font-size:11px;font-weight:700;color:var(--red);}
+.md-time{font-size:10px;color:var(--muted);margin-top:2px;}
+.md-summary{font-size:11px;color:var(--text);margin-top:5px;line-height:1.5;}
+.md-link{font-size:10px;color:#2563eb;text-decoration:underline;margin-top:4px;display:inline-block;}
+
+/* RADAR */
+.radar-full{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#000;}
+.radar-full iframe{width:100%;height:calc(100vh - 200px);min-height:600px;border:none;display:block;}
+
+@media print{.nav,.btn,.btn-navy,.threat-refresh,.refresh-all{display:none!important;}.panel{display:block!important;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">
+    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" aria-label="Lafayette County Emergency Management">
+      <text x="14" y="22" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1C2B5E" letter-spacing="2.5">LAFAYETTE COUNTY</text>
+      <line x1="6" y1="29" x2="296" y2="29" stroke="#1C2B5E" stroke-width="1.6"/>
+      <text x="6" y="60" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#1C2B5E" font-style="italic" letter-spacing="-0.5">EMERGENCY</text>
+      <text x="6" y="93" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#1C2B5E" font-style="italic" letter-spacing="-0.5">MANAGEMENT</text>
+      <line x1="6" y1="100" x2="316" y2="100" stroke="#1C2B5E" stroke-width="1.6"/>
+    </svg>
+  </div>
+  <div class="hdr-meta">
+    <div class="hdr-title">Weather Command Dashboard</div>
+    <div class="hdr-sub">Forecast Authority: NWS Memphis (MEG) · Lafayette County, MS</div>
+    <div class="hdr-clock" id="clock">--</div>
+  </div>
+</div>
+
+<div class="threat" id="threat">
+  <span class="tlb" id="tlb">LOADING</span>
+  <span class="tlt" id="tlt">Checking threat status for Lafayette County, MS...</span>
+  <button class="threat-refresh" onclick="refreshAll()">Refresh All</button>
+</div>
+
+<div class="nav">
+  <div class="nav-tabs">
+    <button class="ntab active" onclick="setPanel('alerts',this)">⚡ Alerts</button>
+    <button class="ntab" onclick="setPanel('briefing',this)">📋 Briefing</button>
+    <button class="ntab" onclick="setPanel('megbrief',this)">📑 MEG Briefing</button>
+    <button class="ntab" onclick="setPanel('afd',this)">🌐 AFD</button>
+    <button class="ntab" onclick="setPanel('metar',this)">✈️ METAR</button>
+    <button class="ntab" onclick="setPanel('radar',this)">📡 Radar</button>
+    <button class="ntab" onclick="setPanel('radarstatus',this)">🛰️ Radar Status</button>
+  </div>
+  <button class="refresh-all" id="refresh-all-btn" onclick="refreshAll()">🔄 Refresh All Data</button>
+</div>
+
+<!-- ALERTS PANEL -->
+<div class="panel active" id="panel-alerts">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">⚡ Lafayette County, MS — Active Alerts</span>
+      <button class="btn" onclick="loadAlerts()">Refresh</button>
+    </div>
+    <div class="znote" id="zone-note">Querying MSZ021 + MSC077 + point Oxford,MS...</div>
+    <div id="alerts-body"><div class="lmsg">Fetching from api.weather.gov...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">🌎 NWS Memphis CWA — All Active Watches &amp; Warnings</span>
+      <button class="btn" onclick="loadCWAAlerts()">Refresh CWA</button>
+    </div>
+    <div class="znote">Coverage: NW Mississippi, East Arkansas, West Tennessee, SE Missouri Bootheel — all alerts within MEG County Warning Area</div>
+    <div id="cwa-summary" class="cwa-summary"></div>
+    <div id="cwa-body" class="alert-scroll"><div class="lmsg">Fetching MEG CWA alerts...</div></div>
+  </div>
+</div>
+
+<!-- BRIEFING PANEL -->
+<div class="panel" id="panel-briefing">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">🌩️ SPC Convective Outlook — Lafayette County, MS</span>
+      <div class="card-actions">
+        <span id="spc-upd" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadSPC()">Refresh</button>
+        <a class="alink" href="https://www.spc.noaa.gov/products/outlook/day1otlk.html" target="_blank">SPC ↗</a>
+      </div>
+    </div>
+    <div id="spc-badges"><div class="lmsg">Fetching SPC data...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">☁ 5-Day Forecast — Oxford, MS · NWS Memphis</span>
+      <div class="card-actions">
+        <button class="btn" onclick="loadForecast()">Refresh Forecast</button>
+        <button class="btn-navy" onclick="window.print()">Print Briefing</button>
+      </div>
+    </div>
+    <div id="forecast-strip"><div class="lmsg">Loading...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">⚡ Active Hazards &amp; Alerts — Full Details</span>
+      <button class="btn" onclick="loadAlerts()">Refresh</button>
+    </div>
+    <div id="hazards-body"><div class="lmsg">Loading...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">☁ Current Conditions — Oxford, MS</span>
+      <button class="btn" onclick="loadForecast()">Refresh</button>
+    </div>
+    <div id="conditions-body"><div class="lmsg">Loading current conditions...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📍 NWS 7-Day Point Forecast — Grid MEG 48,90</span>
+      <div class="card-actions">
+        <button class="btn" onclick="loadPointForecast()">Refresh</button>
+        <a class="alink" href="https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us" target="_blank">Raw API ↗</a>
+      </div>
+    </div>
+    <div class="znote">Detailed 7-day period-by-period forecast pulled directly from NWS gridpoint MEG 48,90 in imperial units. Includes day/night pairs with wind, precipitation probability, and full narrative discussions.</div>
+    <div id="point-forecast-body"><div class="lmsg">Fetching from api.weather.gov...</div></div>
+  </div>
+</div>
+
+<!-- MEG BRIEFING PANEL -->
+<div class="panel" id="panel-megbrief">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📑 NWS Memphis (MEG) — Office Briefings Feed</span>
+      <div class="card-actions">
+        <span id="megbrief-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadMEGBriefing()">Refresh</button>
+        <a class="alink" href="https://api.weather.gov/offices/MEG/briefing" target="_blank">JSON Feed ↗</a>
+        <a class="alink" href="https://www.weather.gov/meg/" target="_blank">MEG Office ↗</a>
+      </div>
+    </div>
+    <div class="znote">Live feed of office briefings from NWS Memphis, pulled from <code>api.weather.gov/offices/MEG/briefing</code>. Includes multi-day threat assessment, forecast summary, and hazard outlook prepared by NWS forecasters. Updated whenever MEG issues a new briefing (typically event-driven or weekly).</div>
+    <div id="megbrief-body"><div class="lmsg">Fetching MEG office briefings feed...</div></div>
+  </div>
+</div>
+
+<!-- AFD PANEL -->
+<div class="panel" id="panel-afd">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">🌐 Area Forecast Discussion + Mesoscale Discussions</span>
+      <div class="card-actions">
+        <button class="btn" onclick="loadAFD()">Refresh AFD</button>
+        <button class="btn" onclick="loadMesoscale()">Refresh MDs</button>
+      </div>
+    </div>
+    <div class="afd-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <span style="font-size:10px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;">📄 NWS Memphis (MEG) AFD</span>
+          <a class="alink" href="https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=AFD" target="_blank">weather.gov ↗</a>
+        </div>
+        <div class="afd-meta" id="afd-meta">Fetching latest AFD...</div>
+        <div class="afd-box" id="afd-box">Loading...</div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <span style="font-size:10px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.8px;">⚡ SPC Mesoscale Discussions</span>
+          <a class="alink" href="https://www.spc.noaa.gov/products/md/" target="_blank">SPC MD ↗</a>
+        </div>
+        <div class="afd-meta" id="md-meta">Fetching active MDs...</div>
+        <div class="md-box" id="md-box"><div class="lmsg">Loading...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- METAR PANEL -->
+<div class="panel" id="panel-metar">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">✈️ NWS METAR — Regional Aviation Observations</span>
+      <div class="card-actions">
+        <span id="metar-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadMETAR()">Refresh</button>
+        <a class="alink" href="https://aviationweather.gov/data/metar/" target="_blank">AviationWeather.gov ↗</a>
+      </div>
+    </div>
+    <div class="znote">
+      Live METAR observations from nearest airports to Lafayette County, MS — pulled from api.weather.gov station observations (free, no API key required). Includes Oxford (KUOX), Tupelo (KTUP), Memphis (KMEM), Batesville (KHLI), Columbus AFB (KCBM), and Greenwood (KGWO).
+    </div>
+    <div id="metar-body"><div class="lmsg">Fetching METAR observations from NWS...</div></div>
+  </div>
+</div>
+
+<!-- RADAR STATUS PANEL -->
+<div class="panel" id="panel-radarstatus">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">🛰️ NWS Radar Station Status — KNQA Memphis</span>
+      <div class="card-actions">
+        <span id="radarstatus-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadRadarStatus()">Refresh</button>
+        <a class="alink" href="https://api.weather.gov/radar/stations/KNQA" target="_blank">JSON Feed ↗</a>
+        <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Live Radar ↗</a>
+      </div>
+    </div>
+    <div class="znote">Operational health, latency, and telemetry for KNQA Memphis WSR-88D radar — the primary Doppler radar covering Lafayette County, MS. Use this to verify radar is online during severe weather events before referencing radar imagery.</div>
+    <div id="radarstatus-body"><div class="lmsg">Fetching radar station telemetry...</div></div>
+  </div>
+</div>
+
+<!-- RADAR PANEL -->
+<div class="panel" id="panel-radar">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📡 NWS KNQA Memphis — Radar Loop · Lafayette County, MS</span>
+      <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Full NWS Radar ↗</a>
+    </div>
+    <div class="radar-full">
+      <iframe src="https://radar.weather.gov/ridge/standard/KNQA_loop.gif" title="KNQA Memphis Radar Loop" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+<div class="panel" id="panel-radar">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📡 NWS KNQA Memphis — Radar Loop · Lafayette County, MS</span>
+      <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Full NWS Radar ↗</a>
+    </div>
+    <div class="radar-full">
+      <iframe src="https://radar.weather.gov/ridge/standard/KNQA_loop.gif" title="KNQA Memphis Radar Loop" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const HDR={'User-Agent':'LafayetteCountyWeatherCommand/1.0'};
+const LAT=34.3665,LON=-89.5196;
+const SPC_LABELS=['General Thunder','Marginal (1/5)','Slight (2/5)','Enhanced (3/5)','Moderate (4/5)','High (5/5)'];
+const SPC_CLS=['s0','s1','s2','s3','s4','s5'];
+const SPC_DESC=['No organized severe weather expected','Isolated severe storms possible','Scattered severe storms likely','Several severe storms likely','Widespread severe weather possible','Widespread severe weather expected'];
+
+// Cache for Lafayette County alerts so SPC card and other cards can reuse
+let countyAlerts=[];
+
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT';}
+setInterval(tick,1000);tick();
+
+function setPanel(p,el){
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(pn=>pn.classList.remove('active'));
+  document.getElementById('panel-'+p).classList.add('active');
+}
+
+/* ── COLOR CODING — yellow for watches, red for warnings ── */
+function alertCategory(eventName){
+  const n=(eventName||'').toLowerCase();
+  if(n.includes('warning'))return'warning';
+  if(n.includes('watch'))return'watch';
+  if(n.includes('advisory'))return'advisory';
+  if(n.includes('statement'))return'statement';
+  return'other';
+}
+function alertBadgeClass(eventName){
+  const c=alertCategory(eventName);
+  return c==='warning'?'b-warning':c==='watch'?'b-watch':c==='advisory'?'b-advisory':c==='statement'?'b-statement':'b-other';
+}
+
+/* ── ALERTS — Lafayette County ── */
+async function loadAlerts(){
+  document.getElementById('alerts-body').innerHTML='<div class="lmsg">Querying MSZ021 + MSC077 + point Oxford,MS...</div>';
+  try{
+    const [r1,r2,r3]=await Promise.all([
+      fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
+      fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR}),
+      fetch(`https://api.weather.gov/alerts/active?point=${LAT},${LON}`,{headers:HDR})
+    ]);
+    const [d1,d2,d3]=await Promise.all([r1.json(),r2.json(),r3.json()]);
+    const seen=new Set(),all=[];
+    for(const f of[...(d1.features||[]),...(d2.features||[]),...(d3.features||[])]){
+      const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);all.push(f);
+    }
+    // Sort: warnings first, then watches, then advisories
+    const order=ev=>{const c=alertCategory(ev);return c==='warning'?0:c==='watch'?1:c==='advisory'?2:3;};
+    all.sort((a,b)=>order(a.properties.event)-order(b.properties.event));
+
+    countyAlerts=all; // cache for SPC + hazards reuse
+
+    const z1=(d1.features||[]).length,z2=(d2.features||[]).length,z3=(d3.features||[]).length;
+    document.getElementById('zone-note').textContent=`Sources — MSZ021: ${z1} alert${z1!==1?'s':''} · MSC077: ${z2} alert${z2!==1?'s':''} · Point Oxford: ${z3} alert${z3!==1?'s':''} · ${all.length} unique total`;
+    updateBanner(all);
+
+    if(!all.length){
+      document.getElementById('alerts-body').innerHTML='<div class="no-alerts"><span class="sdot"></span>No active watches, warnings, or advisories for Lafayette County, MS across all zones.</div>';
+      renderHazards([]);renderSPC();return;
+    }
+    document.getElementById('alerts-body').innerHTML=all.slice(0,12).map(a=>renderAlert(a)).join('');
+    renderHazards(all);
+    renderSPC();
+  }catch(e){
+    document.getElementById('zone-note').textContent='Error contacting NWS API.';
+    document.getElementById('alerts-body').innerHTML=`<div class="no-alerts">Unable to reach NWS API: ${e.message}</div>`;
+    setBanner('UNKNOWN','Unable to reach NWS API','');
+  }
+}
+
+function renderAlert(a){
+  const p=a.properties;
+  const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+  const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+  const desc=p.description||'';
+  return`<div class="alert-item">
+    <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
+    <div style="flex:1;min-width:0;">
+      <div class="a-name">${p.headline||p.event||'Alert'}</div>
+      <div class="a-meta">Issued: ${sent} &nbsp;|&nbsp; Expires: ${exp} &nbsp;|&nbsp; Severity: <strong>${p.severity||'Unknown'}</strong></div>
+      ${desc?`<div class="a-desc">${desc.substring(0,400)}${desc.length>400?'...':''}</div>`:''}
+    </div>
+  </div>`;
+}
+
+/* ── CWA Alerts ── */
+async function loadCWAAlerts(){
+  const body=document.getElementById('cwa-body');
+  body.innerHTML='<div class="lmsg">Fetching all active alerts in NWS Memphis CWA...</div>';
+  try{
+    const [arR,msR,tnR,moR]=await Promise.all([
+      fetch('https://api.weather.gov/alerts/active?area=AR',{headers:HDR}),
+      fetch('https://api.weather.gov/alerts/active?area=MS',{headers:HDR}),
+      fetch('https://api.weather.gov/alerts/active?area=TN',{headers:HDR}),
+      fetch('https://api.weather.gov/alerts/active?area=MO',{headers:HDR})
+    ]);
+    const [arD,msD,tnD,moD]=await Promise.all([arR.json(),msR.json(),tnR.json(),moR.json()]);
+    const all=[...(arD.features||[]),...(msD.features||[]),...(tnD.features||[]),...(moD.features||[])];
+    const seen=new Set(),megAlerts=[];
+    for(const f of all){
+      const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);
+      const sender=f.properties?.senderName||'';
+      if(sender.toLowerCase().includes('memphis'))megAlerts.push(f);
+    }
+    const order=ev=>{const c=alertCategory(ev);return c==='warning'?0:c==='watch'?1:c==='advisory'?2:3;};
+    megAlerts.sort((a,b)=>order(a.properties.event)-order(b.properties.event));
+
+    const watchCnt=megAlerts.filter(a=>alertCategory(a.properties.event)==='watch').length;
+    const warnCnt=megAlerts.filter(a=>alertCategory(a.properties.event)==='warning').length;
+    const advCnt=megAlerts.filter(a=>alertCategory(a.properties.event)==='advisory'||alertCategory(a.properties.event)==='statement').length;
+    document.getElementById('cwa-summary').innerHTML=`
+      <div class="cwa-stat"><strong>${megAlerts.length}</strong> Total</div>
+      <div class="cwa-stat"><strong>${warnCnt}</strong> Warnings</div>
+      <div class="cwa-stat"><strong>${watchCnt}</strong> Watches</div>
+      <div class="cwa-stat"><strong>${advCnt}</strong> Advisories/Statements</div>
+    `;
+
+    if(!megAlerts.length){
+      body.innerHTML='<div class="no-alerts"><span class="sdot"></span>No active alerts in NWS Memphis CWA.</div>';return;
+    }
+
+    body.innerHTML=megAlerts.slice(0,40).map(a=>{
+      const p=a.properties;
+      const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+      const area=(p.areaDesc||'').split(';').slice(0,3).join(';')+((p.areaDesc||'').split(';').length>3?'...':'');
+      return`<div class="alert-item">
+        <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
+        <div style="flex:1;min-width:0;">
+          <div class="a-name">${p.headline||p.event||'Alert'}</div>
+          <div class="a-area">📍 ${area}</div>
+          <div class="a-meta">Expires: ${exp} &nbsp;|&nbsp; Severity: <strong>${p.severity||'?'}</strong></div>
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    body.innerHTML=`<div class="no-alerts">Unable to fetch CWA alerts: ${e.message}</div>`;
+  }
+}
+
+function updateBanner(alerts){
+  if(!alerts.length){setBanner('ALL CLEAR','No active watches, warnings, or advisories for Lafayette County, MS','none');return;}
+  const p=alerts[0].properties;
+  const c=alertCategory(p.event);
+  const cls=c==='warning'?'':(c==='watch'?'moderate':'low');
+  setBanner(p.event||'ALERT',p.headline||p.event||'Alert active',cls);
+}
+function setBanner(l,t,c){
+  document.getElementById('tlb').textContent=l;
+  document.getElementById('tlt').textContent=t;
+  document.getElementById('threat').className='threat'+(c?' '+c:'');
+}
+
+/* ── HAZARDS — full details, no truncation ── */
+function renderHazards(alerts){
+  const body=document.getElementById('hazards-body');
+  if(!alerts.length){body.innerHTML='<div class="no-alerts"><span class="sdot"></span>No active hazards for Lafayette County, MS</div>';return;}
+  body.innerHTML=alerts.map(a=>{
+    const p=a.properties;
+    const cat=alertCategory(p.event);
+    const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const onset=p.onset?new Date(p.onset).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const ends=p.ends?new Date(p.ends).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    return`<div class="hazard-card ${cat}">
+      <div class="hazard-top">
+        <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
+        <span class="hazard-name">${p.headline||p.event||'Alert'}</span>
+      </div>
+      <div class="hazard-meta">
+        Issued: ${sent} &nbsp;|&nbsp; Expires: ${exp}${onset?' &nbsp;|&nbsp; Onset: '+onset:''}${ends?' &nbsp;|&nbsp; Ends: '+ends:''}<br>
+        Severity: <strong>${p.severity||'Unknown'}</strong> &nbsp;|&nbsp; Certainty: ${p.certainty||'Unknown'} &nbsp;|&nbsp; Urgency: ${p.urgency||'Unknown'}
+      </div>
+      <div class="hazard-area">📍 ${p.areaDesc||'Lafayette County, MS'}</div>
+      ${p.description?`<div class="hazard-desc">${p.description}</div>`:''}
+      ${p.instruction?`<div class="hazard-instruction"><div class="hazard-instruction-label">⚠ Instructions</div>${p.instruction}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+/* ── SPC ── */
+function spcIdx(cat){return({'TSTM':0,'MRGL':1,'SLGT':2,'ENH':3,'MDT':4,'HIGH':5}[cat]??0);}
+function pip(pt,rings){const r=rings[0];let inside=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const xi=r[i][0],yi=r[i][1],xj=r[j][0],yj=r[j][1];if(((yi>pt[1])!==(yj>pt[1]))&&(pt[0]<(xj-xi)*(pt[1]-yi)/(yj-yi)+xi))inside=!inside;}return inside;}
+function ptInGeo(g,lat,lon){if(!g)return false;const pt=[lon,lat];if(g.type==='Polygon')return pip(pt,g.coordinates);if(g.type==='MultiPolygon')return g.coordinates.some(p=>pip(pt,p));return false;}
+
+async function loadSPC(){
+  document.getElementById('spc-badges').innerHTML='<div class="lmsg">Fetching SPC outlook...</div>';
+  let idx=0;
+  try{
+    const r=await fetch('https://www.spc.noaa.gov/products/outlook/day1otlk_cat.nolyr.geojson');
+    const d=await r.json();let max=0;
+    for(const f of(d.features||[])){
+      const lbl=String(f.properties?.LABEL||f.properties?.label||'').toUpperCase();
+      const v=spcIdx(lbl);if(v>max&&ptInGeo(f.geometry,LAT,LON))max=v;
+    }
+    idx=max;
+    document.getElementById('spc-upd').textContent='Updated '+new Date().toLocaleString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})+' CT';
+  }catch(e){idx=2;}
+  window._spcIdx=idx;
+  // Load county alerts if not already cached, then render
+  if(!countyAlerts.length){
+    try{
+      const [r1,r2]=await Promise.all([
+        fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
+        fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR})
+      ]);
+      const [d1,d2]=await Promise.all([r1.json(),r2.json()]);
+      const seen=new Set(),combined=[];
+      for(const f of[...(d1.features||[]),...(d2.features||[])]){const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);combined.push(f);}
+      countyAlerts=combined;
+    }catch(e){}
+  }
+  renderSPC();
+}
+
+function renderSPC(){
+  const idx=window._spcIdx??0;
+  const cnt=countyAlerts.length;
+  const tornado=countyAlerts.filter(a=>(a.properties.event||'').toLowerCase().includes('tornado')).length;
+  const tstorm=countyAlerts.filter(a=>{const e=(a.properties.event||'').toLowerCase();return e.includes('thunderstorm')||e.includes('severe thunderstorm');}).length;
+  document.getElementById('spc-badges').innerHTML=`
+    <div class="spc-row">
+      <div class="spc-badge ${SPC_CLS[idx]}">
+        <div class="spc-num">${idx}/5</div>
+        <div class="spc-lbl">${SPC_LABELS[idx]}</div>
+        <div class="spc-sub">${SPC_DESC[idx]}</div>
+      </div>
+      <div class="spc-badge ${cnt>0?'s2':'s0'}">
+        <div class="spc-num">${cnt}</div>
+        <div class="spc-lbl">Active Alerts</div>
+        <div class="spc-sub">Lafayette County</div>
+      </div>
+      <div class="spc-badge ${tornado>0?'s5':'s0'}">
+        <div class="spc-num">${tornado}</div>
+        <div class="spc-lbl">Tornado Alerts</div>
+        <div class="spc-sub">${tornado>0?'Watch/warning active':'No tornado alerts'}</div>
+      </div>
+      <div class="spc-badge ${tstorm>0?'s2':'s0'}">
+        <div class="spc-num">${tstorm}</div>
+        <div class="spc-lbl">T-Storm Alerts</div>
+        <div class="spc-sub">${tstorm>0?'Severe T-storm active':'No T-storm alerts'}</div>
+      </div>
+    </div>`;
+}
+
+/* ── FORECAST ── */
+function wIcon(s){const f=(s||'').toLowerCase();if(f.includes('tornado'))return'🌪️';if(f.includes('thunder')||f.includes('storm'))return'⛈️';if(f.includes('rain')||f.includes('shower'))return'🌧️';if(f.includes('snow'))return'❄️';if(f.includes('fog'))return'🌫️';if(f.includes('cloud'))return'☁️';if(f.includes('partly'))return'⛅';if(f.includes('sunny')||f.includes('clear'))return'☀️';return'🌡️';}
+function rLvl(t){const f=(t||'').toLowerCase();if(f.includes('tornado'))return{c:'r-high',l:'High Risk'};if(f.includes('thunder')||f.includes('storm')||f.includes('severe'))return{c:'r-mod',l:'Storm Threat'};if(f.includes('rain')||f.includes('shower'))return{c:'r-low',l:'Rain'};return{c:'r-none',l:'Low Risk'};}
+
+async function loadForecast(){
+  document.getElementById('forecast-strip').innerHTML='<div class="lmsg">Loading...</div>';
+  document.getElementById('conditions-body').innerHTML='<div class="lmsg">Loading...</div>';
+  try{
+    const r=await fetch('https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us',{headers:HDR});
+    const d=await r.json();
+    const periods=(d.properties?.periods)||[];
+    const dayP=periods.filter(p=>p.isDaytime).slice(0,5);
+    const nights=periods.filter(p=>!p.isDaytime);
+    document.getElementById('forecast-strip').innerHTML=`<div class="fc-strip">${dayP.map(p=>{
+      const nm=nights.find(n=>n.name&&p.name&&n.name.includes(p.name.split(' ')[0]));
+      const lo=nm?nm.temperature+'°F':'--';
+      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''));
+      const lbl=p.name==='Today'?'Today':new Date(p.startTime).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+      return`<div class="fc-card"><div class="fc-day">${lbl}</div><div class="fc-icon">${wIcon(p.shortForecast)}</div><div class="fc-hi">${p.temperature}°F</div><div class="fc-lo">Low ${lo}</div><div class="fc-desc">${p.shortForecast}</div><div class="fc-risk ${risk.c}">${risk.l}</div></div>`;
+    }).join('')}</div>`;
+
+    const now=periods[0];
+    let html='';
+    if(now){
+      html+=`<div class="now-row">
+        <div class="now-icon">${wIcon(now.shortForecast)}</div>
+        <div class="now-info">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">Right Now — ${now.name}</div>
+          <div class="now-temp">${now.temperature}°F</div>
+          <div class="now-cond">${now.shortForecast}</div>
+          <div class="now-detail">${now.detailedForecast}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;">💨 ${now.windSpeed||''} ${now.windDirection||''} &nbsp;·&nbsp; 💧 ${now.probabilityOfPrecipitation?.value||0}% precip</div>
+        </div>
+      </div>`;
+    }
+    document.getElementById('conditions-body').innerHTML=html;
+  }catch(e){
+    document.getElementById('forecast-strip').innerHTML='<div class="lmsg">Unable to load forecast.</div>';
+    document.getElementById('conditions-body').innerHTML='<div class="lmsg">Unable to load forecast.</div>';
+  }
+}
+
+/* ── 7-DAY POINT FORECAST — Grid MEG 48,90 ── */
+async function loadPointForecast(){
+  const body=document.getElementById('point-forecast-body');
+  body.innerHTML='<div class="lmsg">Fetching NWS gridpoint MEG 48,90...</div>';
+  try{
+    const r=await fetch('https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us',{headers:HDR});
+    const d=await r.json();
+    const periods=(d.properties?.periods)||[];
+    if(!periods.length){body.innerHTML='<div class="no-alerts">No forecast data available.</div>';return;}
+    const generated=d.properties?.generatedAt?new Date(d.properties.generatedAt).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const elev=d.properties?.elevation?.value;
+    let html=`<div style="font-size:10px;color:var(--muted);margin-bottom:10px;background:var(--bg);padding:6px 10px;border-radius:6px;">Generated: ${generated} CT${elev?` · Elevation: ${Math.round(elev*3.28084)} ft`:''} · Updated: ${d.properties?.updated?new Date(d.properties.updated).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):''}</div>`;
+    html+=periods.slice(0,14).map(p=>{
+      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''));
+      const dtStart=p.startTime?new Date(p.startTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',hour12:true}):'';
+      const dtEnd=p.endTime?new Date(p.endTime).toLocaleString('en-US',{weekday:'short',hour:'numeric',hour12:true}):'';
+      const bgColor=p.isDaytime?'#fff':'#f8f9fb';
+      return`<div class="detailed-day" style="background:${bgColor};padding:11px 13px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${p.isDaytime?'var(--gold)':'var(--navy)'};">
+        <div class="detailed-row">
+          <div class="detailed-icon">${wIcon(p.shortForecast)}</div>
+          <div class="detailed-info" style="flex:1;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+              <span class="detailed-name" style="font-size:13px;">${p.name}</span>
+              <span style="font-size:9px;color:var(--muted);">${dtStart} → ${dtEnd}</span>
+              <span class="fc-risk ${risk.c}" style="font-size:9px;">${risk.l}</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:700;color:${p.isDaytime?'var(--red)':'var(--navy)'};">${p.temperature}°${p.temperatureUnit||'F'}</span>
+              <span style="font-size:11px;color:var(--text);font-weight:500;">${p.shortForecast}</span>
+              <span style="font-size:10px;color:var(--muted);">💨 ${p.windSpeed||''} ${p.windDirection||''}</span>
+              ${p.probabilityOfPrecipitation?.value!=null?`<span style="font-size:10px;color:var(--muted);">💧 ${p.probabilityOfPrecipitation.value}% precip</span>`:''}
+              ${p.relativeHumidity?.value!=null?`<span style="font-size:10px;color:var(--muted);">💦 ${p.relativeHumidity.value}% RH</span>`:''}
+              ${p.dewpoint?.value!=null?`<span style="font-size:10px;color:var(--muted);">🌡 Dew ${Math.round(p.dewpoint.value*9/5+32)}°F</span>`:''}
+            </div>
+            <div class="detailed-desc" style="line-height:1.6;">${p.detailedForecast||''}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    body.innerHTML=html;
+  }catch(e){
+    body.innerHTML=`<div class="no-alerts">Unable to fetch point forecast: ${e.message}</div>`;
+  }
+}
+async function loadAFD(){
+  const box=document.getElementById('afd-box'),meta=document.getElementById('afd-meta');
+  box.textContent='Fetching...';meta.textContent='Connecting to NWS Memphis...';
+  try{
+    const r=await fetch('https://api.weather.gov/products/types/AFD/locations/MEG',{headers:HDR});
+    const d=await r.json();const latest=d['@graph']?.[0];
+    if(!latest){box.textContent='No AFD available.';return;}
+    const r2=await fetch(latest['@id'],{headers:HDR});
+    const d2=await r2.json();
+    const issued=d2.issuanceTime?new Date(d2.issuanceTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    meta.textContent='Issued: '+issued+' · NWS Memphis (MEG)';
+    box.textContent=d2.productText||'No text available.';
+  }catch(e){box.textContent='Unable to fetch AFD.';}
+}
+
+/* ── MESOSCALE ── */
+async function loadMesoscale(){
+  const box=document.getElementById('md-box'),meta=document.getElementById('md-meta');
+  box.innerHTML='<div class="lmsg">Fetching active SPC Mesoscale Discussions...</div>';
+  meta.textContent='Loading...';
+  try{
+    const r=await fetch('https://api.weather.gov/products?type=SWOMCD&limit=20',{headers:HDR});
+    const d=await r.json();
+    const products=d['@graph']||[];
+    if(!products.length){
+      box.innerHTML='<div class="no-alerts"><span class="sdot"></span>No active Mesoscale Discussions at this time.</div>';
+      meta.textContent='No active MDs · Source: SPC';return;
+    }
+    meta.textContent=`${products.length} recent MD${products.length!==1?'s':''} · SPC Mesoscale Convective Discussion`;
+    const recent=products.slice(0,8);
+    const fetches=await Promise.all(recent.map(p=>fetch(p['@id'],{headers:HDR}).then(r=>r.json()).catch(()=>null)));
+    box.innerHTML=fetches.filter(Boolean).map((md,i)=>{
+      const issued=md.issuanceTime?new Date(md.issuanceTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+      const txt=md.productText||'';
+      const mdNum=(txt.match(/Mesoscale Discussion (\d+)/i)||txt.match(/MD (\d+)/i)||['','?'])[1];
+      const areasMatch=txt.match(/AREAS AFFECTED\.\.\.([^\n]+)/i);
+      const concernMatch=txt.match(/CONCERNING\.\.\.([^\n]+)/i);
+      const validMatch=txt.match(/VALID[^\n]*\n*([^\n]+)/i);
+      const summary=areasMatch?`Affecting: ${areasMatch[1].trim()}`:txt.substring(0,200);
+      const concern=concernMatch?concernMatch[1].trim():'';
+      return`<div class="md-item">
+        <div class="md-num">⚡ MD ${mdNum} ${concern?'· '+concern:''}</div>
+        <div class="md-time">Issued: ${issued}</div>
+        <div class="md-summary">${summary}${validMatch?`<br><em style="color:var(--muted);">${validMatch[1].trim()}</em>`:''}</div>
+        <a class="md-link" href="https://www.spc.noaa.gov/products/md/" target="_blank">View full MD on SPC ↗</a>
+      </div>`;
+    }).join('');
+  }catch(e){
+    box.innerHTML=`<div class="no-alerts">Unable to fetch Mesoscale Discussions: ${e.message}</div>`;
+    meta.textContent='Error';
+  }
+}
+
+/* ── NWS RADAR STATION STATUS — KNQA ── */
+async function loadRadarStatus(){
+  const body=document.getElementById('radarstatus-body');
+  const meta=document.getElementById('radarstatus-meta');
+  body.innerHTML='<div class="lmsg">Fetching KNQA radar telemetry...</div>';
+  meta.textContent='';
+  try{
+    const r=await fetch('https://api.weather.gov/radar/stations/KNQA',{headers:HDR});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    const p=d.properties||d;
+
+    // Location
+    const coords=d.geometry?.coordinates||[];
+    const lat=coords[1]||p.latitude;
+    const lon=coords[0]||p.longitude;
+    const elev=p.elevation?.value;
+    const elevFt=elev!=null?Math.round(elev*3.28084):null;
+    const stationType=p.stationType||'WSR-88D';
+
+    // RDA (Radar Data Acquisition) telemetry
+    const rda=p.rda||{};
+    const rdaMode=rda.properties?.mode||rda.mode||'';
+    const rdaStatus=rda.properties?.status||rda.status||'';
+    const rdaVCP=rda.properties?.volumeCoveragePattern||rda.volumeCoveragePattern||'';
+    const rdaGenTime=rda.properties?.generationTime||rda.timestamp||'';
+    const rdaControlStatus=rda.properties?.controlStatus||'';
+    const rdaOpMode=rda.properties?.operabilityStatus||'';
+    const rdaAlarmSummary=rda.properties?.alarmSummary||'';
+
+    // Latency
+    const latency=p.latency||{};
+    const latencyCurrent=latency.properties?.current?.value||latency.current?.value;
+    const latencyAvg=latency.properties?.average?.value||latency.average?.value;
+    const latencyMax=latency.properties?.max?.value||latency.max?.value;
+    const latencyReporting=latency.properties?.reportingHost||latency.reportingHost||'';
+    const latencyServer=latency.properties?.server||latency.server||'';
+    const l2Latency=latencyCurrent!=null?(latencyCurrent/1000).toFixed(1):null;
+    const l2LatencyAvg=latencyAvg!=null?(latencyAvg/1000).toFixed(1):null;
+    const l2LatencyMax=latencyMax!=null?(latencyMax/1000).toFixed(1):null;
+
+    // Ping
+    const ping=p.ping||{};
+    const pingTargets=ping.properties?.targets||ping.targets||[];
+    const pingTime=ping.properties?.timestamp||ping.timestamp||'';
+
+    // Performance
+    const perf=p.performance||{};
+    const perfTime=perf.properties?.generationTime||perf.timestamp||'';
+    const perfProps=perf.properties||{};
+
+    // Determine overall health
+    let healthStatus='UNKNOWN',healthColor='#6b7280';
+    if(rdaMode.toLowerCase()==='operational'||rdaOpMode.toLowerCase().includes('online')){
+      if(latencyCurrent!=null&&latencyCurrent<60000){healthStatus='OPERATIONAL';healthColor='#22c55e';}
+      else if(latencyCurrent!=null&&latencyCurrent<180000){healthStatus='DEGRADED';healthColor='#f59e0b';}
+      else {healthStatus='LATE DATA';healthColor='#c85c00';}
+    } else if(rdaMode.toLowerCase().includes('maintenance')){
+      healthStatus='MAINTENANCE';healthColor='#f59e0b';
+    } else if(rdaMode){
+      healthStatus=rdaMode.toUpperCase();healthColor='#c85c00';
+    }
+
+    meta.textContent=`KNQA · Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})} CT`;
+
+    body.innerHTML=`
+      <!-- HEALTH BANNER -->
+      <div style="background:${healthColor};color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
+        <div style="font-size:32px;">${healthStatus==='OPERATIONAL'?'✅':healthStatus==='DEGRADED'?'⚠️':healthStatus==='LATE DATA'?'⏱️':healthStatus==='MAINTENANCE'?'🔧':'❓'}</div>
+        <div style="flex:1;">
+          <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;">Current Status</div>
+          <div style="font-size:20px;font-weight:700;">${healthStatus}</div>
+          <div style="font-size:11px;opacity:.9;margin-top:2px;">${p.name||'Memphis, TN'} · ${stationType}</div>
+        </div>
+      </div>
+
+      <!-- STATION INFO GRID -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px;">
+        <div style="background:var(--bg);padding:10px 13px;border-radius:8px;border-left:3px solid var(--navy);">
+          <div style="font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;">Station</div>
+          <div style="font-size:16px;font-weight:700;color:var(--navy);">KNQA</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">${p.name||'Memphis, TN'}</div>
+        </div>
+        <div style="background:var(--bg);padding:10px 13px;border-radius:8px;border-left:3px solid var(--navy);">
+          <div style="font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;">Location</div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy);">${lat?lat.toFixed(4)+'°N':'—'} / ${lon?Math.abs(lon).toFixed(4)+'°W':'—'}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Elev: ${elevFt!=null?elevFt+' ft':'—'}</div>
+        </div>
+        <div style="background:var(--bg);padding:10px 13px;border-radius:8px;border-left:3px solid var(--navy);">
+          <div style="font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;">Type</div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy);">${stationType}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Doppler Weather Radar</div>
+        </div>
+        <div style="background:var(--bg);padding:10px 13px;border-radius:8px;border-left:3px solid var(--navy);">
+          <div style="font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;">Time Zone</div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy);">${p.timeZone||'America/Chicago'}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Central Time</div>
+        </div>
+      </div>
+
+      <!-- RDA STATUS -->
+      <div class="sec-head">📡 RDA — Radar Data Acquisition</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:14px;">
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Operating Mode</div>
+          <div style="font-size:13px;font-weight:600;color:${rdaMode.toLowerCase()==='operational'?'#22c55e':'var(--red)'};margin-top:2px;">${rdaMode||'—'}</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:2px;">${rdaStatus||'—'}</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Volume Coverage Pattern</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:2px;">${rdaVCP||'—'}</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Control Status</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:2px;">${rdaControlStatus||'—'}</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Operability</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:2px;">${rdaOpMode||'—'}</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Last Generation</div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-top:2px;">${rdaGenTime?new Date(rdaGenTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}):'—'}</div>
+        </div>
+      </div>
+      ${rdaAlarmSummary?`<div style="background:#fff7d6;border:1px solid #fde68a;padding:9px 12px;border-radius:6px;font-size:11px;color:#92400e;margin-bottom:14px;"><strong>⚠ RDA Alarm Summary:</strong> ${rdaAlarmSummary}</div>`:''}
+
+      <!-- LATENCY -->
+      <div class="sec-head">⏱️ Level II Data Latency</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+        <div class="spc-badge ${latencyCurrent<60000?'s0':latencyCurrent<180000?'s2':'s5'}">
+          <div class="spc-num">${l2Latency||'—'}${l2Latency?'s':''}</div>
+          <div class="spc-lbl">Current Latency</div>
+          <div class="spc-sub">Time from radar to server</div>
+        </div>
+        <div class="spc-badge s1">
+          <div class="spc-num">${l2LatencyAvg||'—'}${l2LatencyAvg?'s':''}</div>
+          <div class="spc-lbl">Average Latency</div>
+          <div class="spc-sub">Recent average</div>
+        </div>
+        <div class="spc-badge s2">
+          <div class="spc-num">${l2LatencyMax||'—'}${l2LatencyMax?'s':''}</div>
+          <div class="spc-lbl">Max Latency</div>
+          <div class="spc-sub">Recent peak</div>
+        </div>
+      </div>
+      ${latencyReporting||latencyServer?`<div style="font-size:10px;color:var(--muted);margin-bottom:14px;">
+        ${latencyReporting?`<strong>Reporting Host:</strong> ${latencyReporting}`:''}${latencyReporting&&latencyServer?' &nbsp;·&nbsp; ':''}${latencyServer?`<strong>Server:</strong> ${latencyServer}`:''}
+      </div>`:''}
+
+      <!-- NETWORK PING -->
+      ${pingTargets.length?`<div class="sec-head">🌐 Network Ping Targets</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px;">
+        ${Object.entries(pingTargets).map(([target,status])=>`
+          <div style="background:#fff;border:1px solid var(--border);padding:8px 11px;border-radius:6px;">
+            <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">${target}</div>
+            <div style="font-size:12px;font-weight:600;color:${status===true||String(status).toLowerCase()==='ok'?'#22c55e':'var(--red)'};margin-top:2px;">${status===true?'✓ Online':status===false?'✗ Offline':status}</div>
+          </div>
+        `).join('')}
+      </div>
+      ${pingTime?`<div style="font-size:10px;color:var(--muted);margin-bottom:14px;">Ping tested: ${new Date(pingTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})}</div>`:''}
+      `:''}
+
+      <!-- RAW METADATA -->
+      <details style="margin-top:14px;">
+        <summary style="cursor:pointer;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;font-weight:600;padding:6px 10px;background:var(--bg);border-radius:6px;">🔍 View Raw Station Metadata (JSON)</summary>
+        <div class="afd-box" style="margin-top:8px;height:300px;">${JSON.stringify(d,null,2)}</div>
+      </details>
+    `;
+  }catch(e){
+    body.innerHTML=`<div class="no-alerts">Unable to fetch radar station status: ${e.message}<br><br><a class="alink" href="https://api.weather.gov/radar/stations/KNQA" target="_blank">Try the raw feed ↗</a></div>`;
+    meta.textContent='Error';
+  }
+}
+
+/* ── NWS METAR — Regional Aviation Observations ──
+   Free NWS station observation API. No key, no signing, no secrets.
+*/
+const METAR_STATIONS=[
+  {icao:'KUOX',name:'University-Oxford, MS',dist:2},
+  {icao:'KHLI',name:'Batesville, MS',dist:23},
+  {icao:'KTUP',name:'Tupelo Regional, MS',dist:48},
+  {icao:'KMEM',name:'Memphis Intl, TN',dist:63},
+  {icao:'KGLH',name:'Greenville, MS',dist:110},
+  {icao:'KGWO',name:'Greenwood-Leflore, MS',dist:82},
+  {icao:'KCBM',name:'Columbus AFB, MS',dist:95},
+  {icao:'KJAN',name:'Jackson Intl, MS',dist:130},
+  {icao:'KMKL',name:'McKellar-Sipes, TN',dist:60},
+  {icao:'KMCB',name:'McComb-Pike Co, MS',dist:210}
+];
+
+// Convert Celsius to Fahrenheit
+function c2f(c){return c==null?null:Math.round(c*9/5+32);}
+// Meters per second to knots
+function mps2kt(m){return m==null?null:Math.round(m*1.94384);}
+// Meters to statute miles
+function m2sm(m){return m==null?null:(m*0.000621371).toFixed(1);}
+// Pascals to inches Hg
+function pa2inHg(p){return p==null?null:(p*0.0002953).toFixed(2);}
+
+async function loadMETAR(){
+  const body=document.getElementById('metar-body');
+  const meta=document.getElementById('metar-meta');
+  body.innerHTML='<div class="lmsg">Fetching METAR observations from '+METAR_STATIONS.length+' regional stations...</div>';
+  meta.textContent='';
+
+  try{
+    const results=await Promise.all(METAR_STATIONS.map(async s=>{
+      try{
+        const r=await fetch(`https://api.weather.gov/stations/${s.icao}/observations/latest`,{headers:HDR});
+        if(!r.ok)return {station:s,error:'HTTP '+r.status};
+        const d=await r.json();
+        return {station:s,data:d.properties||d};
+      }catch(e){return {station:s,error:e.message};}
+    }));
+
+    const good=results.filter(r=>r.data&&!r.error);
+    const bad=results.filter(r=>r.error);
+    meta.textContent=`${good.length} station${good.length!==1?'s':''} reporting · ${bad.length} unavailable · Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})} CT`;
+
+    if(!good.length){
+      body.innerHTML='<div class="no-alerts">No METAR observations available. Check network connection.</div>';return;
+    }
+
+    // Sort by distance from Oxford
+    good.sort((a,b)=>a.station.dist-b.station.dist);
+
+    body.innerHTML=good.map(({station,data})=>{
+      const obs=data;
+      const time=obs.timestamp||obs.observationTime||'';
+      const obsFormatted=time?new Date(time).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'Unknown';
+      const age=time?Math.round((Date.now()-new Date(time).getTime())/60000):null; // minutes
+      const ageStr=age!=null?(age<60?`${age} min ago`:`${Math.round(age/60)} hr ago`):'';
+      const ageCls=age!=null?(age<60?'#22c55e':age<180?'#f59e0b':'#c85c00'):'#6b7280';
+
+      const tempC=obs.temperature?.value;
+      const dewC=obs.dewpoint?.value;
+      const tempF=c2f(tempC);
+      const dewF=c2f(dewC);
+      const windSpeedMs=obs.windSpeed?.value;
+      const windDir=obs.windDirection?.value;
+      const gustMs=obs.windGust?.value;
+      const windKt=mps2kt(windSpeedMs);
+      const gustKt=mps2kt(gustMs);
+      const visM=obs.visibility?.value;
+      const visSm=m2sm(visM);
+      const baroPa=obs.barometricPressure?.value;
+      const seaLvlPa=obs.seaLevelPressure?.value;
+      const altimeter=pa2inHg(seaLvlPa||baroPa);
+      const humidity=obs.relativeHumidity?.value!=null?Math.round(obs.relativeHumidity.value):null;
+      const heatIndexC=obs.heatIndex?.value;
+      const heatIndexF=c2f(heatIndexC);
+      const windChillC=obs.windChill?.value;
+      const windChillF=c2f(windChillC);
+      const feelsLike=heatIndexF||windChillF;
+      const feelsLabel=heatIndexF?'Heat Index':(windChillF?'Wind Chill':null);
+
+      const conditions=obs.textDescription||'';
+      const clouds=obs.cloudLayers||[];
+      const cloudStr=clouds.length?clouds.map(c=>{
+        const amt=c.amount||'';
+        const base=c.base?.value!=null?` ${Math.round(c.base.value*3.28084)}ft`:'';
+        return amt+base;
+      }).join(', '):'';
+      const rawMetar=obs.rawMessage||'';
+
+      // Weather icon
+      const cond=(conditions||'').toLowerCase();
+      let icon='🌡';
+      if(cond.includes('thunder'))icon='⛈️';
+      else if(cond.includes('rain')||cond.includes('shower'))icon='🌧️';
+      else if(cond.includes('snow'))icon='❄️';
+      else if(cond.includes('fog')||cond.includes('mist'))icon='🌫️';
+      else if(cond.includes('cloud')||cond.includes('overcast'))icon='☁️';
+      else if(cond.includes('partly')||cond.includes('scattered'))icon='⛅';
+      else if(cond.includes('clear')||cond.includes('sunny'))icon='☀️';
+
+      return`<div class="hazard-card" style="border-left-color:${age!=null&&age<60?'#22c55e':'var(--navy)'};">
+        <div class="hazard-top">
+          <span class="abadge b-other" style="background:var(--navy);color:#fff;">${station.icao}</span>
+          <span class="hazard-name">${icon} ${station.name}</span>
+          <span style="font-size:10px;color:var(--muted);">~${station.dist} mi from Oxford</span>
+          ${ageStr?`<span style="font-size:9px;background:${ageCls};color:#fff;padding:2px 7px;border-radius:20px;font-weight:600;">${ageStr}</span>`:''}
+        </div>
+        <div class="hazard-meta">
+          📅 Observed: <strong>${obsFormatted}</strong>${conditions?` · Conditions: <strong>${conditions}</strong>`:''}
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px;font-size:12px;padding:8px 10px;background:#fff;border-radius:6px;border:1px solid var(--border);">
+          ${tempF!=null?`<span>🌡 <strong style="color:var(--red);font-size:14px;">${tempF}°F</strong></span>`:''}
+          ${dewF!=null?`<span>💧 Dew <strong>${dewF}°F</strong></span>`:''}
+          ${humidity!=null?`<span>💦 ${humidity}% RH</span>`:''}
+          ${feelsLike?`<span>🌡 ${feelsLabel} ${feelsLike}°F</span>`:''}
+          ${windKt!=null&&windKt>0?`<span>💨 ${windDir!=null?windDir+'° / ':''}${windKt} kt${gustKt?` G${gustKt}`:''}</span>`:'<span>💨 Calm</span>'}
+          ${visSm!=null?`<span>👁 ${visSm} sm vis</span>`:''}
+          ${altimeter?`<span>📊 ${altimeter} inHg</span>`:''}
+          ${cloudStr?`<span>☁ ${cloudStr}</span>`:''}
+        </div>
+        ${rawMetar?`<div class="hazard-desc" style="font-family:var(--mono);font-size:10px;">${rawMetar}</div>`:''}
+      </div>`;
+    }).join('');
+
+    if(bad.length){
+      body.innerHTML+=`<div style="font-size:10px;color:var(--muted);margin-top:10px;padding:8px 12px;background:var(--bg);border-radius:6px;">
+        <strong>Unavailable stations:</strong> ${bad.map(b=>b.station.icao).join(', ')} — station data may not be currently reporting or NWS API is temporarily unavailable for these stations.
+      </div>`;
+    }
+  }catch(e){
+    body.innerHTML=`<div class="no-alerts">Unable to fetch METAR data: ${e.message}</div>`;
+    meta.textContent='Error';
+  }
+}
+
+/* ── MEG OFFICE BRIEFING FEED ── */
+async function loadMEGBriefing(){
+  const body=document.getElementById('megbrief-body');
+  const meta=document.getElementById('megbrief-meta');
+  body.innerHTML='<div class="lmsg">Fetching MEG office briefings feed...</div>';
+  meta.textContent='';
+  try{
+    const r=await fetch('https://api.weather.gov/offices/MEG/briefing',{headers:{'Accept':'application/ld+json','User-Agent':'LafayetteCountyWeatherCommand/1.0'}});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    // The feed can return items in a few possible shapes: @graph array, briefing[], or a single object
+    let items=d['@graph']||d.briefing||d.briefings||[];
+    if(!items.length && d.id){items=[d];} // single item fallback
+    if(!items.length){
+      body.innerHTML='<div class="no-alerts"><span class="sdot"></span>No briefings currently published by NWS Memphis. Check back after the next scheduled briefing.</div>';
+      meta.textContent='0 briefings · Source: api.weather.gov';
+      return;
+    }
+    // Sort newest first if we have a date/issuanceTime field
+    items.sort((a,b)=>{
+      const da=new Date(a.issuanceTime||a.issued||a.date||a.updated||0).getTime();
+      const db=new Date(b.issuanceTime||b.issued||b.date||b.updated||0).getTime();
+      return db-da;
+    });
+    meta.textContent=`${items.length} briefing${items.length!==1?'s':''} · Source: MEG`;
+    body.innerHTML=items.slice(0,20).map((it,i)=>{
+      // Extract common fields across possible shapes
+      const id=it.id||it['@id']||'';
+      const title=it.title||it.name||it.subject||'MEG Office Briefing';
+      const issuedRaw=it.issuanceTime||it.issued||it.date||it.updated||'';
+      const issued=issuedRaw?new Date(issuedRaw).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'Unknown';
+      const summary=it.summary||it.description||it.content||it.text||'';
+      const downloadUrl=it.downloadUrl||it.download||it.url||(id?id.replace(/\/briefing.*/,'/briefing/download/')+(it.identifier||i):'');
+      const isLatest=i===0;
+      return `<div class="hazard-card" style="border-left-color:${isLatest?'var(--red)':'var(--navy)'};">
+        <div class="hazard-top">
+          ${isLatest?'<span class="abadge b-warning">LATEST</span>':`<span class="abadge b-other">#${i+1}</span>`}
+          <span class="hazard-name">${title}</span>
+        </div>
+        <div class="hazard-meta">
+          📅 Issued: <strong>${issued}</strong>${it.expirationTime?` · Expires: ${new Date(it.expirationTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})}`:''}
+        </div>
+        ${summary?`<div class="hazard-desc" style="max-height:200px;overflow-y:auto;">${summary}</div>`:''}
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          ${id?`<a class="alink" href="${id}" target="_blank">📄 View Metadata ↗</a>`:''}
+          ${downloadUrl?`<a class="btn-navy" style="text-decoration:none;padding:5px 12px;" href="${downloadUrl}" target="_blank" download>⬇ Download PDF</a>`:''}
+          ${isLatest?`<a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>⬇ Latest PDF (shortcut)</a>`:''}
+        </div>
+      </div>`;
+    }).join('');
+
+    // Also try to preview the latest PDF inline below the list
+    const previewHtml=`
+      <div class="card" style="margin-top:14px;">
+        <div class="card-hdr">
+          <span class="card-title">🔍 Latest Briefing — Inline Preview</span>
+          <a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>Open in new tab ↗</a>
+        </div>
+        <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#525659;">
+          <iframe src="https://api.weather.gov/offices/MEG/briefing/download/latest?_=${Date.now()}" style="width:100%;height:600px;border:none;display:block;" title="Latest MEG Briefing Preview"></iframe>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;">💡 If the PDF doesn't render inline in your browser, use the download button above. Some browsers block cross-origin PDF embeds.</div>
+      </div>`;
+    body.insertAdjacentHTML('beforeend',previewHtml);
+  }catch(e){
+    body.innerHTML=`<div class="no-alerts">Unable to fetch MEG office briefings feed: ${e.message}<br><br><a class="alink" href="https://api.weather.gov/offices/MEG/briefing" target="_blank">Try the raw feed ↗</a> &nbsp;·&nbsp; <a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>Download latest PDF ↗</a></div>`;
+    meta.textContent='Error';
+  }
+}
+
+/* ── REFRESH ALL ── */
+async function refreshAll(){
+  const btn=document.getElementById('refresh-all-btn');
+  btn.classList.add('spinning');btn.textContent='🔄 Refreshing...';
+  await Promise.all([loadAlerts(),loadCWAAlerts(),loadSPC(),loadForecast(),loadPointForecast(),loadAFD(),loadMesoscale()]);
+  loadMEGBriefing();
+  loadMETAR();
+  loadRadarStatus();
+  btn.classList.remove('spinning');btn.textContent='🔄 Refresh All Data';
+}
+
+/* ── INIT ── */
+loadAlerts();
+loadCWAAlerts();
+loadSPC();
+loadForecast();
+loadPointForecast();
+loadAFD();
+loadMesoscale();
+loadMEGBriefing();
+loadMETAR();
+loadRadarStatus();
+</script>
+</body>
+</html>
