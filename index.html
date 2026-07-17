@@ -152,13 +152,10 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 
 <div class="hdr">
   <div class="hdr-logo">
-    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" aria-label="Lafayette County Emergency Management">
-      <text x="14" y="22" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900" fill="#1C2B5E" letter-spacing="2.5">LAFAYETTE COUNTY</text>
-      <line x1="6" y1="29" x2="296" y2="29" stroke="#1C2B5E" stroke-width="1.6"/>
-      <text x="6" y="60" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#1C2B5E" font-style="italic" letter-spacing="-0.5">EMERGENCY</text>
-      <text x="6" y="93" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#1C2B5E" font-style="italic" letter-spacing="-0.5">MANAGEMENT</text>
-      <line x1="6" y1="100" x2="316" y2="100" stroke="#1C2B5E" stroke-width="1.6"/>
-    </svg>
+    <img src="lcema-logo.png" alt="Lafayette County Emergency Management" style="height:80px;display:block;" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='block';">
+    <div id="logo-fallback" style="display:none;font-size:12px;color:var(--muted);padding:8px 12px;background:var(--bg);border-radius:6px;">
+      Logo file (<code>lcema-logo.png</code>) not found. Upload it to the same folder as this HTML file.
+    </div>
   </div>
   <div class="hdr-meta">
     <div class="hdr-title">Weather Command Dashboard</div>
@@ -175,8 +172,8 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 
 <div class="nav">
   <div class="nav-tabs">
-    <button class="ntab active" onclick="setPanel('alerts',this)">⚡ Alerts</button>
-    <button class="ntab" onclick="setPanel('briefing',this)">📋 Briefing</button>
+    <button class="ntab active" onclick="setPanel('briefing',this)">📋 Forecast</button>
+    <button class="ntab" onclick="setPanel('alerts',this)">⚡ Alerts</button>
     <button class="ntab" onclick="setPanel('megbrief',this)">📑 MEG Briefing</button>
     <button class="ntab" onclick="setPanel('afd',this)">🌐 AFD</button>
     <button class="ntab" onclick="setPanel('metar',this)">✈️ METAR</button>
@@ -187,7 +184,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 </div>
 
 <!-- ALERTS PANEL -->
-<div class="panel active" id="panel-alerts">
+<div class="panel" id="panel-alerts">
   <div class="card">
     <div class="card-hdr">
       <span class="card-title">⚡ Lafayette County, MS — Active Alerts</span>
@@ -208,8 +205,8 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
   </div>
 </div>
 
-<!-- BRIEFING PANEL -->
-<div class="panel" id="panel-briefing">
+<!-- FORECAST PANEL (formerly Briefing) -->
+<div class="panel active" id="panel-briefing">
   <div class="card">
     <div class="card-hdr">
       <span class="card-title">🌩️ SPC Convective Outlook — Lafayette County, MS</span>
