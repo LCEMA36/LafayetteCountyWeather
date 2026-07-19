@@ -129,6 +129,62 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 
 .bf{font-size:10px;color:var(--muted);background:var(--bg);padding:9px 12px;border-radius:6px;border-left:3px solid var(--navy);line-height:1.6;margin-top:14px;}
 
+/* TRAFFIC */
+.tr-summary{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.tr-stat{background:var(--bg);padding:6px 10px;border-radius:6px;font-size:10px;color:var(--text);border-left:2px solid var(--navy);}
+.tr-stat strong{font-size:13px;font-weight:700;color:var(--red);}
+.tr-card{padding:11px 13px;border-radius:8px;background:var(--bg);margin-bottom:9px;border-left:3px solid var(--muted);}
+.tr-card:last-child{margin-bottom:0;}
+.tr-card.impact-closed{border-left-color:var(--red);}
+.tr-card.impact-high{border-left-color:#c85c00;}
+.tr-card.impact-moderate{border-left-color:var(--watch-yellow);}
+.tr-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;}
+.tr-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;letter-spacing:.4px;}
+.i-closed{background:var(--red);color:#fff;}
+.i-high{background:#c85c00;color:#fff;}
+.i-moderate{background:var(--watch-yellow);color:#1a1d23;}
+.i-low{background:#e5e7eb;color:#374151;}
+.tr-type{font-size:9px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;background:#fff;border:1px solid var(--border);padding:2px 7px;border-radius:4px;}
+.tr-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;}
+.tr-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5;}
+.tr-info{font-size:11px;color:var(--text);line-height:1.6;background:#fff;padding:8px 11px;border-radius:6px;border:1px solid var(--border);margin-top:6px;}
+.tr-links{margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;}
+.tr-cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tr-cam{background:var(--bg);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.tr-cam img{width:100%;display:block;background:#111;min-height:150px;}
+.tr-cam-lbl{font-size:10px;font-weight:600;color:var(--navy);padding:7px 10px;background:#fff;border-top:1px solid var(--border);}
+.tr-stale{background:#fff7d6;border:1px solid #fde68a;border-left:3px solid var(--red);border-radius:6px;padding:9px 12px;font-size:11px;line-height:1.6;color:#78350f;margin-bottom:10px;}
+.tr-diag{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:6px;padding:10px 13px;font-size:11px;line-height:1.6;color:var(--text);margin-top:12px;}
+.tr-diag ul,.tr-diag ol{margin:5px 0 0 18px;}
+.tr-diag li{font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:2px;}
+.tr-diag ol li{font-family:inherit;font-size:11px;color:var(--text);margin-bottom:3px;}
+.tr-diag code{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1px 4px;font-size:10px;}
+#mdot-json{width:100%;height:90px;font-family:var(--mono);font-size:10px;border:1px solid var(--border);border-radius:6px;padding:8px;resize:vertical;}
+
+/* TICKER */
+body{padding-bottom:46px;}
+.ticker{position:fixed;left:0;right:0;bottom:0;height:38px;background:var(--navy);border-top:3px solid var(--red);display:flex;align-items:center;z-index:900;overflow:hidden;}
+.ticker-lbl{flex-shrink:0;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;padding:0 14px;height:100%;display:flex;align-items:center;gap:7px;z-index:2;}
+.ticker-lbl .pulse{width:7px;height:7px;border-radius:50%;background:#fff;animation:tpulse 1.6s infinite;}
+@keyframes tpulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.ticker-mask{flex:1;overflow:hidden;position:relative;height:100%;}
+.ticker-track{position:absolute;white-space:nowrap;will-change:transform;display:flex;align-items:center;height:100%;animation:tscroll linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes tscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.tk{display:inline-flex;align-items:center;gap:7px;padding:0 20px;font-size:11.5px;color:#fff;border-right:1px solid rgba(255,255,255,.14);}
+.tk-b{font-size:8.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:2px 7px;border-radius:3px;flex-shrink:0;}
+.tk-warning{background:var(--red);color:#fff;}
+.tk-watch{background:var(--watch-yellow);color:#1a1d23;}
+.tk-advisory{background:#c85c00;color:#fff;}
+.tk-closed{background:var(--red);color:#fff;}
+.tk-traffic{background:#c85c00;color:#fff;}
+.tk-spc{background:var(--gold);color:#1a1d23;}
+.tk-info{background:rgba(255,255,255,.2);color:#fff;}
+.tk-ok{background:var(--green);color:#fff;}
+.tk-txt{color:rgba(255,255,255,.92);}
+.ticker-toggle{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:9px;padding:4px 9px;margin-right:10px;border-radius:5px;cursor:pointer;z-index:2;}
+@media(max-width:700px){.tr-cam-grid{grid-template-columns:1fr;}}
+
 /* AFD */
 .afd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .afd-meta{font-size:10px;color:var(--muted);margin-bottom:6px;}
@@ -174,6 +230,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
   <div class="nav-tabs">
     <button class="ntab active" onclick="setPanel('briefing',this)">📋 Forecast</button>
     <button class="ntab" onclick="setPanel('alerts',this)">⚡ Alerts</button>
+    <button class="ntab" onclick="setPanel('traffic',this)">🚧 Traffic</button>
     <button class="ntab" onclick="setPanel('megbrief',this)">📑 MEG Briefing</button>
     <button class="ntab" onclick="setPanel('afd',this)">🌐 AFD</button>
     <button class="ntab" onclick="setPanel('products',this)">📚 MEG Products</button>
@@ -191,7 +248,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
       <span class="card-title">⚡ Lafayette County, MS — Active Alerts</span>
       <button class="btn" onclick="loadAlerts()">Refresh</button>
     </div>
-    <div class="znote" id="zone-note">Querying MSZ021 + MSC077 + point Oxford,MS...</div>
+    <div class="znote" id="zone-note">Querying MSZ013 + MSC071 + point Oxford,MS — Lafayette County only...</div>
     <div id="alerts-body"><div class="lmsg">Fetching from api.weather.gov...</div></div>
   </div>
 
@@ -203,6 +260,32 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
     <div class="znote">Coverage: NW Mississippi, East Arkansas, West Tennessee, SE Missouri Bootheel — all alerts within MEG County Warning Area</div>
     <div id="cwa-summary" class="cwa-summary"></div>
     <div id="cwa-body" class="alert-scroll"><div class="lmsg">Fetching MEG CWA alerts...</div></div>
+  </div>
+</div>
+
+<!-- TRAFFIC PANEL -->
+<div class="panel" id="panel-traffic">
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">🚧 Lafayette County, MS — MDOT Active Traffic Alerts</span>
+      <div class="card-actions">
+        <span id="traffic-upd" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadTraffic()">Refresh</button>
+      </div>
+    </div>
+    <div class="znote" id="traffic-note">Querying api.mdottraffic.com/data/CurrentAlerts — filtered to Lafayette County...</div>
+    <div id="traffic-summary" class="tr-summary"></div>
+    <div id="traffic-body"><div class="lmsg">Fetching MDOT traffic alerts...</div></div>
+    <div class="bf"><strong>Source:</strong> MDOT Traffic Management System (TMS) via MDOTtraffic.com public OData feed. Alerts filtered where <code>Counties</code> includes Lafayette. Sorted by traffic impact: Closed → High → Moderate → Low. Statewide alerts outside Lafayette County are excluded. Verify closures with MDOT District 2 before issuing public messaging.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">📷 MDOT Traffic Cameras — Lafayette County Corridors</span>
+      <button class="btn" onclick="reloadCams()">🔄 Reload Cameras</button>
+    </div>
+    <div class="znote">Live MDOT camera stills — MS 6 / US 278 and MS 7 corridors. Images refresh on reload; MDOT updates stills periodically.</div>
+    <div class="tr-cam-grid" id="cam-grid"></div>
   </div>
 </div>
 
@@ -410,7 +493,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
     </div>
   </div>
 </div>
-<div class="panel" id="panel-radar">
+<div class="panel" id="panel-radarloop">
   <div class="card">
     <div class="card-hdr">
       <span class="card-title">📡 NWS KNQA Memphis — Radar Loop · Lafayette County, MS</span>
@@ -425,6 +508,26 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 <script>
 const HDR={'User-Agent':'LafayetteCountyWeatherCommand/1.0'};
 const LAT=34.3665,LON=-89.5196;
+// Lafayette County, MS official NWS identifiers (verified against NWS Memphis/KMEG):
+//   Forecast zone: MSZ013 · County UGC: MSC071 · SAME/FIPS: 028071
+// (The prior MSZ021/MSC077 codes pointed at Yalobusha County — the source of
+//  the neighboring-county alerts. These are the corrected Lafayette codes.)
+const LAF_ZONE='MSZ013';      // public forecast zone
+const LAF_COUNTY='MSC071';    // county UGC / zone
+const LAF_SAME='028071';      // SAME code used in alert geocode.SAME
+// An alert truly includes Lafayette County if any of these appears in its
+// geocode arrays (UGC = zone+county codes, SAME = FIPS). Multi-county alerts
+// (e.g. a heat advisory spanning 9 counties) correctly pass because Lafayette
+// is one of them; alerts for adjacent counties only are filtered out.
+function includesLafayette(f){
+  const g=f?.properties?.geocode||{};
+  const ugc=g.UGC||[], same=g.SAME||[];
+  if(ugc.includes(LAF_ZONE)||ugc.includes(LAF_COUNTY))return true;
+  if(same.includes(LAF_SAME))return true;
+  // Fallback: some alerts describe the area only in areaDesc text
+  const ad=(f?.properties?.areaDesc||'').toLowerCase();
+  return /\blafayette\b/.test(ad);
+}
 const SPC_LABELS=['General Thunder','Marginal (1/5)','Slight (2/5)','Enhanced (3/5)','Moderate (4/5)','High (5/5)'];
 const SPC_CLS=['s0','s1','s2','s3','s4','s5'];
 const SPC_DESC=['No organized severe weather expected','Isolated severe storms possible','Scattered severe storms likely','Several severe storms likely','Widespread severe weather possible','Widespread severe weather expected'];
@@ -457,30 +560,33 @@ function alertBadgeClass(eventName){
 
 /* ── ALERTS — Lafayette County ── */
 async function loadAlerts(){
-  document.getElementById('alerts-body').innerHTML='<div class="lmsg">Querying MSZ021 + MSC077 + point Oxford,MS...</div>';
+  document.getElementById('alerts-body').innerHTML=`<div class="lmsg">Querying ${LAF_ZONE} + ${LAF_COUNTY} + point Oxford,MS...</div>`;
   try{
     const [r1,r2,r3]=await Promise.all([
-      fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
-      fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR}),
+      fetch(`https://api.weather.gov/alerts/active?zone=${LAF_ZONE}`,{headers:HDR}),
+      fetch(`https://api.weather.gov/alerts/active?zone=${LAF_COUNTY}`,{headers:HDR}),
       fetch(`https://api.weather.gov/alerts/active?point=${LAT},${LON}`,{headers:HDR})
     ]);
     const [d1,d2,d3]=await Promise.all([r1.json(),r2.json(),r3.json()]);
     const seen=new Set(),all=[];
     for(const f of[...(d1.features||[]),...(d2.features||[]),...(d3.features||[])]){
+      // HARD FILTER: keep only alerts whose geocode actually includes Lafayette
+      // County — removes neighbor-county bleed-through from the point query.
+      if(!includesLafayette(f))continue;
       const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);all.push(f);
     }
     // Sort: warnings first, then watches, then advisories
     const order=ev=>{const c=alertCategory(ev);return c==='warning'?0:c==='watch'?1:c==='advisory'?2:3;};
     all.sort((a,b)=>order(a.properties.event)-order(b.properties.event));
 
-    countyAlerts=all; // cache for SPC + hazards reuse
+    countyAlerts=all; // cache for SPC + hazards reuse (already Lafayette-filtered)
 
-    const z1=(d1.features||[]).length,z2=(d2.features||[]).length,z3=(d3.features||[]).length;
-    document.getElementById('zone-note').textContent=`Sources — MSZ021: ${z1} alert${z1!==1?'s':''} · MSC077: ${z2} alert${z2!==1?'s':''} · Point Oxford: ${z3} alert${z3!==1?'s':''} · ${all.length} unique total`;
+    const raw1=(d1.features||[]).length,raw2=(d2.features||[]).length,raw3=(d3.features||[]).length;
+    document.getElementById('zone-note').textContent=`Lafayette County only — ${LAF_ZONE} (zone): ${raw1} raw · ${LAF_COUNTY} (county): ${raw2} raw · Point Oxford: ${raw3} raw · ${all.length} confirmed for Lafayette County`;
     updateBanner(all);
 
     if(!all.length){
-      document.getElementById('alerts-body').innerHTML='<div class="no-alerts"><span class="sdot"></span>No active watches, warnings, or advisories for Lafayette County, MS across all zones.</div>';
+      document.getElementById('alerts-body').innerHTML='<div class="no-alerts"><span class="sdot"></span>No active watches, warnings, or advisories for Lafayette County, MS.</div>';
       renderHazards([]);renderSPC();return;
     }
     document.getElementById('alerts-body').innerHTML=all.slice(0,12).map(a=>renderAlert(a)).join('');
@@ -490,6 +596,7 @@ async function loadAlerts(){
     document.getElementById('zone-note').textContent='Error contacting NWS API.';
     document.getElementById('alerts-body').innerHTML=`<div class="no-alerts">Unable to reach NWS API: ${e.message}</div>`;
     setBanner('UNKNOWN','Unable to reach NWS API','');
+    buildTicker();
   }
 }
 
@@ -625,12 +732,15 @@ async function loadSPC(){
   if(!countyAlerts.length){
     try{
       const [r1,r2]=await Promise.all([
-        fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
-        fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR})
+        fetch(`https://api.weather.gov/alerts/active?zone=${LAF_ZONE}`,{headers:HDR}),
+        fetch(`https://api.weather.gov/alerts/active?zone=${LAF_COUNTY}`,{headers:HDR})
       ]);
       const [d1,d2]=await Promise.all([r1.json(),r2.json()]);
       const seen=new Set(),combined=[];
-      for(const f of[...(d1.features||[]),...(d2.features||[])]){const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);combined.push(f);}
+      for(const f of[...(d1.features||[]),...(d2.features||[])]){
+        if(!includesLafayette(f))continue; // Lafayette County only
+        const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);combined.push(f);
+      }
       countyAlerts=combined;
     }catch(e){}
   }
@@ -665,6 +775,7 @@ function renderSPC(){
         <div class="spc-sub">${tstorm>0?'Severe T-storm active':'No T-storm alerts'}</div>
       </div>
     </div>`;
+  buildTicker();
 }
 
 /* ── FORECAST ── */
@@ -705,6 +816,8 @@ async function loadForecast(){
     const now=periods[0];
     let html='';
     if(now){
+      window._nowLine=`${now.temperature}°F · ${now.shortForecast} · Wind ${now.windSpeed||'--'} ${now.windDirection||''} · ${now.probabilityOfPrecipitation?.value||0}% precip`;
+      buildTicker();
       html+=`<div class="now-row">
         <div class="now-icon">${wIcon(now.shortForecast)}</div>
         <div class="now-info">
@@ -1373,15 +1486,260 @@ async function loadMEGBriefing(){
   }
 }
 
+/* ═══ MDOT TRAFFIC — LAFAYETTE COUNTY ═══ */
+const MDOT_PATH='api.mdottraffic.com/data/CurrentAlerts';
+const MDOT_HTTPS='https://'+MDOT_PATH;
+const MDOT_HTTP='http://'+MDOT_PATH;
+// MDOT is HTTP-origin with no CORS header. Try direct first (works if MDOT
+// supports HTTPS+CORS, or if this page is served over plain HTTP), then fall
+// through a ladder of public CORS proxies. Each route reports its own failure.
+const MDOT_ROUTES=[
+  {name:'Direct HTTPS',url:MDOT_HTTPS,parse:'json'},
+  {name:'allorigins/raw',url:'https://api.allorigins.win/raw?url='+encodeURIComponent(MDOT_HTTP),parse:'json'},
+  {name:'allorigins/get',url:'https://api.allorigins.win/get?url='+encodeURIComponent(MDOT_HTTP),parse:'wrapped'},
+  {name:'codetabs',url:'https://api.codetabs.com/v1/proxy/?quest='+encodeURIComponent(MDOT_HTTP),parse:'json'},
+  {name:'thingproxy',url:'https://thingproxy.freeboard.io/fetch/'+MDOT_HTTP,parse:'json'},
+  {name:'corsproxy.io',url:'https://corsproxy.io/?url='+encodeURIComponent(MDOT_HTTP),parse:'json'},
+  {name:'whateverorigin',url:'https://www.whateverorigin.org/get?url='+encodeURIComponent(MDOT_HTTP),parse:'wrapped'},
+  {name:'Direct HTTP',url:MDOT_HTTP,parse:'json'}
+];
+let trafficAlerts=[];
+let mdotRoute='';
+let trafficStale=false;
+
+const MDOT_CAMS=[
+  {lbl:'MS 6 @ US 278 / Oxford',url:'https://www.mdottraffic.com/CCTVImage.aspx?id=Oxford_MS6_US278'},
+  {lbl:'MS 7 @ MS 6 / Oxford',url:'https://www.mdottraffic.com/CCTVImage.aspx?id=Oxford_MS7_MS6'},
+  {lbl:'MS 6 @ S Lamar Blvd',url:'https://www.mdottraffic.com/CCTVImage.aspx?id=Oxford_MS6_SLamar'},
+  {lbl:'MS 7 @ Sisk Ave',url:'https://www.mdottraffic.com/CCTVImage.aspx?id=Oxford_MS7_Sisk'}
+];
+
+function impactRank(i){const s=(i||'').toLowerCase();return s==='closed'?0:s==='high'?1:s==='moderate'?2:3;}
+function impactClass(i){const s=(i||'').toLowerCase();return s==='closed'?'closed':s==='high'?'high':s==='moderate'?'moderate':'low';}
+function trIcon(t){const s=(t||'').toLowerCase();if(s.includes('incident')||s.includes('crash'))return'💥';if(s.includes('weather')||s.includes('flood'))return'🌊';if(s.includes('road work'))return'🚧';return'⚠️';}
+function fmtD(d){if(!d)return'N/A';const x=new Date(d);return isNaN(x)?'N/A':x.toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT';}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function withTimeout(url,ms){
+  const ctl=new AbortController();
+  const t=setTimeout(()=>ctl.abort(),ms);
+  return fetch(url,{cache:'no-store',signal:ctl.signal}).finally(()=>clearTimeout(t));
+}
+
+async function fetchMDOT(){
+  const errs=[];
+  for(const route of MDOT_ROUTES){
+    try{
+      const r=await withTimeout(route.url,12000);
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      let d=await r.json();
+      // allorigins/get + whateverorigin wrap the payload in {contents:"..."}
+      if(route.parse==='wrapped'){
+        const c=d.contents??d.content;
+        if(!c)throw new Error('empty wrapper');
+        d=JSON.parse(c);
+      }
+      if(d&&Array.isArray(d.value)){mdotRoute=route.name;return d.value;}
+      throw new Error('no .value array');
+    }catch(e){
+      errs.push(`${route.name}: ${e.name==='AbortError'?'timeout':e.message}`);
+    }
+  }
+  const err=new Error('All routes failed');
+  err.detail=errs;
+  throw err;
+}
+
+/* Snapshot from the MDOT feed as of Jul 17, 2026 — used only if every live
+   route fails, so the tab still shows known Lafayette County conditions.
+   Clearly labeled as stale in the UI. */
+const MDOT_SNAPSHOT=[
+  {"Id":"TMS_561594","Type":"Road Work","SubType":"Bridge Repair / Inspection","Subject":"Road Work : S Lamar Blvd at US 278 - Road closed","Counties":["Lafayette"],"DirectionAffected":"Both Directions","LanesAffected":"Road closed","AdditionalInformation":"","TrafficImpact":"Closed","Status":"New","StartDateTime":"2026-05-26T06:00:00-05:00","EndDateTime":"2026-08-01T17:00:00-05:00","LastModified":"2026-05-26T16:58:37.397-05:00","NavigationUrl":"https://www.mdottraffic.com/default.aspx?loadAlertid=561594&lat=34.354244&lon=-89.521248&zoom=13","Locations":[{"Id":0,"Latitude":34.354244,"Longitude":-89.521248}]},
+  {"Id":"TMS_562651","Type":"Road Work","SubType":"Other","Subject":"Road Work : MS 6 between F. D. Buddy E Pkwy and CR 409 - Expect delays","Counties":["Lafayette"],"DirectionAffected":"Both Directions","LanesAffected":"Expect delays","AdditionalInformation":"","TrafficImpact":"Moderate","Status":"Updated","StartDateTime":"2026-07-08T12:30:00-05:00","EndDateTime":"2026-09-08T20:00:00-05:00","LastModified":"2026-07-10T11:42:33.483-05:00","NavigationUrl":"https://www.mdottraffic.com/default.aspx?loadAlertid=562651&lat=34.358524&lon=-89.488456&zoom=13","Locations":[{"Id":0,"Latitude":34.358524,"Longitude":-89.488456}]},
+  {"Id":"TMS_558220","Type":"Road Work","SubType":"Other","Subject":"Road Work :  MS 7 between CR 370 and US 278 - Expect delays","Counties":["Lafayette"],"DirectionAffected":"Both Directions","LanesAffected":"Expect delays","AdditionalInformation":"","TrafficImpact":"Moderate","Status":"New","StartDateTime":"2025-12-04T10:15:12-06:00","EndDateTime":"2029-10-01T19:00:00-05:00","LastModified":"2025-12-04T10:21:46.043-06:00","NavigationUrl":"https://www.mdottraffic.com/default.aspx?loadAlertid=558220&lat=34.254624&lon=-89.544264&zoom=13","Locations":[{"Id":0,"Latitude":34.254624,"Longitude":-89.544264}]}
+];
+const SNAPSHOT_DATE='Jul 17, 2026';
+
+function lafFilter(all){
+  const laf=all.filter(a=>(a.Counties||[]).some(c=>String(c).trim().toLowerCase()==='lafayette'));
+  laf.sort((a,b)=>impactRank(a.TrafficImpact)-impactRank(b.TrafficImpact)||new Date(b.LastModified)-new Date(a.LastModified));
+  return laf;
+}
+
+function paintTraffic(laf,scanned,stale){
+  const closed=laf.filter(a=>impactRank(a.TrafficImpact)===0).length;
+  const incidents=laf.filter(a=>(a.Type||'').toLowerCase()==='incident').length;
+  document.getElementById('traffic-summary').innerHTML=`
+    <div class="tr-stat"><strong>${laf.length}</strong> Active in Lafayette Co.</div>
+    <div class="tr-stat"><strong>${closed}</strong> Road Closure${closed!==1?'s':''}</div>
+    <div class="tr-stat"><strong>${incidents}</strong> Incident${incidents!==1?'s':''} / Crash${incidents!==1?'es':''}</div>
+    ${scanned?`<div class="tr-stat">${scanned} statewide alerts scanned</div>`:''}
+    ${stale?'<div class="tr-stat" style="border-left-color:var(--red);color:var(--red);font-weight:700;">⚠ CACHED — NOT LIVE</div>':''}`;
+  document.getElementById('traffic-body').innerHTML=laf.length
+    ? (stale?`<div class="tr-stale">⚠️ <strong>Showing a cached snapshot from ${SNAPSHOT_DATE}, not live data.</strong> The live MDOT feed is unreachable from this browser (see below). Do not use for public messaging without verifying at MDOTtraffic.com.</div>`:'')+laf.map(renderTraffic).join('')
+    : '<div class="no-alerts"><span class="sdot"></span>No active MDOT traffic alerts for Lafayette County, MS.</div>';
+  trafficAlerts=laf;
+  trafficStale=!!stale;
+  buildTicker();
+}
+
+async function loadTraffic(){
+  const body=document.getElementById('traffic-body');
+  const note=document.getElementById('traffic-note');
+  body.innerHTML='<div class="lmsg">Fetching MDOT traffic alerts...</div>';
+  try{
+    const all=await fetchMDOT();
+    const laf=lafFilter(all);
+    note.textContent=`Live via ${mdotRoute} · ${all.length} statewide alerts scanned · ${laf.length} matched Lafayette County`;
+    document.getElementById('traffic-upd').textContent='Updated '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})+' CT';
+    paintTraffic(laf,all.length,false);
+  }catch(e){
+    // Every live route failed — fall back to the embedded snapshot
+    note.textContent='⚠️ Live MDOT feed unreachable — showing cached snapshot';
+    document.getElementById('traffic-upd').textContent='Cached '+SNAPSHOT_DATE;
+    paintTraffic(lafFilter(MDOT_SNAPSHOT),0,true);
+    const detail=(e.detail||[e.message]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    body.insertAdjacentHTML('beforeend',`<div class="tr-diag">
+      <strong>Why the live feed failed:</strong>
+      <ul>${detail}</ul>
+      MDOT's API is HTTP-only with no CORS header, so a browser on an HTTPS page blocks it, and the public proxy fallbacks are also unreachable or rate-limited.
+      <div style="margin-top:8px;">
+        <strong>Fixes, best to worst:</strong>
+        <ol>
+          <li>Ask MDOT ITS for an HTTPS/CORS-enabled endpoint or API key (permanent fix).</li>
+          <li>Open this file locally over <code>file://</code> or plain HTTP — direct fetch may succeed.</li>
+          <li>Paste feed JSON manually below to populate the tab right now.</li>
+        </ol>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button class="btn-navy" onclick="document.getElementById('mdot-paste').style.display='block';this.style.display='none';">📋 Paste feed JSON</button>
+        <a class="alink" href="${MDOT_HTTPS}" target="_blank">Open API endpoint ↗</a>
+        <a class="alink" href="https://www.mdottraffic.com/" target="_blank">MDOTtraffic.com ↗</a>
+      </div>
+      <div id="mdot-paste" style="display:none;margin-top:8px;">
+        <textarea id="mdot-json" placeholder="Paste the full CurrentAlerts JSON here..."></textarea>
+        <button class="btn-navy" style="margin-top:6px;" onclick="loadPastedMDOT()">Load Lafayette County alerts</button>
+      </div>
+    </div>`);
+  }
+}
+
+function loadPastedMDOT(){
+  const ta=document.getElementById('mdot-json');
+  try{
+    const d=JSON.parse(ta.value);
+    const all=Array.isArray(d)?d:(d.value||[]);
+    if(!all.length)throw new Error('No alerts found in that JSON');
+    const laf=lafFilter(all);
+    document.getElementById('traffic-note').textContent=`Manually loaded · ${all.length} statewide alerts scanned · ${laf.length} matched Lafayette County`;
+    document.getElementById('traffic-upd').textContent='Pasted '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})+' CT';
+    paintTraffic(laf,all.length,false);
+  }catch(err){
+    alert('Could not parse that JSON: '+err.message);
+  }
+}
+
+function renderTraffic(a){
+  const cls=impactClass(a.TrafficImpact);
+  const subj=(a.Subject||'').replace(/^[^:]+:\s*/,'').trim()||a.Body||'Traffic alert';
+  return `<div class="tr-card impact-${cls}">
+    <div class="tr-top">
+      <span class="tr-badge i-${cls}">${esc(a.TrafficImpact||'Unknown')}</span>
+      <span class="tr-type">${trIcon(a.Type)} ${esc(a.Type||'')}${a.SubType?' · '+esc(a.SubType.trim()):''}</span>
+      ${a.Status==='New'?'<span class="tr-badge i-low">NEW</span>':''}
+    </div>
+    <div class="tr-name">${esc(subj)}</div>
+    <div class="tr-meta">
+      <strong>Direction:</strong> ${esc(a.DirectionAffected||'N/A')} &nbsp;·&nbsp; <strong>Lanes:</strong> ${esc(a.LanesAffected||'N/A')}<br>
+      <strong>Started:</strong> ${fmtD(a.StartDateTime)} &nbsp;·&nbsp; <strong>Est. end:</strong> ${fmtD(a.EndDateTime)}<br>
+      <strong>Last updated:</strong> ${fmtD(a.LastModified)} &nbsp;·&nbsp; ID: ${esc(a.Id||'')}
+    </div>
+    ${a.AdditionalInformation&&a.AdditionalInformation.trim()?`<div class="tr-info">${esc(a.AdditionalInformation.trim())}</div>`:''}
+    <div class="tr-links">
+      ${a.NavigationUrl?`<a class="alink" href="${esc(a.NavigationUrl)}" target="_blank">View on MDOTtraffic map ↗</a>`:''}
+      ${(a.Locations&&a.Locations[0])?`<a class="alink" href="https://www.google.com/maps?q=${a.Locations[0].Latitude},${a.Locations[0].Longitude}" target="_blank">Google Maps ↗</a>`:''}
+    </div>
+  </div>`;
+}
+
+function reloadCams(){
+  const t=Date.now();
+  document.getElementById('cam-grid').innerHTML=MDOT_CAMS.map(c=>`
+    <div class="tr-cam">
+      <img src="${c.url}&t=${t}" alt="${esc(c.lbl)}" loading="lazy"
+           onerror="this.style.display='none';this.parentNode.insertAdjacentHTML('afterbegin','<div style=&quot;padding:26px 10px;text-align:center;font-size:10px;color:var(--muted);&quot;>Camera unavailable</div>');">
+      <div class="tr-cam-lbl">${esc(c.lbl)}</div>
+    </div>`).join('');
+}
+
+/* ═══ CROSS-TAB TICKER ═══ */
+let tickerPaused=false;
+
+function buildTicker(){
+  const items=[];
+
+  // 1 — NWS alerts for Lafayette County (warnings → watches → advisories)
+  const order=ev=>{const c=alertCategory(ev);return c==='warning'?0:c==='watch'?1:c==='advisory'?2:3;};
+  [...countyAlerts].sort((a,b)=>order(a.properties.event)-order(b.properties.event)).forEach(a=>{
+    const p=a.properties,cat=alertCategory(p.event);
+    if(cat==='statement'||cat==='other')return;
+    const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    items.push({b:cat.toUpperCase(),cls:'tk-'+cat,t:`${p.event}${exp?' — until '+exp:''}`});
+  });
+
+  // 2 — MDOT road closures in Lafayette County
+  const sfx=trafficStale?' (cached '+SNAPSHOT_DATE+')':'';
+  trafficAlerts.filter(a=>impactRank(a.TrafficImpact)===0).forEach(a=>{
+    items.push({b:'Road Closed',cls:'tk-closed',t:(a.Subject||'').replace(/^[^:]+:\s*/,'').replace(/\s*-\s*Road closed$/i,'').trim()+sfx});
+  });
+
+  // 3 — MDOT incidents / crashes
+  trafficAlerts.filter(a=>(a.Type||'').toLowerCase()==='incident').forEach(a=>{
+    items.push({b:'Crash',cls:'tk-traffic',t:(a.Subject||'').replace(/^[^:]+:\s*/,'').trim()});
+  });
+
+  // 4 — SPC convective outlook (only when there's a real risk)
+  const si=window._spcIdx??0;
+  if(si>=1)items.push({b:'SPC Day 1',cls:si>=3?'tk-warning':'tk-spc',t:`${SPC_LABELS[si]} risk — ${SPC_DESC[si]}`});
+
+  // 5 — Remaining traffic delays (high/moderate)
+  trafficAlerts.filter(a=>impactRank(a.TrafficImpact)>0&&(a.Type||'').toLowerCase()!=='incident').forEach(a=>{
+    items.push({b:'Traffic',cls:'tk-info',t:(a.Subject||'').replace(/^[^:]+:\s*/,'').trim()});
+  });
+
+  // 6 — Current conditions from the point forecast
+  if(window._nowLine)items.push({b:'Oxford Now',cls:'tk-info',t:window._nowLine});
+
+  // 7 — All-clear fallback
+  if(!items.length)items.push({b:'All Clear',cls:'tk-ok',t:'No active NWS alerts or MDOT closures for Lafayette County — monitoring continues'});
+  items.push({b:'Updated',cls:'tk-info',t:new Date().toLocaleString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})+' CT · NWS Memphis + MDOT TMS'+(trafficStale?' (traffic cached)':(mdotRoute?' ('+mdotRoute+')':''))});
+
+  const html=items.map(i=>`<span class="tk"><span class="tk-b ${i.cls}">${esc(i.b)}</span><span class="tk-txt">${esc(i.t)}</span></span>`).join('');
+  const track=document.getElementById('ticker-track');
+  // Duplicate the run so the -50% keyframe loops seamlessly
+  track.innerHTML=html+html;
+  const secs=Math.max(28,items.length*7);
+  track.style.animationDuration=secs+'s';
+  track.style.animationPlayState=tickerPaused?'paused':'running';
+}
+
+function toggleTicker(){
+  tickerPaused=!tickerPaused;
+  document.getElementById('ticker-track').style.animationPlayState=tickerPaused?'paused':'running';
+  document.getElementById('ticker-toggle').textContent=tickerPaused?'▶ Play':'⏸ Pause';
+}
+
 /* ── REFRESH ALL ── */
 async function refreshAll(){
   const btn=document.getElementById('refresh-all-btn');
   btn.classList.add('spinning');btn.textContent='🔄 Refreshing...';
-  await Promise.all([loadAlerts(),loadCWAAlerts(),loadSPC(),loadForecast(),loadPointForecast(),loadAFD(),loadMesoscale()]);
+  await Promise.all([loadAlerts(),loadCWAAlerts(),loadSPC(),loadForecast(),loadPointForecast(),loadAFD(),loadMesoscale(),loadTraffic()]);
   loadMEGBriefing();
   loadMETAR();
   loadRadarStatus();
   loadProductTypes();
+  reloadCams();
+  buildTicker();
   btn.classList.remove('spinning');btn.textContent='🔄 Refresh All Data';
 }
 
@@ -1397,6 +1755,17 @@ loadMEGBriefing();
 loadMETAR();
 loadRadarStatus();
 loadProductTypes();
+loadTraffic();
+reloadCams();
+buildTicker();
+
+// Auto-refresh traffic + ticker every 5 minutes
+setInterval(()=>{loadTraffic();},300000);
 </script>
+<div class="ticker" id="ticker">
+  <div class="ticker-lbl"><span class="pulse"></span>LCEMA Live</div>
+  <div class="ticker-mask"><div class="ticker-track" id="ticker-track"></div></div>
+  <button class="ticker-toggle" id="ticker-toggle" onclick="toggleTicker()">⏸ Pause</button>
+</div>
 </body>
 </html>
