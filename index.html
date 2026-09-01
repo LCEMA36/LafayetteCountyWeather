@@ -299,6 +299,136 @@ body{padding-bottom:46px;}
 .radar-full{border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#000;}
 .radar-full iframe{width:100%;height:calc(100vh - 200px);min-height:600px;border:none;display:block;}
 
+/* ═══ v24: BARON RADAR ═══ */
+.br-bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--bg);border-radius:8px;
+  padding:8px 12px;margin-bottom:10px;border-left:3px solid var(--navy);}
+.br-lbl{font-size:8.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.9px;}
+.br-chk{font-size:10px;color:var(--text);display:inline-flex;align-items:center;gap:4px;cursor:pointer;font-weight:500;}
+.br-map-wrap{border-radius:9px;overflow:hidden;border:1px solid var(--border);position:relative;background:#e8eaee;}
+#baron-map{height:calc(100vh - 430px);min-height:520px;width:100%;background:#e8eaee;}
+.br-stamp{position:absolute;left:11px;bottom:11px;z-index:620;background:rgba(28,43,94,.93);color:#fff;
+  border-radius:7px;padding:6px 12px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);pointer-events:none;}
+.br-stamp .age{font-size:9px;opacity:.75;font-weight:500;margin-left:7px;letter-spacing:.2px;}
+.br-stamp.stale{background:rgba(200,16,46,.95);}
+.br-ctrl{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px;}
+.br-ctrl input[type=range]{flex:1;min-width:150px;}
+.br-frame{font-size:9.5px;color:var(--muted);font-family:var(--mono);white-space:nowrap;}
+.br-lgd{display:flex;flex-wrap:wrap;gap:2px;margin-top:9px;align-items:flex-end;}
+.br-lgd .c{display:flex;flex-direction:column;align-items:center;}
+.br-lgd i{width:24px;height:12px;display:block;border-top:1px solid rgba(0,0,0,.06);}
+.br-lgd .v{font-size:8px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
+.br-lgd-h{font-size:8.5px;color:var(--navy);text-transform:uppercase;letter-spacing:.9px;font-weight:700;margin-top:11px;}
+.br-fail{background:#fff7d6;border:1px solid #fde68a;border-left:3px solid var(--gold);border-radius:8px;padding:14px 17px;}
+.br-fail h4{font-size:13px;font-weight:700;color:#92400e;margin-bottom:7px;}
+.br-fail p{font-size:11.5px;color:var(--text);line-height:1.65;margin-bottom:8px;}
+.br-fail code{background:#fff;padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:10px;}
+.br-fail ol{margin:0 0 8px 18px;}
+.br-fail li{font-size:11.5px;color:var(--text);line-height:1.65;margin-bottom:5px;}
+.br-fallback{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px;}
+.br-fallback a{font-size:10.5px;text-decoration:none;background:var(--navy);color:#fff;padding:7px 14px;
+  border-radius:6px;font-weight:700;}
+.br-fallback a.alt{background:#fff;color:var(--navy);border:1px solid var(--navy);}
+@media(max-width:700px){#baron-map{height:400px;min-height:400px;}}
+
+/* ═══ v23: SPC MULTI-DAY OUTLOOK ═══ */
+.spc-days{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:760px){.spc-days{grid-template-columns:1fr;}}
+.spc-day{border-radius:9px;border:1px solid var(--border);overflow:hidden;background:#fff;}
+.spc-day-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 11px;background:var(--navy);color:#fff;}
+.spc-day-h .d{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;}
+.spc-day-h .w{font-size:9px;color:rgba(255,255,255,.65);}
+.spc-day-b{padding:13px 12px;text-align:center;}
+.spc-day-n{font-size:30px;font-weight:700;line-height:1;}
+.spc-day-l{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;margin-top:4px;}
+.spc-day-s{font-size:9.5px;margin-top:5px;line-height:1.45;opacity:.85;}
+.spc-day-f{font-size:9px;color:var(--muted);padding:6px 11px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:6px;align-items:center;}
+.spc-day.err .spc-day-b{background:#fff7d6;}
+.spc-day.err .spc-day-n{font-size:20px;color:#92400e;}
+.spc-stale{font-size:9px;font-weight:700;background:var(--gold);color:#3a2a00;padding:2px 7px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;}
+
+/* ═══ v23: LIVE OBSERVED CONDITIONS ═══ */
+.obs-wrap{background:var(--bg);border-radius:9px;border-left:3px solid var(--navy);padding:14px 16px;}
+.obs-top{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;}
+.obs-icon{font-size:50px;line-height:1;}
+.obs-temp{font-size:38px;font-weight:700;color:var(--navy);line-height:1;}
+.obs-cond{font-size:15px;font-weight:600;color:var(--text);margin-top:4px;}
+.obs-feels{font-size:11px;color:var(--muted);margin-top:3px;}
+.obs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px;margin-top:13px;}
+.obs-cell{background:#fff;border:1px solid var(--border);border-radius:7px;padding:8px 10px;}
+.obs-cell .k{font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;font-weight:600;}
+.obs-cell .v{font-size:14px;font-weight:700;color:var(--navy);margin-top:3px;}
+.obs-cell .x{font-size:9px;color:var(--muted);margin-top:1px;}
+.obs-age{font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;color:#fff;background:#22c55e;}
+.obs-age.warn{background:var(--gold);color:#3a2a00;}
+.obs-age.bad{background:var(--red);}
+.obs-stale{background:#fff7d6;border:1px solid #fde68a;border-left:3px solid var(--gold);border-radius:8px;padding:9px 13px;font-size:11px;color:#92400e;line-height:1.6;margin-bottom:10px;font-weight:600;}
+.obs-raw{font-family:var(--mono);font-size:10px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:7px 10px;margin-top:10px;color:var(--text);word-break:break-word;}
+.obs-src{font-size:9.5px;color:var(--muted);margin-top:8px;line-height:1.55;}
+
+/* ═══ v23: POINT FORECAST EXTRA DETAIL ═══ */
+.pf-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+.pf-chip{font-size:9.5px;background:#fff;border:1px solid var(--border);border-radius:20px;padding:3px 9px;color:var(--text);white-space:nowrap;}
+.pf-chip b{color:var(--navy);}
+.pf-chip.alarm{background:#ffecec;border-color:#f5b5b5;}
+.pf-chip.alarm b{color:var(--red);}
+.pf-hr{margin-top:8px;border:1px solid var(--border);border-radius:7px;background:#fff;padding:6px 10px;}
+.pf-hr summary{font-size:9.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.7px;cursor:pointer;}
+.pf-hr[open] summary{margin-bottom:7px;}
+.pf-hr-scroll{overflow-x:auto;}
+.pf-tbl{border-collapse:collapse;font-size:10px;min-width:100%;}
+.pf-tbl th{font-size:8.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;text-align:left;padding:4px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+.pf-tbl td{padding:4px 8px;border-bottom:1px solid var(--border);white-space:nowrap;color:var(--text);}
+.pf-tbl tr:last-child td{border-bottom:none;}
+.pf-tbl td.t{font-weight:700;color:var(--navy);}
+.pf-hz{background:#fff7d6;border:1px solid #fde68a;border-radius:6px;padding:6px 10px;font-size:10.5px;color:#92400e;font-weight:600;margin-top:7px;}
+
+/* ═══ v23: WAZE ROAD GROUPING ═══ */
+.wz-rd{border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:8px;overflow:hidden;border-left:3px solid var(--muted);}
+.wz-rd:last-child{margin-bottom:0;}
+.wz-rd.s-closed{border-left-color:var(--red);}
+.wz-rd.s-accident{border-left-color:#E8402A;}
+.wz-rd.s-hazard{border-left-color:var(--gold);}
+.wz-rd.s-jam{border-left-color:var(--watch-yellow);}
+.wz-rd.s-construction{border-left-color:#c85c00;}
+.wz-rd.s-police{border-left-color:var(--navy);}
+.wz-rd>summary{list-style:none;cursor:pointer;padding:9px 13px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.wz-rd>summary::-webkit-details-marker{display:none;}
+.wz-rd>summary:hover{background:var(--bg);}
+.wz-rd-car{flex-shrink:0;font-size:10px;color:var(--muted);transition:transform .15s;display:inline-block;width:10px;}
+.wz-rd[open] .wz-rd-car{transform:rotate(90deg);}
+.wz-rd-name{font-size:13px;font-weight:700;color:var(--text);}
+.wz-rd-ct{font-size:8.5px;font-weight:700;background:var(--navy);color:#fff;border-radius:11px;padding:2px 8px;letter-spacing:.4px;white-space:nowrap;}
+.wz-rd-roll{font-size:9.5px;color:var(--muted);width:100%;margin-left:19px;line-height:1.5;}
+.wz-rd-roll b{color:var(--navy);}
+.wz-rd-body{padding:0 13px 11px 13px;border-top:1px solid var(--border);padding-top:10px;background:var(--bg);}
+.wz-rd-body .wz-card,.wz-rd-body .wz-jam{background:#fff;}
+.wz-rd-body .wz-card{border:1px solid var(--border);}
+.wz-solo{margin-bottom:8px;}
+.wz-solo:last-child{margin-bottom:0;}
+
+/* ═══ v23: PLAIN-LANGUAGE PRODUCT DECODER ═══ */
+.dg-bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--bg);border-radius:8px;padding:8px 12px;margin-bottom:10px;border-left:3px solid var(--navy);}
+.dg-bar .lbl{font-size:9px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.9px;}
+.dg-toggle{display:flex;border:1px solid var(--border);border-radius:7px;overflow:hidden;background:#fff;}
+.dg-toggle button{font-size:10px;padding:4px 12px;border:none;background:#fff;color:var(--muted);cursor:pointer;font-weight:600;}
+.dg-toggle button.on{background:var(--navy);color:#fff;}
+.dg-note{font-size:9.5px;color:var(--muted);line-height:1.55;flex:1;min-width:180px;}
+.dg-key{background:#f0f4ff;border:1px solid #c9d8f5;border-left:3px solid var(--navy);border-radius:8px;padding:11px 14px;margin-bottom:12px;}
+.dg-key-h{font-size:9px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.9px;margin-bottom:7px;}
+.dg-key ul{margin:0 0 0 17px;}
+.dg-key li{font-size:12px;color:var(--text);line-height:1.65;margin-bottom:5px;}
+.dg-key li:last-child{margin-bottom:0;}
+.dg-sec{margin-bottom:12px;}
+.dg-sec:last-child{margin-bottom:0;}
+.dg-sec-h{font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--red);}
+.dg-sec p{font-size:12px;color:var(--text);line-height:1.7;margin-bottom:8px;}
+.dg-sec p:last-child{margin-bottom:0;}
+.dg-sec pre{font-family:var(--mono);font-size:10px;line-height:1.6;white-space:pre-wrap;background:var(--bg);border-radius:6px;padding:9px 12px;color:var(--text);}
+.dg-x{border-bottom:1px dotted var(--muted);cursor:help;}
+.dg-scroll{max-height:calc(100vh - 470px);min-height:340px;overflow-y:auto;padding-right:4px;}
+.dg-empty{font-size:11.5px;color:var(--muted);background:var(--bg);border-radius:8px;padding:14px;text-align:center;line-height:1.6;}
+
 @media print{.nav,.btn,.btn-navy,.threat-refresh,.refresh-all{display:none!important;}.panel{display:block!important;}}
 </style>
 </head>
@@ -329,8 +459,6 @@ body{padding-bottom:46px;}
     <button class="ntab active" onclick="setPanel('briefing',this)">📋 Forecast</button>
     <button class="ntab" onclick="setPanel('alerts',this)">⚡ Alerts</button>
     <button class="ntab" onclick="setPanel('traffic',this)">🚧 Traffic</button>
-    <button class="ntab" onclick="setPanel('megbrief',this)">📑 MEG Briefing</button>
-    <button class="ntab" onclick="setPanel('afd',this)">🌐 AFD</button>
     <button class="ntab" onclick="setPanel('products',this)">📚 MEG Products</button>
     <button class="ntab" onclick="setPanel('metar',this)">✈️ METAR</button>
     <button class="ntab" onclick="setPanel('radar',this)">📡 Radar</button>
@@ -343,11 +471,46 @@ body{padding-bottom:46px;}
 <div class="panel" id="panel-alerts">
   <div class="card">
     <div class="card-hdr">
+      <span class="card-title">🌩️ SPC Convective Outlooks — Day 1 · Day 2 · Day 3</span>
+      <div class="card-actions">
+        <span id="spc3-upd" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadSPC()">Refresh</button>
+        <a class="alink" href="https://www.spc.noaa.gov/products/outlook/day1otlk.html" target="_blank" rel="noopener">SPC ↗</a>
+      </div>
+    </div>
+    <div class="znote">Categorical severe-weather risk for the point 34.3665°N / 89.5196°W (Oxford, Lafayette County) tested against the SPC outlook polygons. Each day is fetched independently — a day that fails says so rather than showing a false zero.</div>
+    <div id="spc-days"><div class="lmsg">Fetching SPC Day 1–3 outlooks...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
       <span class="card-title">⚡ Lafayette County, MS — Active Alerts</span>
       <button class="btn" onclick="loadAlerts()">Refresh</button>
     </div>
-    <div class="znote" id="zone-note">Querying MSZ021 + MSC077 + point Oxford,MS...</div>
+    <div class="znote" id="zone-note">Querying MSZ013 + MSC071 + point Oxford,MS...</div>
     <div id="alerts-body"><div class="lmsg">Fetching from api.weather.gov...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">⚡ Active Hazards &amp; Alerts — Full Details</span>
+      <button class="btn" onclick="loadAlerts()">Refresh</button>
+    </div>
+    <div class="znote">Complete un-truncated text of every alert that passes the Lafayette County geocode check, including the NWS call-to-action instructions.</div>
+    <div id="hazards-body"><div class="lmsg">Loading...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">
+      <span class="card-title">⚡ SPC Mesoscale Discussions</span>
+      <div class="card-actions">
+        <span class="afd-meta" id="md-meta" style="margin:0;">Fetching active MDs...</span>
+        <button class="btn" onclick="loadMesoscale()">Refresh MDs</button>
+        <a class="alink" href="https://www.spc.noaa.gov/products/md/" target="_blank" rel="noopener">SPC MD ↗</a>
+      </div>
+    </div>
+    <div class="znote">Short-fused SPC discussions issued when storms are actively organizing — typically the earliest signal that a watch is coming. Nationwide feed; check the affected area on each.</div>
+    <div class="md-box" id="md-box" style="height:auto;max-height:520px;"><div class="lmsg">Loading...</div></div>
   </div>
 
   <div class="card">
@@ -502,78 +665,27 @@ body{padding-bottom:46px;}
 
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title">⚡ Active Hazards &amp; Alerts — Full Details</span>
-      <button class="btn" onclick="loadAlerts()">Refresh</button>
-    </div>
-    <div id="hazards-body"><div class="lmsg">Loading...</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-hdr">
       <span class="card-title">☁ Current Conditions — Oxford, MS</span>
-      <button class="btn" onclick="loadForecast()">Refresh</button>
+      <div class="card-actions">
+        <span id="obs-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="loadCurrentConditions()">Refresh</button>
+      </div>
     </div>
-    <div id="conditions-body"><div class="lmsg">Loading current conditions...</div></div>
+    <div class="znote">Live <strong>observed</strong> conditions — not forecast values. Read from the nearest reporting ASOS/AWOS at page load, then automatically re-read every 3 minutes. Station fallback order: KUOX Oxford → KHLI Batesville → KMEM Memphis.</div>
+    <div id="conditions-body"><div class="lmsg">Reading current observation...</div></div>
   </div>
 
   <div class="card">
     <div class="card-hdr">
       <span class="card-title">📍 NWS 7-Day Point Forecast — Grid MEG 48,90</span>
       <div class="card-actions">
+        <span id="pf-meta" style="font-size:9px;color:var(--muted);"></span>
         <button class="btn" onclick="loadPointForecast()">Refresh</button>
-        <a class="alink" href="https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us" target="_blank">Raw API ↗</a>
+        <a class="alink" href="https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us" target="_blank" rel="noopener">Raw API ↗</a>
       </div>
     </div>
-    <div class="znote">Detailed 7-day period-by-period forecast pulled directly from NWS gridpoint MEG 48,90 in imperial units. Includes day/night pairs with wind, precipitation probability, and full narrative discussions.</div>
+    <div class="znote">Period-by-period forecast from NWS gridpoint MEG 48,90, enriched with the raw gridded fields the narrative leaves out — peak wind gust, rainfall total (QPF), sky cover, humidity and apparent-temperature range, snow/ice accumulation, and any NWS-coded hazard on the grid. Expand any period for its hour-by-hour breakdown.</div>
     <div id="point-forecast-body"><div class="lmsg">Fetching from api.weather.gov...</div></div>
-  </div>
-</div>
-
-<!-- MEG BRIEFING PANEL -->
-<div class="panel" id="panel-megbrief">
-  <div class="card">
-    <div class="card-hdr">
-      <span class="card-title">📑 NWS Memphis (MEG) — Office Briefings Feed</span>
-      <div class="card-actions">
-        <span id="megbrief-meta" style="font-size:9px;color:var(--muted);"></span>
-        <button class="btn" onclick="loadMEGBriefing()">Refresh</button>
-        <a class="alink" href="https://api.weather.gov/offices/MEG/briefing" target="_blank">JSON Feed ↗</a>
-        <a class="alink" href="https://www.weather.gov/meg/" target="_blank">MEG Office ↗</a>
-      </div>
-    </div>
-    <div class="znote">Live feed of office briefings from NWS Memphis, pulled from <code>api.weather.gov/offices/MEG/briefing</code>. Includes multi-day threat assessment, forecast summary, and hazard outlook prepared by NWS forecasters. Updated whenever MEG issues a new briefing (typically event-driven or weekly).</div>
-    <div id="megbrief-body"><div class="lmsg">Fetching MEG office briefings feed...</div></div>
-  </div>
-</div>
-
-<!-- AFD PANEL -->
-<div class="panel" id="panel-afd">
-  <div class="card">
-    <div class="card-hdr">
-      <span class="card-title">🌐 Area Forecast Discussion + Mesoscale Discussions</span>
-      <div class="card-actions">
-        <button class="btn" onclick="loadAFD()">Refresh AFD</button>
-        <button class="btn" onclick="loadMesoscale()">Refresh MDs</button>
-      </div>
-    </div>
-    <div class="afd-grid">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
-          <span style="font-size:10px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.8px;">📄 NWS Memphis (MEG) AFD</span>
-          <a class="alink" href="https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=AFD" target="_blank">weather.gov ↗</a>
-        </div>
-        <div class="afd-meta" id="afd-meta">Fetching latest AFD...</div>
-        <div class="afd-box" id="afd-box">Loading...</div>
-      </div>
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
-          <span style="font-size:10px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.8px;">⚡ SPC Mesoscale Discussions</span>
-          <a class="alink" href="https://www.spc.noaa.gov/products/md/" target="_blank">SPC MD ↗</a>
-        </div>
-        <div class="afd-meta" id="md-meta">Fetching active MDs...</div>
-        <div class="md-box" id="md-box"><div class="lmsg">Loading...</div></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -612,7 +724,7 @@ body{padding-bottom:46px;}
       </div>
     </div>
     <div class="znote">
-      Live METAR observations from nearest airports to Lafayette County, MS — pulled from api.weather.gov station observations (free, no API key required). Includes Oxford (KUOX), Tupelo (KTUP), Memphis (KMEM), Batesville (KHLI), Columbus AFB (KCBM), and Greenwood (KGWO).
+      Live METAR observations from regional airports, sorted nearest-first from Lafayette County, MS — pulled from api.weather.gov station observations (free, no API key required). Includes Oxford (KUOX), Batesville (KHLI), Tupelo (KTUP), Memphis (KMEM), Columbus AFB (KCBM), Greenwood (KGWO), Jackson (KJAN), and Atlanta Hartsfield-Jackson (KATL) at the bottom.
     </div>
     <div id="metar-body"><div class="lmsg">Fetching METAR observations from NWS...</div></div>
   </div>
@@ -630,70 +742,139 @@ body{padding-bottom:46px;}
         <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Live Radar ↗</a>
       </div>
     </div>
-    <div class="znote">Operational health, latency, and telemetry for KNQA Memphis WSR-88D radar — the primary Doppler radar covering Lafayette County, MS. Use this to verify radar is online during severe weather events before referencing radar imagery.</div>
+    <div class="znote">Operational health, latency, and telemetry for KNQA Memphis WSR-88D radar — the primary Doppler radar covering Lafayette County, MS. Use this to verify the NWS radar feeding the Baron mosaic is online during severe weather events before trusting what the Radar tab shows.</div>
     <div id="radarstatus-body"><div class="lmsg">Fetching radar station telemetry...</div></div>
   </div>
 </div>
 
 <!-- RADAR PANEL -->
+<!-- RADAR PANEL — BARON WEATHER (v24, replaces the NWS iframes) -->
 <div class="panel" id="panel-radar">
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title">📡 Regional Radar View — Lafayette County, MS</span>
+      <span class="card-title">📡 Baron Radar — Lafayette County, MS</span>
       <div class="card-actions">
-        <button class="btn" onclick="cycleRadar('radar1')">🔄 Reload</button>
-        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJ3ZWF0aGVyIiwiY2VudGVyIjpbLTg5LjQ4NSwzNC4zNTddLCJsb2NhdGlvbiI6Wy04OS40ODUsMzQuMzU3XSwiem9vbSI6NywibGF5ZXIiOiJicmVmX3FjZCJ9LCJhbmltYXRpbmciOmZhbHNlLCJiYXNlIjoic3RhbmRhcmQiLCJhcnRjYyI6ZmFsc2UsImNvdW50eSI6ZmFsc2UsImN3YSI6ZmFsc2UsInJmYyI6ZmFsc2UsInN0YXRlIjpmYWxzZSwibWVudSI6dHJ1ZSwic2hvcnRGdXNlZE9ubHkiOmZhbHNlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
+        <span id="baron-meta" style="font-size:9px;color:var(--muted);"></span>
+        <button class="btn" onclick="baronLoad()">Refresh</button>
       </div>
     </div>
-    <div class="znote">Base reflectivity (quality-controlled) mosaic centered on Lafayette County (34.357°N / 89.485°W). Regional view showing all nearby radar coverage.</div>
-    <div class="radar-full">
-      <iframe id="radar1" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJ3ZWF0aGVyIiwiY2VudGVyIjpbLTg5LjQ4NSwzNC4zNTddLCJsb2NhdGlvbiI6Wy04OS40ODUsMzQuMzU3XSwiem9vbSI6NywibGF5ZXIiOiJicmVmX3FjZCJ9LCJhbmltYXRpbmciOmZhbHNlLCJiYXNlIjoic3RhbmRhcmQiLCJhcnRjYyI6ZmFsc2UsImNvdW50eSI6ZmFsc2UsImN3YSI6ZmFsc2UsInJmYyI6ZmFsc2UsInN0YXRlIjpmYWxzZSwibWVudSI6dHJ1ZSwic2hvcnRGdXNlZE9ubHkiOmZhbHNlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="Regional Radar Lafayette County" loading="lazy" style="height:600px;"></iframe>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="card-hdr">
-      <span class="card-title">📡 KNQA Memphis — Super-Res Base Reflectivity</span>
-      <div class="card-actions">
-        <button class="btn" onclick="cycleRadar('radar2')">🔄 Reload</button>
-        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS44NzMsMzUuMzQ1XSwibG9jYXRpb24iOm51bGwsInpvb20iOjcsImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktOUUEifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
-      </div>
-    </div>
-    <div class="znote">Primary radar for the NWS Memphis CWA — the main radar covering the northern half of Lafayette County. Super-resolution base reflectivity with short-fused warnings overlay only.</div>
-    <div class="radar-full">
-      <iframe id="radar2" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS44NzMsMzUuMzQ1XSwibG9jYXRpb24iOm51bGwsInpvb20iOjcsImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktOUUEifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="KNQA Memphis Super-Res" loading="lazy" style="height:600px;"></iframe>
-    </div>
-  </div>
+    <div id="baron-trial" class="obs-stale" style="display:none;"></div>
+    <div class="znote" id="baron-note">Connecting to the Baron Weather API...</div>
 
-  <div class="card">
-    <div class="card-hdr">
-      <span class="card-title">📡 KGWX Columbus AFB — Super-Res Base Reflectivity</span>
-      <div class="card-actions">
-        <button class="btn" onclick="cycleRadar('radar3')">🔄 Reload</button>
-        <a class="alink" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS41OTMsMzQuMjA2XSwibG9jYXRpb24iOm51bGwsInpvb20iOjksImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktHV1gifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" target="_blank">Open on radar.weather.gov ↗</a>
-      </div>
+    <div class="br-bar">
+      <span class="br-lbl">Product</span>
+      <span class="dg-toggle">
+        <button id="br-p-std" class="on" onclick="baronSetProduct('C39-0x0302-0')">Standard · ~2.5 min</button>
+        <button id="br-p-15"  onclick="baronSetProduct('C39-0x0302-0.15min')">Trial · 15 min</button>
+      </span>
+      <span class="br-lbl">Shading</span>
+      <span class="dg-toggle">
+        <button id="br-c-std" class="on" onclick="baronSetConfig('Standard-Mercator')">Reflectivity</button>
+        <button id="br-c-m1"  onclick="baronSetConfig('Mask1-Mercator')">Rain / Mix / Snow</button>
+      </span>
+      <span class="br-lbl">Overlays</span>
+      <label class="br-chk"><input type="checkbox" id="br-ov-warn" checked onchange="baronDrawOverlays()"> NWS warnings</label>
+      <label class="br-chk"><input type="checkbox" id="br-ov-waze" onchange="baronDrawOverlays()"> Waze incidents</label>
+      <span class="br-lbl">Opacity</span>
+      <input type="range" id="br-op" min="20" max="100" value="75" oninput="baronSetOpacity(this.value)" style="width:96px;">
     </div>
-    <div class="znote">Alternate radar coverage from KGWX Columbus AFB — the primary radar covering the southeastern half of Lafayette County. Zoomed tight on the county at zoom level 9 for detail on developing storms.</div>
-    <div class="radar-full">
-      <iframe id="radar3" src="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy04OS41OTMsMzQuMjA2XSwibG9jYXRpb24iOm51bGwsInpvb20iOjksImZpbHRlciI6bnVsbCwibGF5ZXIiOiJzcl9icmVmIiwic3RhdGlvbiI6IktHV1gifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D" title="KGWX Columbus AFB Super-Res" loading="lazy" style="height:600px;"></iframe>
+
+    <div class="br-map-wrap">
+      <div id="baron-map"></div>
+      <div class="wz-mapmsg" id="baron-mapmsg">Loading Baron radar...</div>
+      <div class="br-stamp" id="br-stamp"></div>
     </div>
-  </div>
-</div>
-<div class="panel" id="panel-radarloop">
-  <div class="card">
-    <div class="card-hdr">
-      <span class="card-title">📡 NWS KNQA Memphis — Radar Loop · Lafayette County, MS</span>
-      <a class="alink" href="https://radar.weather.gov/station/KNQA/standard" target="_blank">Full NWS Radar ↗</a>
+
+    <div class="br-ctrl">
+      <button class="btn" id="br-play" onclick="baronTogglePlay()">▶ Animate</button>
+      <button class="btn" onclick="baronStep(-1)">◀ Prev</button>
+      <button class="btn" onclick="baronStep(1)">Next ▶</button>
+      <button class="btn" onclick="baronLatest()">⏭ Latest</button>
+      <input type="range" id="br-scrub" min="0" max="0" value="0" oninput="baronShowFrame(+this.value)">
+      <span class="br-frame" id="br-frame"></span>
+      <button class="btn" onclick="baronFit()">⤢ County</button>
     </div>
-    <div class="radar-full">
-      <iframe src="https://radar.weather.gov/ridge/standard/KNQA_loop.gif" title="KNQA Memphis Radar Loop" loading="lazy"></iframe>
-    </div>
+
+    <div id="baron-legend"></div>
+
+    <details class="wz-diag" id="baron-diag-wrap">
+      <summary>🔌 Baron feed diagnostics</summary>
+      <div id="baron-diag"><div class="wz-dm" style="padding:6px 0;">Not run yet.</div></div>
+      <div class="wz-dhelp">The signature is issued by your Cloudflare Worker and is valid for
+        15 minutes; the page rotates it every 10. Radar tiles are fetched browser&nbsp;→&nbsp;Baron
+        directly, so the Worker only ever sees the small signature request.</div>
+    </details>
+
+    <div class="bf"><strong>Source:</strong> Baron Weather <span id="br-prodname">Standard Radar</span>
+      (<code id="br-prodcode">C39-0x0302-0</code>), 2&nbsp;km CONUS mosaic in dBZ, delivered as TMS tiles
+      and rendered over an OpenStreetMap/CARTO base. Reflectivity is <em>not</em> a warning product —
+      confirm against NWS warnings and the KNQA status tab before acting on what you see here.</div>
   </div>
 </div>
 
 <script>
 const HDR={'User-Agent':'LafayetteCountyWeatherCommand/1.0'};
 const LAT=34.3665,LON=-89.5196;
+
+/* ═══════════════════════════════════════════════════════════════════
+   LAFAYETTE COUNTY IDENTIFIERS — SAFETY CRITICAL. DO NOT EDIT.
+   Verified against NWS Memphis (KMEG) products.
+     MSZ013  NWS forecast zone   — Lafayette County   (NOT MSZ021 = Yalobusha)
+     MSC071  County UGC          — Lafayette County   (NOT MSC077 = Yalobusha)
+     028071  SAME / FIPS         — Lafayette County
+   v21 and earlier shipped MSZ021 / MSC077, which silently populated the
+   SPC boxes, Active Hazards and the Alerts tab with a NEIGHBORING county's
+   warnings. Every alert now additionally passes includesLafayette() below,
+   which checks the alert's own geocode.UGC / geocode.SAME arrays, so a
+   bad query string alone can no longer put another county on this screen.
+   ═══════════════════════════════════════════════════════════════════ */
+const ZONE_UGC   = 'MSZ013';   // forecast zone
+const COUNTY_UGC = 'MSC071';   // county zone
+const SAME_FIPS  = '028071';   // SAME / FIPS
+
+/* Exact-token geocode check. Never a substring match on headline or areaDesc —
+   "Lafayette" also matches Lafayette County AR/TN and the city of Lafayette LA. */
+function includesLafayette(feature){
+  const g=feature&&feature.properties&&feature.properties.geocode;
+  if(!g)return false;
+  const ugc =Array.isArray(g.UGC) ?g.UGC  : (g.UGC ?[g.UGC] :[]);
+  const same=Array.isArray(g.SAME)?g.SAME : (g.SAME?[g.SAME]:[]);
+  // Exact equality on each token — a multi-county alert that genuinely
+  // includes Lafayette carries MSZ013 or MSC071 in its own list and passes.
+  if(ugc.some(v=>String(v).trim().toUpperCase()===ZONE_UGC))return true;
+  if(ugc.some(v=>String(v).trim().toUpperCase()===COUNTY_UGC))return true;
+  if(same.some(v=>String(v).trim()===SAME_FIPS))return true;
+  return false;
+}
+
+/* Dedupe by alert id, keeping input order. */
+function dedupeAlerts(list){
+  const seen=new Set(),out=[];
+  for(const f of list){
+    const id=f&&f.properties&&f.properties.id;
+    if(id&&seen.has(id))continue;
+    if(id)seen.add(id);
+    out.push(f);
+  }
+  return out;
+}
+
+/* Every fetch in this file goes through here: hard timeout + a real error. */
+async function jget(url,ms,opts){
+  const ctl=new AbortController();
+  const to=setTimeout(()=>ctl.abort(),ms||12000);
+  try{
+    const r=await fetch(url,Object.assign({headers:HDR,cache:'no-store',signal:ctl.signal},opts||{}));
+    if(!r.ok)throw new Error('HTTP '+r.status+(r.statusText?' '+r.statusText:''));
+    return await r.json();
+  }catch(e){
+    if(e&&e.name==='AbortError')throw new Error('Timed out after '+Math.round((ms||12000)/1000)+'s');
+    if(/Failed to fetch|NetworkError|Load failed|ERR_FAILED/i.test(e.message||''))
+      throw new Error('Blocked — CORS rejection or network error');
+    throw e;
+  }finally{clearTimeout(to);}
+}
 const SPC_LABELS=['General Thunder','Marginal (1/5)','Slight (2/5)','Enhanced (3/5)','Moderate (4/5)','High (5/5)'];
 const SPC_CLS=['s0','s1','s2','s3','s4','s5'];
 const SPC_DESC=['No organized severe weather expected','Isolated severe storms possible','Scattered severe storms likely','Several severe storms likely','Widespread severe weather possible','Widespread severe weather expected'];
@@ -701,7 +882,7 @@ const SPC_DESC=['No organized severe weather expected','Isolated severe storms p
 // Cache for Lafayette County alerts so SPC card and other cards can reuse
 let countyAlerts=[];
 
-function tick(){document.getElementById('clock').textContent=new Date().toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT';}
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT';}
 setInterval(tick,1000);tick();
 
 function setPanel(p,el){
@@ -712,6 +893,13 @@ function setPanel(p,el){
   if(p==='traffic'&&typeof wzMap!=='undefined'&&wzMap){
     setTimeout(()=>{try{wzMap.invalidateSize();}catch(e){}},80);
   }
+  // Same for the Baron radar map — Leaflet lays out at 0x0 inside a hidden panel.
+  if(p==='radar'&&typeof brMap!=='undefined'&&brMap){
+    setTimeout(()=>{try{brMap.invalidateSize();}catch(e){}},80);
+  }
+  // Pause the radar animation when the tab is not on screen: every frame is a
+  // billed Baron transaction and the trial has a finite quota.
+  if(p!=='radar'&&typeof baronStopPlay==='function')baronStopPlay();
 }
 
 /* ── COLOR CODING — yellow for watches, red for warnings ── */
@@ -728,49 +916,65 @@ function alertBadgeClass(eventName){
   return c==='warning'?'b-warning':c==='watch'?'b-watch':c==='advisory'?'b-advisory':c==='statement'?'b-statement':'b-other';
 }
 
-/* ── ALERTS — Lafayette County ── */
+/* ── ALERTS — Lafayette County (MSZ013 / MSC071 / 028071) ── */
+async function fetchLafayetteAlerts(){
+  const [d1,d2,d3]=await Promise.all([
+    jget(`https://api.weather.gov/alerts/active?zone=${ZONE_UGC}`,12000).catch(e=>({features:[],_err:e.message})),
+    jget(`https://api.weather.gov/alerts/active?zone=${COUNTY_UGC}`,12000).catch(e=>({features:[],_err:e.message})),
+    jget(`https://api.weather.gov/alerts/active?point=${LAT},${LON}`,12000).catch(e=>({features:[],_err:e.message}))
+  ]);
+  if(d1._err&&d2._err&&d3._err)throw new Error(d1._err);
+  const raw=dedupeAlerts([...(d1.features||[]),...(d2.features||[]),...(d3.features||[])]);
+  // Second gate: the alert must name Lafayette in its OWN geocode block.
+  // The point query can return an alert scoped to a neighboring polygon edge,
+  // so this is what actually keeps other counties off the screen.
+  const kept=raw.filter(includesLafayette);
+  const rejected=raw.length-kept.length;
+  return{kept,rejected,counts:[(d1.features||[]).length,(d2.features||[]).length,(d3.features||[]).length],
+         errs:[d1._err,d2._err,d3._err]};
+}
+
 async function loadAlerts(){
-  document.getElementById('alerts-body').innerHTML='<div class="lmsg">Querying MSZ021 + MSC077 + point Oxford,MS...</div>';
+  const body=document.getElementById('alerts-body');
+  body.innerHTML=`<div class="lmsg">Querying ${ZONE_UGC} + ${COUNTY_UGC} + point Oxford, MS...</div>`;
   try{
-    const [r1,r2,r3]=await Promise.all([
-      fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
-      fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR}),
-      fetch(`https://api.weather.gov/alerts/active?point=${LAT},${LON}`,{headers:HDR})
-    ]);
-    const [d1,d2,d3]=await Promise.all([r1.json(),r2.json(),r3.json()]);
-    const seen=new Set(),all=[];
-    for(const f of[...(d1.features||[]),...(d2.features||[]),...(d3.features||[])]){
-      const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);all.push(f);
-    }
-    // Sort: warnings first, then watches, then advisories
+    const {kept,rejected,counts,errs}=await fetchLafayetteAlerts();
     const order=ev=>{const c=alertCategory(ev);return c==='warning'?0:c==='watch'?1:c==='advisory'?2:3;};
-    all.sort((a,b)=>order(a.properties.event)-order(b.properties.event));
+    kept.sort((a,b)=>order(a.properties.event)-order(b.properties.event));
 
-    countyAlerts=all; // cache for SPC + hazards reuse
+    countyAlerts=kept; // cache for SPC + hazards + ticker reuse
 
-    const z1=(d1.features||[]).length,z2=(d2.features||[]).length,z3=(d3.features||[]).length;
-    document.getElementById('zone-note').textContent=`Sources — MSZ021: ${z1} alert${z1!==1?'s':''} · MSC077: ${z2} alert${z2!==1?'s':''} · Point Oxford: ${z3} alert${z3!==1?'s':''} · ${all.length} unique total`;
-    updateBanner(all);
+    const dead=errs.filter(Boolean).length;
+    document.getElementById('zone-note').innerHTML=
+      `Sources — <strong>${ZONE_UGC}</strong> (Lafayette forecast zone): ${counts[0]} · `+
+      `<strong>${COUNTY_UGC}</strong> (Lafayette county zone): ${counts[1]} · `+
+      `Point 34.3665,-89.5196: ${counts[2]} — <strong>${kept.length}</strong> passed the `+
+      `Lafayette geocode check (UGC/SAME)${rejected?`, ${rejected} adjacent-county alert${rejected!==1?'s':''} rejected`:''}.`+
+      (dead?` <span style="color:var(--red);font-weight:700;">⚠ ${dead} of 3 sources unreachable — this list may be incomplete.</span>`:'');
+    updateBanner(kept);
 
-    if(!all.length){
-      document.getElementById('alerts-body').innerHTML='<div class="no-alerts"><span class="sdot"></span>No active watches, warnings, or advisories for Lafayette County, MS across all zones.</div>';
-      renderHazards([]);renderSPC();return;
+    if(!kept.length){
+      body.innerHTML='<div class="no-alerts"><span class="sdot"></span>No active watches, warnings, or advisories for Lafayette County, MS.</div>';
+      renderHazards([]);renderSPCSummary();buildTicker();return;
     }
-    document.getElementById('alerts-body').innerHTML=all.slice(0,12).map(a=>renderAlert(a)).join('');
-    renderHazards(all);
-    renderSPC();
+    body.innerHTML=kept.slice(0,12).map(a=>renderAlert(a)).join('');
+    renderHazards(kept);
+    renderSPCSummary();
+    buildTicker();
   }catch(e){
-    document.getElementById('zone-note').textContent='Error contacting NWS API.';
-    document.getElementById('alerts-body').innerHTML=`<div class="no-alerts">Unable to reach NWS API: ${e.message}</div>`;
-    setBanner('UNKNOWN','Unable to reach NWS API','');
+    countyAlerts=[];
+    document.getElementById('zone-note').innerHTML=`<span style="color:var(--red);font-weight:700;">⚠ Could not reach the NWS alerts API — alert status for Lafayette County is UNKNOWN, not clear.</span>`;
+    body.innerHTML=`<div class="no-alerts">Unable to reach NWS API: ${esc(e.message)}</div>`;
+    document.getElementById('hazards-body').innerHTML='<div class="no-alerts">Alert feed unavailable — hazard status unknown.</div>';
+    setBanner('UNKNOWN','Unable to reach the NWS alerts API — alert status for Lafayette County is unknown','');
     buildTicker();
   }
 }
 
 function renderAlert(a){
   const p=a.properties;
-  const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
-  const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+  const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+  const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
   const desc=p.description||'';
   return`<div class="alert-item">
     <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
@@ -787,13 +991,12 @@ async function loadCWAAlerts(){
   const body=document.getElementById('cwa-body');
   body.innerHTML='<div class="lmsg">Fetching all active alerts in NWS Memphis CWA...</div>';
   try{
-    const [arR,msR,tnR,moR]=await Promise.all([
-      fetch('https://api.weather.gov/alerts/active?area=AR',{headers:HDR}),
-      fetch('https://api.weather.gov/alerts/active?area=MS',{headers:HDR}),
-      fetch('https://api.weather.gov/alerts/active?area=TN',{headers:HDR}),
-      fetch('https://api.weather.gov/alerts/active?area=MO',{headers:HDR})
+    const [arD,msD,tnD,moD]=await Promise.all([
+      jget('https://api.weather.gov/alerts/active?area=AR',12000).catch(()=>({features:[]})),
+      jget('https://api.weather.gov/alerts/active?area=MS',12000).catch(()=>({features:[]})),
+      jget('https://api.weather.gov/alerts/active?area=TN',12000).catch(()=>({features:[]})),
+      jget('https://api.weather.gov/alerts/active?area=MO',12000).catch(()=>({features:[]}))
     ]);
-    const [arD,msD,tnD,moD]=await Promise.all([arR.json(),msR.json(),tnR.json(),moR.json()]);
     const all=[...(arD.features||[]),...(msD.features||[]),...(tnD.features||[]),...(moD.features||[])];
     const seen=new Set(),megAlerts=[];
     for(const f of all){
@@ -820,7 +1023,7 @@ async function loadCWAAlerts(){
 
     body.innerHTML=megAlerts.slice(0,40).map(a=>{
       const p=a.properties;
-      const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
+      const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'N/A';
       const area=(p.areaDesc||'').split(';').slice(0,3).join(';')+((p.areaDesc||'').split(';').length>3?'...':'');
       return`<div class="alert-item">
         <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
@@ -856,10 +1059,10 @@ function renderHazards(alerts){
   body.innerHTML=alerts.map(a=>{
     const p=a.properties;
     const cat=alertCategory(p.event);
-    const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
-    const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
-    const onset=p.onset?new Date(p.onset).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
-    const ends=p.ends?new Date(p.ends).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const exp=p.expires?new Date(p.expires).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const sent=p.sent?new Date(p.sent).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const onset=p.onset?new Date(p.onset).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+    const ends=p.ends?new Date(p.ends).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
     return`<div class="hazard-card ${cat}">
       <div class="hazard-top">
         <span class="abadge ${alertBadgeClass(p.event)}">${p.event||'Alert'}</span>
@@ -876,57 +1079,134 @@ function renderHazards(alerts){
   }).join('');
 }
 
-/* ── SPC ── */
-function spcIdx(cat){return({'TSTM':0,'MRGL':1,'SLGT':2,'ENH':3,'MDT':4,'HIGH':5}[cat]??0);}
+/* ── SPC ──
+   spcIdx returns null for a label that is not a categorical risk, so
+   "Lafayette is not inside ANY outlook polygon" stays distinguishable from
+   "Lafayette is in the 0/5 General Thunder area". v21 collapsed both to 0. */
+function spcIdx(cat){const m={'TSTM':0,'MRGL':1,'SLGT':2,'ENH':3,'MDT':4,'HIGH':5}[cat];return m===undefined?null:m;}
 function pip(pt,rings){const r=rings[0];let inside=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const xi=r[i][0],yi=r[i][1],xj=r[j][0],yj=r[j][1];if(((yi>pt[1])!==(yj>pt[1]))&&(pt[0]<(xj-xi)*(pt[1]-yi)/(yj-yi)+xi))inside=!inside;}return inside;}
 function ptInGeo(g,lat,lon){if(!g)return false;const pt=[lon,lat];if(g.type==='Polygon')return pip(pt,g.coordinates);if(g.type==='MultiPolygon')return g.coordinates.some(p=>pip(pt,p));return false;}
 
-async function loadSPC(){
-  document.getElementById('spc-badges').innerHTML='<div class="lmsg">Fetching SPC outlook...</div>';
-  let idx=0;
-  try{
-    const r=await fetch('https://www.spc.noaa.gov/products/outlook/day1otlk_cat.nolyr.geojson');
-    const d=await r.json();let max=0;
-    for(const f of(d.features||[])){
-      const lbl=String(f.properties?.LABEL||f.properties?.label||'').toUpperCase();
-      const v=spcIdx(lbl);if(v>max&&ptInGeo(f.geometry,LAT,LON))max=v;
-    }
-    idx=max;
-    document.getElementById('spc-upd').textContent='Updated '+new Date().toLocaleString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})+' CT';
-  }catch(e){idx=2;}
-  window._spcIdx=idx;
-  // Load county alerts if not already cached, then render
-  if(!countyAlerts.length){
-    try{
-      const [r1,r2]=await Promise.all([
-        fetch('https://api.weather.gov/alerts/active?zone=MSZ021',{headers:HDR}),
-        fetch('https://api.weather.gov/alerts/active?zone=MSC077',{headers:HDR})
-      ]);
-      const [d1,d2]=await Promise.all([r1.json(),r2.json()]);
-      const seen=new Set(),combined=[];
-      for(const f of[...(d1.features||[]),...(d2.features||[])]){const id=f.properties?.id;if(id&&seen.has(id))continue;if(id)seen.add(id);combined.push(f);}
-      countyAlerts=combined;
-    }catch(e){}
+/* Each day is fetched independently so one bad URL cannot take the others
+   down, and a failed day renders as an explicit "unavailable" card rather
+   than falling through to a fabricated risk level. */
+/* SPC has changed these filenames before. Each day therefore carries a small
+   candidate list tried in order, first success wins — the same source-priority
+   pattern the Waze feed uses. The card footer reports which file answered, so
+   if SPC renames one you can see it here instead of silently losing a day. */
+const SPC_BASE='https://www.spc.noaa.gov/products/outlook/';
+const spcUrls=n=>[
+  SPC_BASE+`day${n}otlk_cat.nolyr.geojson`,
+  SPC_BASE+`day${n}otlk_cat.lyr.geojson`,
+  SPC_BASE+`day${n}otlk_cat.geojson`
+];
+const SPC_DAYS=[
+  {d:1,urls:spcUrls(1),page:SPC_BASE+'day1otlk.html',win:'Today → 7 AM CT'},
+  {d:2,urls:spcUrls(2),page:SPC_BASE+'day2otlk.html',win:'Tomorrow'},
+  {d:3,urls:spcUrls(3),page:SPC_BASE+'day3otlk.html',win:'Day after tomorrow'}
+];
+// {idx:0-5 | null when outside every polygon, err:string | null, via:filename}
+let spcOutlooks={1:null,2:null,3:null};
+
+function spcScan(d){
+  if(!d||!Array.isArray(d.features))throw new Error('Unexpected payload shape');
+  let best=null;
+  for(const f of d.features){
+    const lbl=String(f.properties?.LABEL||f.properties?.label||'').toUpperCase().trim();
+    const v=spcIdx(lbl);
+    if(v===null)continue;                       // DN / SIGN / hatched layers are not categories
+    if(!ptInGeo(f.geometry,LAT,LON))continue;
+    if(best===null||v>best)best=v;
   }
-  renderSPC();
+  return best;                                   // null = Lafayette in no risk area at all
 }
 
-function renderSPC(){
-  const idx=window._spcIdx??0;
+async function fetchSPCDay(day){
+  let last='No sources configured';
+  for(const url of day.urls){
+    try{
+      const d=await jget(url,12000,{headers:{}});
+      return{idx:spcScan(d),via:url.split('/').pop()};
+    }catch(e){last=e.message||String(e);}
+  }
+  throw new Error(last);
+}
+
+async function loadSPC(){
+  const wrap=document.getElementById('spc-days');
+  if(wrap)wrap.innerHTML='<div class="lmsg">Fetching SPC Day 1–3 outlooks...</div>';
+  const badges=document.getElementById('spc-badges');
+  if(badges&&!badges.dataset.loaded)badges.innerHTML='<div class="lmsg">Fetching SPC data...</div>';
+
+  const results=await Promise.all(SPC_DAYS.map(async day=>{
+    try{const r=await fetchSPCDay(day);return{d:day.d,idx:r.idx,via:r.via,err:null};}
+    catch(e){return{d:day.d,idx:null,via:null,err:e.message||'Unavailable'};}
+  }));
+  results.forEach(r=>{spcOutlooks[r.d]=r;});
+
+  // Day 1 drives the forecast-strip risk chips and the ticker.
+  window._spcIdx    = spcOutlooks[1]&&spcOutlooks[1].err===null ? spcOutlooks[1].idx : null;
+  window._spcDay1Err= spcOutlooks[1]?spcOutlooks[1].err:'Not loaded';
+
+  const stamp='Updated '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})+' CT';
+  const u1=document.getElementById('spc-upd'),u3=document.getElementById('spc3-upd');
+  if(u1)u1.textContent=stamp;
+  if(u3)u3.textContent=stamp;
+
+  renderSPCDays();
+  renderSPCSummary();
+  buildTicker();
+}
+
+function spcCardBits(r){
+  if(r&&r.err)  return{cls:'err',num:'⚠',lbl:'Unavailable',sub:esc(r.err)};
+  if(!r||r.idx===null)
+                return{cls:'s0',num:'—',lbl:'No Risk Area',sub:'Lafayette County is outside every categorical risk area on this outlook.'};
+  return{cls:SPC_CLS[r.idx],num:r.idx+'/5',lbl:SPC_LABELS[r.idx],sub:SPC_DESC[r.idx]};
+}
+
+function renderSPCDays(){
+  const wrap=document.getElementById('spc-days');
+  if(!wrap)return;
+  wrap.innerHTML='<div class="spc-days">'+SPC_DAYS.map(day=>{
+    const r=spcOutlooks[day.d];
+    const b=spcCardBits(r);
+    return`<div class="spc-day ${b.cls==='err'?'err':''}">
+      <div class="spc-day-h"><span class="d">Day ${day.d}</span><span class="w">${esc(day.win)}</span></div>
+      <div class="spc-day-b ${b.cls!=='err'?b.cls:''}" style="${b.cls!=='err'?'':'background:#fff7d6;'}">
+        <div class="spc-day-n">${b.num}</div>
+        <div class="spc-day-l">${esc(b.lbl)}</div>
+        <div class="spc-day-s">${b.sub}</div>
+      </div>
+      <div class="spc-day-f">
+        <span title="${r&&r.via?esc('Source file: '+r.via):'No source answered'}">${r&&r.via?esc(r.via):'Point-in-polygon · Oxford'}</span>
+        <a class="alink" href="${day.page}" target="_blank" rel="noopener">Full outlook ↗</a>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function renderSPCSummary(){
+  const badges=document.getElementById('spc-badges');
+  if(!badges)return;
+  badges.dataset.loaded='1';
+  const r=spcOutlooks[1];
+  const b=spcCardBits(r);
   const cnt=countyAlerts.length;
   const tornado=countyAlerts.filter(a=>(a.properties.event||'').toLowerCase().includes('tornado')).length;
   const tstorm=countyAlerts.filter(a=>{const e=(a.properties.event||'').toLowerCase();return e.includes('thunderstorm')||e.includes('severe thunderstorm');}).length;
-  document.getElementById('spc-badges').innerHTML=`
+  const d2=spcCardBits(spcOutlooks[2]),d3=spcCardBits(spcOutlooks[3]);
+  badges.innerHTML=`
     <div class="spc-row">
-      <div class="spc-badge ${SPC_CLS[idx]}">
-        <div class="spc-num">${idx}/5</div>
-        <div class="spc-lbl">${SPC_LABELS[idx]}</div>
-        <div class="spc-sub">${SPC_DESC[idx]}</div>
+      <div class="spc-badge ${b.cls==='err'?'s1':b.cls}">
+        <div class="spc-num">${b.num}</div>
+        <div class="spc-lbl">Day 1 — ${esc(b.lbl)}</div>
+        <div class="spc-sub">${b.sub}</div>
       </div>
       <div class="spc-badge ${cnt>0?'s2':'s0'}">
         <div class="spc-num">${cnt}</div>
         <div class="spc-lbl">Active Alerts</div>
-        <div class="spc-sub">Lafayette County</div>
+        <div class="spc-sub">Lafayette County (geocode-verified)</div>
       </div>
       <div class="spc-badge ${tornado>0?'s5':'s0'}">
         <div class="spc-num">${tornado}</div>
@@ -938,136 +1218,431 @@ function renderSPC(){
         <div class="spc-lbl">T-Storm Alerts</div>
         <div class="spc-sub">${tstorm>0?'Severe T-storm active':'No T-storm alerts'}</div>
       </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:10px;color:var(--muted);">
+      <span style="background:var(--bg);padding:5px 10px;border-radius:6px;border-left:2px solid var(--navy);"><strong>Day 2:</strong> ${esc(d2.num)} ${esc(d2.lbl)}</span>
+      <span style="background:var(--bg);padding:5px 10px;border-radius:6px;border-left:2px solid var(--navy);"><strong>Day 3:</strong> ${esc(d3.num)} ${esc(d3.lbl)}</span>
+      <span style="background:var(--bg);padding:5px 10px;border-radius:6px;color:var(--muted);">Full Day 1–3 detail is on the <strong>Alerts</strong> tab</span>
     </div>`;
-  buildTicker();
 }
 
 /* ── FORECAST ── */
 function wIcon(s){const f=(s||'').toLowerCase();if(f.includes('tornado'))return'🌪️';if(f.includes('thunder')||f.includes('storm'))return'⛈️';if(f.includes('rain')||f.includes('shower'))return'🌧️';if(f.includes('snow'))return'❄️';if(f.includes('fog'))return'🌫️';if(f.includes('cloud'))return'☁️';if(f.includes('partly'))return'⛅';if(f.includes('sunny')||f.includes('clear'))return'☀️';return'🌡️';}
+// Icon for an observed METAR/textDescription string. Shared by the Current
+// Conditions card and the METAR tab so the two never disagree.
+function metarIcon(s){
+  const c=(s||'').toLowerCase();
+  if(c.includes('thunder'))return'⛈️';
+  if(c.includes('snow')||c.includes('sleet'))return'❄️';
+  if(c.includes('freezing'))return'🧊';
+  if(c.includes('rain')||c.includes('shower')||c.includes('drizzle'))return'🌧️';
+  if(c.includes('fog')||c.includes('mist')||c.includes('haze')||c.includes('smoke'))return'🌫️';
+  if(c.includes('overcast'))return'☁️';
+  if(c.includes('broken')||c.includes('mostly cloudy'))return'🌥️';
+  if(c.includes('partly')||c.includes('scattered')||c.includes('few'))return'⛅';
+  if(c.includes('clear')||c.includes('fair')||c.includes('sunny'))return'☀️';
+  if(c.includes('cloud'))return'☁️';
+  return'🌡';
+}
 function riskColor(idx){
   // Official SPC categorical color codes
   const colors=['#c1e9c1','#7fc57f','#f6f67f','#e9c56b','#ff7f7f','#ff007f'];
   return colors[idx]||'#c1e9c1';
 }
-function rLvl(t,spcIdx){
+function rLvl(t,si){
   const f=(t||'').toLowerCase();
-  // Only highlight as storm threat if SPC outlook is 1+ AND weather mentions storm/thunder
-  if(spcIdx>=1&&(f.includes('tornado')||f.includes('thunder')||f.includes('storm')||f.includes('severe'))){
-    return{c:'',l:['General Thunder','Marginal 1/5','Slight 2/5','Enhanced 3/5','Moderate 4/5','High 5/5'][spcIdx],bg:riskColor(spcIdx),color:spcIdx>=3?'#fff':'#1a1d23'};
+  // si may be null: SPC failed to load, or Lafayette is in no risk area at all.
+  // Never invent a risk level from a null — say "SPC N/A" instead.
+  const stormy=f.includes('tornado')||f.includes('thunder')||f.includes('storm')||f.includes('severe');
+  if(si===null&&window._spcDay1Err&&stormy)return{c:'r-none',l:'SPC N/A'};
+  if(typeof si==='number'&&si>=1&&stormy){
+    return{c:'',l:['General Thunder','Marginal 1/5','Slight 2/5','Enhanced 3/5','Moderate 4/5','High 5/5'][si],bg:riskColor(si),color:si>=3?'#fff':'#1a1d23'};
   }
   if(f.includes('rain')||f.includes('shower'))return{c:'r-low',l:'Rain'};
   return{c:'r-none',l:'Low Risk'};
 }
+function spcNow(){return window._spcIdx===undefined?null:window._spcIdx;}
 
 async function loadForecast(){
   document.getElementById('forecast-strip').innerHTML='<div class="lmsg">Loading...</div>';
-  document.getElementById('conditions-body').innerHTML='<div class="lmsg">Loading...</div>';
   try{
-    const r=await fetch('https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us',{headers:HDR});
-    const d=await r.json();
+    const d=await jget('https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us',12000);
     const periods=(d.properties?.periods)||[];
     const dayP=periods.filter(p=>p.isDaytime).slice(0,5);
     const nights=periods.filter(p=>!p.isDaytime);
-    document.getElementById('forecast-strip').innerHTML=`<div class="fc-strip">${dayP.map(p=>{
-      const nm=nights.find(n=>n.name&&p.name&&n.name.includes(p.name.split(' ')[0]));
+    // Pair each day with the night that FOLLOWS it by calendar date, not by
+    // matching name substrings. v21's name match silently produced "Low --"
+    // whenever NWS used a name shape it didn't expect.
+    const ctDate=iso=>new Date(iso).toLocaleDateString('en-CA',{timeZone:'America/Chicago'});
+    document.getElementById('forecast-strip').innerHTML=`<div class="fc-strip">${dayP.map((p,di)=>{
+      const nm=nights.find(n=>Date.parse(n.startTime)>=Date.parse(p.startTime))||null;
       const lo=nm?nm.temperature+'°F':'--';
-      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),window._spcIdx??0);
-      const lbl=p.name==='Today'?'Today':new Date(p.startTime).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+      // Day 1 of the strip uses the Day 1 outlook, day 2 the Day 2 outlook, and
+      // so on. SPC only issues categorical outlooks through Day 3 — beyond that
+      // there is no outlook to show, so days 4-5 get no SPC risk chip at all
+      // rather than inheriting Day 1's, which is what v21 did for all five.
+      const dayOutlook=di<3?(spcOutlooks[di+1]&&!spcOutlooks[di+1].err?spcOutlooks[di+1].idx:null):null;
+      const risk=di<3
+        ? rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),dayOutlook)
+        : (/(thunder|storm|tornado|severe)/i.test((p.shortForecast||'')+(p.detailedForecast||''))
+            ?{c:'r-none',l:'Beyond SPC outlook'}
+            :rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),null));
+      const lbl=p.name==='Today'?'Today':new Date(p.startTime).toLocaleDateString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric'});
       const riskStyle=risk.bg?`background:${risk.bg};color:${risk.color};`:'';
       return`<div class="fc-card"><div class="fc-day">${lbl}</div><div class="fc-icon">${wIcon(p.shortForecast)}</div><div class="fc-hi">${p.temperature}°F</div><div class="fc-lo">Low ${lo}</div><div class="fc-desc">${p.shortForecast}</div><div class="fc-risk ${risk.c}" style="${riskStyle}">${risk.l}</div></div>`;
     }).join('')}</div>`;
 
-    const now=periods[0];
-    let html='';
-    if(now){
-      window._nowLine=`${now.temperature}°F · ${now.shortForecast} · Wind ${now.windSpeed||'--'} ${now.windDirection||''} · ${now.probabilityOfPrecipitation?.value||0}% precip`;
-      buildTicker();
-      html+=`<div class="now-row">
-        <div class="now-icon">${wIcon(now.shortForecast)}</div>
-        <div class="now-info">
-          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;">Right Now — ${now.name}</div>
-          <div class="now-temp">${now.temperature}°F</div>
-          <div class="now-cond">${now.shortForecast}</div>
-          <div class="now-detail">${now.detailedForecast}</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:6px;">💨 ${now.windSpeed||''} ${now.windDirection||''} &nbsp;·&nbsp; 💧 ${now.probabilityOfPrecipitation?.value||0}% precip</div>
-        </div>
-      </div>`;
-    }
-    document.getElementById('conditions-body').innerHTML=html;
+    buildTicker();
   }catch(e){
-    document.getElementById('forecast-strip').innerHTML='<div class="lmsg">Unable to load forecast.</div>';
-    document.getElementById('conditions-body').innerHTML='<div class="lmsg">Unable to load forecast.</div>';
+    document.getElementById('forecast-strip').innerHTML=
+      `<div class="lmsg">Unable to load the 5-day forecast: ${esc(e.message)}</div>`;
   }
 }
 
-/* ── 7-DAY POINT FORECAST — Grid MEG 48,90 ── */
+/* ═══════════════════════════════════════════════════════════════════
+   CURRENT CONDITIONS — LIVE OBSERVED, NOT FORECAST
+   v21 rendered periods[0] of the gridpoint FORECAST here and labelled it
+   "Right Now", which is a forecast value, not an observation. This reads
+   the actual latest surface observation from the nearest reporting station
+   and re-reads it every 3 minutes. Anything older than 90 minutes gets a
+   visible stale banner instead of being shown as current.
+   ═══════════════════════════════════════════════════════════════════ */
+const OBS_STATIONS=[
+  {icao:'KUOX',name:'University-Oxford Airport',dist:2},
+  {icao:'KHLI',name:'Batesville / Panola County',dist:23},
+  {icao:'KMEM',name:'Memphis International',dist:63}
+];
+const OBS_REFRESH_MS=180000;   // 3 minutes, per request
+const OBS_STALE_MIN=90;        // flag the observation as stale past this
+let obsTimer=null;
+
+function degToCompass(d){
+  if(d==null)return'';
+  const dirs=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+  return dirs[Math.round(((d%360)/22.5))%16];
+}
+
+async function loadCurrentConditions(){
+  const body=document.getElementById('conditions-body');
+  const meta=document.getElementById('obs-meta');
+  if(!body)return;
+  if(!body.dataset.loaded)body.innerHTML='<div class="lmsg">Reading current observation...</div>';
+
+  let obs=null,station=null,lastErr='';
+  for(const s of OBS_STATIONS){
+    try{
+      const d=await jget(`https://api.weather.gov/stations/${s.icao}/observations/latest?require_qc=false`,10000);
+      const p=d.properties||d;
+      if(p&&(p.temperature?.value!=null||p.rawMessage)){obs=p;station=s;break;}
+      lastErr='Station reported no usable data';
+    }catch(e){lastErr=e.message;}
+  }
+
+  if(!obs){
+    body.dataset.loaded='1';
+    body.innerHTML=`<div class="wz-fail">
+      <div class="wz-fail-h">⚠️ No current observation available</div>
+      <p>None of the fallback stations (${OBS_STATIONS.map(s=>s.icao).join(', ')}) returned a usable observation.
+      Last error: <code>${esc(lastErr||'unknown')}</code></p>
+      <p class="wz-fail-m">Nothing is being displayed here rather than showing a forecast value as if it were an observation.
+      The 5-Day Forecast card above is unaffected. Retrying automatically in 3 minutes.</p>
+    </div>`;
+    if(meta)meta.textContent='Unavailable';
+    return;
+  }
+  body.dataset.loaded='1';
+
+  const t=obs.timestamp||obs.observationTime||'';
+  const ageMin=t?Math.round((Date.now()-new Date(t).getTime())/60000):null;
+  const stale=ageMin==null||ageMin>OBS_STALE_MIN;
+  const ageCls=ageMin==null?'bad':ageMin<=20?'':ageMin<=OBS_STALE_MIN?'warn':'bad';
+  const ageStr=ageMin==null?'age unknown':(ageMin<1?'just now':ageMin<60?ageMin+' min ago':(ageMin/60).toFixed(1)+' hr ago');
+  const obsTime=t?new Date(t).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT':'unknown';
+
+  const tempF=c2f(obs.temperature?.value);
+  const dewF =c2f(obs.dewpoint?.value);
+  const hiF  =c2f(obs.heatIndex?.value);
+  const wcF  =c2f(obs.windChill?.value);
+  const feels=hiF??wcF;
+  const feelsLbl=hiF!=null?'Heat index':(wcF!=null?'Wind chill':null);
+  const rh   =obs.relativeHumidity?.value!=null?Math.round(obs.relativeHumidity.value):null;
+  const wKt  =mps2kt(obs.windSpeed?.value);
+  const gKt  =mps2kt(obs.windGust?.value);
+  const wDir =obs.windDirection?.value;
+  const visSm=m2sm(obs.visibility?.value);
+  const pres =pa2inHg(obs.seaLevelPressure?.value||obs.barometricPressure?.value);
+  const cond =obs.textDescription||'—';
+  const clouds=(obs.cloudLayers||[]).map(c=>(c.amount||'')+(c.base?.value!=null?' '+Math.round(c.base.value*3.28084)+' ft':'')).filter(Boolean).join(', ');
+  const p1h=obs.precipitationLastHour?.value;
+  const p1hIn=p1h!=null?(p1h/25.4).toFixed(2):null;
+
+  window._nowLine=`${tempF!=null?tempF+'°F':'—'} · ${cond}`+
+    (wKt!=null?` · Wind ${wKt>0?(degToCompass(wDir)+' '+wKt+' kt'+(gKt?' G'+gKt:'')):'calm'}`:'')+
+    (rh!=null?` · ${rh}% RH`:'')+` · observed ${station.icao} ${ageStr}`;
+
+  body.innerHTML=`
+    ${stale?`<div class="obs-stale">⚠ STALE OBSERVATION — the newest report from ${esc(station.icao)} is ${esc(ageStr)} (${esc(obsTime)}). Treat these values as historical, not current.</div>`:''}
+    <div class="obs-wrap">
+      <div class="obs-top">
+        <div class="obs-icon">${metarIcon(cond)}</div>
+        <div style="flex:1;min-width:180px;">
+          <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+            <span style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Observed at ${esc(station.icao)} — ${esc(station.name)} · ~${station.dist} mi</span>
+            <span class="obs-age ${ageCls}">${esc(ageStr)}</span>
+          </div>
+          <div class="obs-temp">${tempF!=null?tempF+'°F':'—'}</div>
+          <div class="obs-cond">${esc(cond)}</div>
+          ${feels!=null?`<div class="obs-feels">${esc(feelsLbl)} ${feels}°F</div>`:''}
+        </div>
+      </div>
+      <div class="obs-grid">
+        <div class="obs-cell"><div class="k">Dew Point</div><div class="v">${dewF!=null?dewF+'°F':'—'}</div><div class="x">${dewF!=null?(dewF>=70?'Oppressive':dewF>=65?'Muggy':dewF>=55?'Comfortable':'Dry'):''}</div></div>
+        <div class="obs-cell"><div class="k">Humidity</div><div class="v">${rh!=null?rh+'%':'—'}</div></div>
+        <div class="obs-cell"><div class="k">Wind</div><div class="v">${wKt==null?'—':(wKt===0?'Calm':degToCompass(wDir)+' '+wKt+' kt')}</div><div class="x">${gKt?'Gusting '+gKt+' kt':(wKt?Math.round(wKt*1.15)+' mph':'')}</div></div>
+        <div class="obs-cell"><div class="k">Visibility</div><div class="v">${visSm!=null?visSm+' sm':'—'}</div></div>
+        <div class="obs-cell"><div class="k">Pressure</div><div class="v">${pres?pres+'"':'—'}</div><div class="x">inHg (sea level)</div></div>
+        <div class="obs-cell"><div class="k">Sky</div><div class="v" style="font-size:11px;line-height:1.4;">${esc(clouds||'—')}</div></div>
+        ${p1hIn!=null?`<div class="obs-cell"><div class="k">Precip (1 hr)</div><div class="v">${p1hIn}"</div></div>`:''}
+      </div>
+      ${obs.rawMessage?`<div class="obs-raw">${esc(obs.rawMessage)}</div>`:''}
+      <div class="obs-src">📅 Observation time: <strong>${esc(obsTime)}</strong> · Source: api.weather.gov station observations ·
+        Auto-refresh every 3 minutes · Page read at ${new Date().toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})} CT</div>
+    </div>`;
+  if(meta)meta.textContent=`${station.icao} · ${ageStr} · auto-refresh 3 min`;
+  buildTicker();
+}
+
+function startObsAutoRefresh(){
+  if(obsTimer)clearInterval(obsTimer);
+  obsTimer=setInterval(loadCurrentConditions,OBS_REFRESH_MS);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   7-DAY POINT FORECAST — Grid MEG 48,90, with raw gridded detail
+   Three feeds, each independently failable:
+     A  /forecast        — the narrative periods (required)
+     B  /forecast/hourly — hour-by-hour, folded into each period (optional)
+     C  /gridpoints/...  — raw gridded fields the narrative omits: peak gust,
+                           QPF, sky cover, RH range, apparent temp, snow/ice,
+                           and any NWS-coded hazard on the grid (optional)
+   If B or C fail the card still renders from A and says what is missing —
+   it never fills a gap with an invented value.
+   ═══════════════════════════════════════════════════════════════════ */
+const GRID='https://api.weather.gov/gridpoints/MEG/48,90';
+
+// A gridpoint series value is {validTime:"<ISO>/<ISO8601 duration>", value:n}.
+// Expand each into absolute start/end ms so it can be intersected with a period.
+function gridExpand(layer){
+  const out=[];
+  if(!layer||!Array.isArray(layer.values))return out;
+  const uom=layer.uom||'';
+  for(const v of layer.values){
+    const parts=String(v.validTime||'').split('/');
+    if(parts.length!==2)continue;
+    const start=Date.parse(parts[0]);
+    if(isNaN(start))continue;
+    const m=parts[1].match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?$/);
+    if(!m)continue;
+    const ms=((+m[1]||0)*86400+(+m[2]||0)*3600+(+m[3]||0)*60)*1000;
+    out.push({s:start,e:start+ms,v:v.value,uom});
+  }
+  return out;
+}
+// Aggregate a layer over [s,e). agg: 'max' | 'min' | 'sum' | 'avg'
+function gridAgg(exp,s,e,agg){
+  const hits=exp.filter(x=>x.e>s&&x.s<e&&x.v!=null);
+  if(!hits.length)return null;
+  const vals=hits.map(x=>x.v);
+  if(agg==='max')return Math.max(...vals);
+  if(agg==='min')return Math.min(...vals);
+  if(agg==='sum')return vals.reduce((a,b)=>a+b,0);
+  return vals.reduce((a,b)=>a+b,0)/vals.length;
+}
+/* NWS grid hazards arrive as VTEC-style code pairs — {phenomenon:'SV',
+   significance:'A'} — which is unreadable on a wall display. Decode to words. */
+const VTEC_PHEN={SV:'Severe Thunderstorm',TO:'Tornado',FF:'Flash Flood',FA:'Flood',
+  FL:'Flood',MA:'Marine',WI:'Wind',HW:'High Wind',LW:'Lake Wind',EH:'Excessive Heat',
+  HT:'Heat',EC:'Extreme Cold',WC:'Wind Chill',BZ:'Blizzard',WS:'Winter Storm',
+  WW:'Winter Weather',IS:'Ice Storm',ZR:'Freezing Rain',SN:'Snow',LE:'Lake Effect Snow',
+  FZ:'Freeze',FR:'Frost',FG:'Dense Fog',SM:'Dense Smoke',DU:'Dust',DS:'Dust Storm',
+  AF:'Ashfall',AS:'Air Stagnation',SU:'High Surf',RP:'Rip Current',FW:'Fire Weather',
+  HU:'Hurricane',TR:'Tropical Storm',SS:'Storm Surge',SQ:'Snow Squall',
+  CF:'Coastal Flood',UP:'Freezing Spray'};
+const VTEC_SIG={W:'Warning',A:'Watch',Y:'Advisory',S:'Statement',F:'Forecast',O:'Outlook'};
+
+function gridText(exp,s,e){
+  const hits=exp.filter(x=>x.e>s&&x.s<e&&x.v!=null&&x.v!=='');
+  const seen=new Set(),out=[];
+  for(const h of hits){
+    const arr=Array.isArray(h.v)?h.v:[h.v];
+    for(const item of arr){
+      let label;
+      if(item&&typeof item==='object'){
+        const phen=VTEC_PHEN[item.phenomenon]||item.phenomenon||'';
+        const sig =VTEC_SIG[item.significance]||item.significance||'';
+        label=[phen,sig].filter(Boolean).join(' ');
+        if(!label)continue;
+      }else label=String(item);
+      const k=label.trim();
+      if(k&&!seen.has(k)){seen.add(k);out.push(k);}
+    }
+  }
+  return out;
+}
+// Unit conversion driven by the layer's own uom string — never assumed.
+const mm2in =v=>v==null?null:v/25.4;
+const kmh2mph=v=>v==null?null:v*0.621371;
+function convSpeed(v,uom){
+  if(v==null)return null;
+  if(/km_h-1/.test(uom))return kmh2mph(v);
+  if(/m_s-1/.test(uom)) return v*2.23694;
+  return v; // already mph
+}
+function convLen(v,uom){
+  if(v==null)return null;
+  if(/\bmm\b/.test(uom))return mm2in(v);
+  if(/degC|degF|percent/.test(uom))return v;
+  return v;
+}
+function convTempC(v,uom){
+  if(v==null)return null;
+  return /degF/.test(uom)?Math.round(v):Math.round(v*9/5+32);
+}
+
 async function loadPointForecast(){
   const body=document.getElementById('point-forecast-body');
-  body.innerHTML='<div class="lmsg">Fetching NWS gridpoint MEG 48,90...</div>';
+  const meta=document.getElementById('pf-meta');
+  body.innerHTML='<div class="lmsg">Fetching NWS gridpoint MEG 48,90 (narrative + hourly + raw grid)...</div>';
   try{
-    const r=await fetch('https://api.weather.gov/gridpoints/MEG/48,90/forecast?units=us',{headers:HDR});
-    const d=await r.json();
+    const [d,hourlyRes,gridRes]=await Promise.all([
+      jget(GRID+'/forecast?units=us',14000),
+      jget(GRID+'/forecast/hourly?units=us',14000).catch(e=>({_err:e.message})),
+      jget(GRID,14000).catch(e=>({_err:e.message}))
+    ]);
     const periods=(d.properties?.periods)||[];
     if(!periods.length){body.innerHTML='<div class="no-alerts">No forecast data available.</div>';return;}
-    const generated=d.properties?.generatedAt?new Date(d.properties.generatedAt).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+
+    const hours=(!hourlyRes._err&&hourlyRes.properties?.periods)||[];
+    const gp=(!gridRes._err&&gridRes.properties)||null;
+    const G=gp?{
+      gust  :gridExpand(gp.windGust),
+      qpf   :gridExpand(gp.quantitativePrecipitation),
+      sky   :gridExpand(gp.skyCover),
+      rh    :gridExpand(gp.relativeHumidity),
+      app   :gridExpand(gp.apparentTemperature),
+      snow  :gridExpand(gp.snowfallAmount),
+      ice   :gridExpand(gp.iceAccumulation),
+      pop   :gridExpand(gp.probabilityOfPrecipitation),
+      haz   :gridExpand(gp.hazards),
+      wind  :gridExpand(gp.windSpeed)
+    }:null;
+
+    const generated=d.properties?.generatedAt?new Date(d.properties.generatedAt).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
     const elev=d.properties?.elevation?.value;
-    let html=`<div style="font-size:10px;color:var(--muted);margin-bottom:10px;background:var(--bg);padding:6px 10px;border-radius:6px;">Generated: ${generated} CT${elev?` · Elevation: ${Math.round(elev*3.28084)} ft`:''} · Updated: ${d.properties?.updated?new Date(d.properties.updated).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):''}</div>`;
-    html+=periods.slice(0,14).map(p=>{
-      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),window._spcIdx??0);
-      const dtStart=p.startTime?new Date(p.startTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',hour12:true}):'';
-      const dtEnd=p.endTime?new Date(p.endTime).toLocaleString('en-US',{weekday:'short',hour:'numeric',hour12:true}):'';
+    const missing=[];
+    if(hourlyRes._err)missing.push('hourly breakdown ('+hourlyRes._err+')');
+    if(gridRes._err)  missing.push('raw gridded detail ('+gridRes._err+')');
+
+    let html=`<div style="font-size:10px;color:var(--muted);margin-bottom:10px;background:var(--bg);padding:6px 10px;border-radius:6px;">Generated: ${esc(generated)} CT${elev?` · Elevation: ${Math.round(elev*3.28084)} ft`:''} · ${periods.length} periods · ${hours.length} forecast hours</div>`;
+    if(missing.length)html+=`<div class="obs-stale">⚠ Showing the narrative forecast only — could not load: ${esc(missing.join('; '))}. Detail chips and hourly tables are omitted rather than estimated.</div>`;
+
+    html+=periods.slice(0,14).map((p,pi)=>{
+      const risk=rLvl((p.shortForecast||'')+' '+(p.detailedForecast||''),spcNow());
+      const ps=Date.parse(p.startTime),pe=Date.parse(p.endTime);
+      const dtStart=p.startTime?new Date(p.startTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',hour12:true}):'';
+      const dtEnd=p.endTime?new Date(p.endTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',hour:'numeric',hour12:true}):'';
       const bgColor=p.isDaytime?'#fff':'#f8f9fb';
       const riskStyle=risk.bg?`background:${risk.bg};color:${risk.color};`:'';
+
+      /* ── extra detail chips from the raw grid ── */
+      let chips='',hazHtml='';
+      if(G&&!isNaN(ps)&&!isNaN(pe)){
+        const gustRaw=gridAgg(G.gust,ps,pe,'max');
+        const gust=gustRaw!=null?Math.round(convSpeed(gustRaw,(G.gust[0]||{}).uom||'')):null;
+        const qpfRaw=gridAgg(G.qpf,ps,pe,'sum');
+        const qpf=qpfRaw!=null?convLen(qpfRaw,(G.qpf[0]||{}).uom||''):null;
+        const sky=gridAgg(G.sky,ps,pe,'avg');
+        const rhMin=gridAgg(G.rh,ps,pe,'min'),rhMax=gridAgg(G.rh,ps,pe,'max');
+        const appMin=gridAgg(G.app,ps,pe,'min'),appMax=gridAgg(G.app,ps,pe,'max');
+        const appU=(G.app[0]||{}).uom||'';
+        const snowRaw=gridAgg(G.snow,ps,pe,'sum');
+        const snow=snowRaw!=null?convLen(snowRaw,(G.snow[0]||{}).uom||''):null;
+        const iceRaw=gridAgg(G.ice,ps,pe,'sum');
+        const ice=iceRaw!=null?convLen(iceRaw,(G.ice[0]||{}).uom||''):null;
+        const popMax=gridAgg(G.pop,ps,pe,'max');
+        const hazards=gridText(G.haz,ps,pe);
+
+        const c=[];
+        if(gust!=null&&gust>0)c.push(`<span class="pf-chip ${gust>=40?'alarm':''}">Peak gust <b>${gust} mph</b></span>`);
+        if(qpf!=null&&qpf>0.001)c.push(`<span class="pf-chip ${qpf>=1?'alarm':''}">Rainfall <b>${qpf.toFixed(2)}"</b></span>`);
+        if(popMax!=null)c.push(`<span class="pf-chip">Max chance <b>${Math.round(popMax)}%</b></span>`);
+        if(sky!=null)c.push(`<span class="pf-chip">Sky cover <b>${Math.round(sky)}%</b></span>`);
+        if(rhMin!=null&&rhMax!=null)c.push(`<span class="pf-chip">Humidity <b>${Math.round(rhMin)}–${Math.round(rhMax)}%</b></span>`);
+        if(appMin!=null&&appMax!=null){
+          const lo=convTempC(appMin,appU),hi=convTempC(appMax,appU);
+          if(lo!=null&&hi!=null)c.push(`<span class="pf-chip ${hi>=100||lo<=20?'alarm':''}">Feels like <b>${lo}–${hi}°F</b></span>`);
+        }
+        if(snow!=null&&snow>0.05)c.push(`<span class="pf-chip alarm">Snow <b>${snow.toFixed(1)}"</b></span>`);
+        if(ice!=null&&ice>0.005)c.push(`<span class="pf-chip alarm">Ice <b>${ice.toFixed(2)}"</b></span>`);
+        if(c.length)chips=`<div class="pf-chips">${c.join('')}</div>`;
+        if(hazards.length)hazHtml=`<div class="pf-hz">⚠ NWS grid hazard: ${esc(hazards.join(' · '))}</div>`;
+      }
+
+      /* ── hourly breakdown for this period ── */
+      let hourly='';
+      const hs=hours.filter(h=>{const t=Date.parse(h.startTime);return t>=ps&&t<pe;});
+      if(hs.length){
+        hourly=`<details class="pf-hr"><summary>⏱ Hour-by-hour — ${hs.length} hours</summary>
+          <div class="pf-hr-scroll"><table class="pf-tbl">
+            <thead><tr><th>Hour</th><th>Temp</th><th>Dew</th><th>RH</th><th>Wind</th><th>Chance</th><th>Conditions</th></tr></thead>
+            <tbody>${hs.map(h=>{
+              const hr=new Date(h.startTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',hour:'numeric',hour12:true});
+              const dew=h.dewpoint?.value!=null?Math.round(h.dewpoint.value*9/5+32)+'°':'—';
+              const rhh=h.relativeHumidity?.value!=null?Math.round(h.relativeHumidity.value)+'%':'—';
+              const pop=h.probabilityOfPrecipitation?.value!=null?h.probabilityOfPrecipitation.value+'%':'—';
+              return`<tr><td class="t">${esc(hr)}</td><td>${h.temperature}°${esc(h.temperatureUnit||'F')}</td><td>${dew}</td><td>${rhh}</td>
+                <td>${esc((h.windSpeed||'—')+' '+(h.windDirection||''))}</td><td>${pop}</td><td>${esc(h.shortForecast||'')}</td></tr>`;
+            }).join('')}</tbody>
+          </table></div></details>`;
+      }
+
       return`<div class="detailed-day" style="background:${bgColor};padding:11px 13px;border-radius:8px;margin-bottom:8px;border-left:3px solid ${p.isDaytime?'var(--gold)':'var(--navy)'};">
         <div class="detailed-row">
           <div class="detailed-icon">${wIcon(p.shortForecast)}</div>
-          <div class="detailed-info" style="flex:1;">
+          <div class="detailed-info" style="flex:1;min-width:0;">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
-              <span class="detailed-name" style="font-size:13px;">${p.name}</span>
-              <span style="font-size:9px;color:var(--muted);">${dtStart} → ${dtEnd}</span>
-              <span class="fc-risk ${risk.c}" style="font-size:9px;${riskStyle}">${risk.l}</span>
+              <span class="detailed-name" style="font-size:13px;">${esc(p.name)}</span>
+              <span style="font-size:9px;color:var(--muted);">${esc(dtStart)} → ${esc(dtEnd)}</span>
+              <span class="fc-risk ${risk.c}" style="font-size:9px;${riskStyle}">${esc(risk.l)}</span>
             </div>
             <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;">
-              <span style="font-size:20px;font-weight:700;color:${p.isDaytime?'var(--red)':'var(--navy)'};">${p.temperature}°${p.temperatureUnit||'F'}</span>
-              <span style="font-size:11px;color:var(--text);font-weight:500;">${p.shortForecast}</span>
-              <span style="font-size:10px;color:var(--muted);">💨 ${p.windSpeed||''} ${p.windDirection||''}</span>
+              <span style="font-size:20px;font-weight:700;color:${p.isDaytime?'var(--red)':'var(--navy)'};">${p.temperature}°${esc(p.temperatureUnit||'F')}</span>
+              <span style="font-size:11px;color:var(--text);font-weight:500;">${esc(p.shortForecast||'')}</span>
+              <span style="font-size:10px;color:var(--muted);">💨 ${esc((p.windSpeed||'')+' '+(p.windDirection||''))}</span>
               ${p.probabilityOfPrecipitation?.value!=null?`<span style="font-size:10px;color:var(--muted);">💧 ${p.probabilityOfPrecipitation.value}% precip</span>`:''}
-              ${p.relativeHumidity?.value!=null?`<span style="font-size:10px;color:var(--muted);">💦 ${p.relativeHumidity.value}% RH</span>`:''}
-              ${p.dewpoint?.value!=null?`<span style="font-size:10px;color:var(--muted);">🌡 Dew ${Math.round(p.dewpoint.value*9/5+32)}°F</span>`:''}
             </div>
-            <div class="detailed-desc" style="line-height:1.6;">${p.detailedForecast||''}</div>
+            ${hazHtml}
+            ${chips}
+            <div class="detailed-desc" style="line-height:1.6;margin-top:7px;">${esc(p.detailedForecast||'')}</div>
+            ${hourly}
           </div>
         </div>
       </div>`;
     }).join('');
     body.innerHTML=html;
+    if(meta)meta.textContent=`${periods.length} periods · ${hours.length} hrs${gp?' · raw grid OK':' · raw grid unavailable'}`;
   }catch(e){
-    body.innerHTML=`<div class="no-alerts">Unable to fetch point forecast: ${e.message}</div>`;
+    body.innerHTML=`<div class="no-alerts">Unable to fetch point forecast: ${esc(e.message)}</div>`;
+    if(meta)meta.textContent='Error';
   }
 }
-async function loadAFD(){
-  const box=document.getElementById('afd-box'),meta=document.getElementById('afd-meta');
-  box.textContent='Fetching...';meta.textContent='Connecting to NWS Memphis...';
-  try{
-    const r=await fetch('https://api.weather.gov/products/types/AFD/locations/MEG',{headers:HDR});
-    const d=await r.json();const latest=d['@graph']?.[0];
-    if(!latest){box.textContent='No AFD available.';return;}
-    const r2=await fetch(latest['@id'],{headers:HDR});
-    const d2=await r2.json();
-    const issued=d2.issuanceTime?new Date(d2.issuanceTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
-    meta.textContent='Issued: '+issued+' · NWS Memphis (MEG)';
-    box.textContent=d2.productText||'No text available.';
-  }catch(e){box.textContent='Unable to fetch AFD.';}
-}
-
 /* ── MESOSCALE ── */
 async function loadMesoscale(){
   const box=document.getElementById('md-box'),meta=document.getElementById('md-meta');
   box.innerHTML='<div class="lmsg">Fetching active SPC Mesoscale Discussions...</div>';
   meta.textContent='Loading...';
   try{
-    const r=await fetch('https://api.weather.gov/products?type=SWOMCD&limit=20',{headers:HDR});
-    const d=await r.json();
+    const d=await jget('https://api.weather.gov/products?type=SWOMCD&limit=20',12000);
     const products=d['@graph']||[];
     if(!products.length){
       box.innerHTML='<div class="no-alerts"><span class="sdot"></span>No active Mesoscale Discussions at this time.</div>';
@@ -1075,9 +1650,9 @@ async function loadMesoscale(){
     }
     meta.textContent=`${products.length} recent MD${products.length!==1?'s':''} · SPC Mesoscale Convective Discussion`;
     const recent=products.slice(0,8);
-    const fetches=await Promise.all(recent.map(p=>fetch(p['@id'],{headers:HDR}).then(r=>r.json()).catch(()=>null)));
+    const fetches=await Promise.all(recent.map(p=>jget(p['@id'],10000).catch(()=>null)));
     box.innerHTML=fetches.filter(Boolean).map((md,i)=>{
-      const issued=md.issuanceTime?new Date(md.issuanceTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
+      const issued=md.issuanceTime?new Date(md.issuanceTime).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
       const txt=md.productText||'';
       const mdNum=(txt.match(/Mesoscale Discussion (\d+)/i)||txt.match(/MD (\d+)/i)||['','?'])[1];
       const areasMatch=txt.match(/AREAS AFFECTED\.\.\.([^\n]+)/i);
@@ -1098,13 +1673,374 @@ async function loadMesoscale(){
   }
 }
 
-/* ── RADAR RELOAD ── */
-function cycleRadar(id){
-  const frame=document.getElementById(id);
-  if(!frame)return;
-  const src=frame.src;
-  frame.src='about:blank';
-  setTimeout(()=>{frame.src=src;},100);
+/* ═══════════════════════════════════════════════════════════════════════════
+   BARON WEATHER RADAR (v24) — replaces the radar.weather.gov iframes
+   ───────────────────────────────────────────────────────────────────────────
+   HOW AUTHENTICATION WORKS, AND WHY IT IS SHAPED THIS WAY
+
+   Baron signs every request with HMAC-SHA1 over the string "<key>:<unix_ts>".
+   Producing that signature needs the API SECRET — which must NEVER be in this
+   file, because this page is served from GitHub Pages and is world-readable.
+
+   Verified against the live API on 2026-09-01: the signed string contains the
+   key and timestamp ONLY — it does not cover the request path. One signature
+   therefore authorizes EVERY Baron request until it expires. That is what lets
+   a tiny Worker hand out a signature while the tiles stream browser → Baron
+   directly, with no proxy in the hot path.
+
+   Measured signature window (not documented by Baron — tested):
+       ts 14 min old   → 200        ts 15 min old   → 403
+       ts 10 min ahead → 200        ts 20 min ahead → 403
+   So: ±15 minutes. We rotate at 10 to keep margin.
+
+   Also verified, and the reason a naive port renders a blank map:
+   Baron serves TMS (y=0 is the BOTTOM row). Leaflet defaults to XYZ (y=0 top).
+   With the wrong orientation every tile still returns HTTP 200 — but it is a
+   116-byte fully transparent PNG. No error, no warning, just an empty radar.
+   Hence tms:true on every layer below.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const BARON_CONFIG={
+  // ── REQUIRED ──────────────────────────────────────────────────────────────
+  // Your Cloudflare Worker's /sig endpoint (see lcema-baron-worker.js).
+  // Example: 'https://lcema-baron.beaumoore.workers.dev/sig'
+  // Until this is filled in the Radar tab shows setup instructions, not a
+  // blank map.
+  sigUrl:'',
+
+  // Trial keys expire. The page warns starting 21 days out and states plainly
+  // that radar is dark once the date passes, rather than showing an empty map.
+  keyExpires:'2026-09-14',
+
+  host:'https://api.velocityweather.com/v1',
+  legendHost:'https://static.velocityweather.com/legends',
+  frames:10,          // instances to pull for the animation loop
+  refreshMs:150000,   // re-pull the instance list every 2.5 min
+  sigTtlMs:600000     // rotate the signature every 10 min (window is 15)
+};
+
+const BARON_PRODUCTS={
+  'C39-0x0302-0':      {name:'Standard Radar',              cadence:'~2.5 min'},
+  'C39-0x0302-0.15min':{name:'Standard Radar (15-min trial)',cadence:'15 min'}
+};
+
+let brProduct='C39-0x0302-0';
+let brConfig ='Standard-Mercator';
+let brInstances=[];          // ISO time steps, OLDEST → NEWEST
+let brFrame=0;
+let brLayers={};             // time → L.TileLayer
+let brPlay=null;
+let brMap=null, brWarnLayer=null, brWazeLayer=null;
+let brCred=null, brCredAt=0;
+let brDiag=[];
+let brOpacity=0.75;
+
+function brLog(ok,n,msg){
+  brDiag.unshift({ok,n,msg});
+  brDiag=brDiag.slice(0,12);
+  const el=document.getElementById('baron-diag');
+  if(el)el.innerHTML=brDiag.map(d=>
+    `<div class="wz-drow"><span class="wz-dico">${d.ok?'✅':'❌'}</span>
+       <span class="wz-dn">${esc(d.n)}</span><span class="wz-dm">${esc(d.msg)}</span></div>`).join('');
+}
+
+/* Days until the key expires; null when no date configured. */
+function brKeyDaysLeft(){
+  if(!BARON_CONFIG.keyExpires)return null;
+  const t=Date.parse(BARON_CONFIG.keyExpires+'T23:59:59Z');
+  if(isNaN(t))return null;
+  return Math.floor((t-Date.now())/86400000);
+}
+function brRenderTrialBanner(){
+  const el=document.getElementById('baron-trial');
+  if(!el)return;
+  const d=brKeyDaysLeft();
+  if(d===null||d>21){el.style.display='none';return;}
+  el.style.display='block';
+  const date=new Date(BARON_CONFIG.keyExpires+'T12:00:00Z')
+    .toLocaleDateString('en-US',{timeZone:'America/Chicago',month:'long',day:'numeric',year:'numeric'});
+  el.innerHTML = d<0
+    ? `⛔ <strong>Baron API key expired ${esc(date)}.</strong> Radar on this dashboard is dark — this tab has no other radar source. Contact your Baron rep (Jessica Stumpf) to convert the trial, or use the NWS links below as an interim.`
+    : `⚠ <strong>Baron trial key expires in ${d} day${d!==1?'s':''} (${esc(date)}).</strong> Radar is the only source on this tab — when the key lapses this map goes blank. Convert the key before then.`;
+}
+
+/* Fetch a signature from the Worker. Cached for sigTtlMs. */
+async function brCreds(force){
+  if(!force && brCred && (Date.now()-brCredAt)<BARON_CONFIG.sigTtlMs)return brCred;
+  if(!BARON_CONFIG.sigUrl)throw new Error('NO_WORKER');
+  const t0=Date.now();
+  const d=await jget(BARON_CONFIG.sigUrl,10000,{headers:{}});
+  if(!d||!d.sig||!d.ts||!d.key){
+    throw new Error('Worker responded without sig/ts/key'+(d&&d.error?' — '+d.error:''));
+  }
+  brCred={key:d.key,sig:d.sig,ts:d.ts};
+  brCredAt=Date.now();
+  brLog(true,'Signature (Worker)',`issued ts=${d.ts} · ${Date.now()-t0} ms · rotates in 10 min`);
+  return brCred;
+}
+function brQ(url,c){return url+(url.includes('?')?'&':'?')+'sig='+encodeURIComponent(c.sig)+'&ts='+encodeURIComponent(c.ts);}
+
+function brInitMap(){
+  if(brMap)return;
+  // Leaflet comes from a CDN. If that request was blocked, every later step
+  // still "succeeds" — signature issued, instances parsed — while the user
+  // stares at an empty box. Fail loudly here instead of reporting success.
+  if(typeof L==='undefined')throw new Error('Leaflet failed to load from unpkg.com — the map library is unavailable, so radar cannot be drawn.');
+  brMap=L.map('baron-map',{zoomControl:true,scrollWheelZoom:true}).setView([LAT,LON],8);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}{r}.png',
+    {attribution:'&copy; OpenStreetMap &copy; CARTO · Radar &copy; Baron Weather',maxZoom:19,subdomains:'abcd'}).addTo(brMap);
+  brWarnLayer=L.layerGroup().addTo(brMap);
+  brWazeLayer=L.layerGroup().addTo(brMap);
+  // Labels ride above the radar so place names stay readable through the shading.
+  brMap.createPane('brLabels');
+  brMap.getPane('brLabels').style.zIndex=650;
+  brMap.getPane('brLabels').style.pointerEvents='none';
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_only_labels/{z}/{x}/{y}{r}.png',
+    {maxZoom:19,subdomains:'abcd',pane:'brLabels'}).addTo(brMap);
+  L.circleMarker([LAT,LON],{radius:6,color:'#C8102E',weight:2,fillColor:'#C8102E',fillOpacity:.9})
+   .bindPopup('<div class="wz-pop-t">Oxford — Lafayette County</div><div class="wz-pop-s">34.3665°N / 89.5196°W</div>')
+   .addTo(brMap);
+}
+
+function brTileLayer(time,c){
+  return L.tileLayer(
+    `${BARON_CONFIG.host}/${c.key}/tms/1.0.0/${brProduct}+${brConfig}+${time}/{z}/{x}/{y}.png?sig=${encodeURIComponent(c.sig)}&ts=${encodeURIComponent(c.ts)}`,
+    { tms:true,                 // ← REQUIRED. See the note at the top of this block.
+      opacity:brOpacity, maxNativeZoom:12, maxZoom:19, crossOrigin:true,
+      // A failed tile renders as a transparent 1x1 rather than Leaflet's broken-image
+      // icon — a missing tile should read as "no data here", not as a page fault.
+      errorTileUrl:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+      // Attribution lives on the base layer only; repeating it here prints it twice.
+    });
+}
+
+async function baronLoad(){
+  brRenderTrialBanner();
+  const note=document.getElementById('baron-note');
+  const msg =document.getElementById('baron-mapmsg');
+  const meta=document.getElementById('baron-meta');
+  if(!note)return;
+
+  // Not configured yet → show what to do, not an empty map.
+  if(!BARON_CONFIG.sigUrl){
+    brShowFailure('NO_WORKER','');
+    note.textContent='Baron Weather radar — awaiting Worker configuration.';
+    if(meta)meta.textContent='Not configured';
+    return;
+  }
+
+  note.textContent='Requesting signature and product instances from Baron...';
+  try{
+    brInitMap();
+    const c=await brCreds();
+    const t0=Date.now();
+    const url=brQ(`${BARON_CONFIG.host}/${c.key}/meta/tiles/product-instances/${brProduct}/${brConfig}.json?limit=${BARON_CONFIG.frames}`,c);
+    const d=await jget(url,12000,{headers:{}});
+    if(!Array.isArray(d)||!d.length)throw new Error('Product instance list was empty');
+
+    // Baron returns newest-first; reverse so the scrubber runs oldest → newest.
+    brInstances=d.map(x=>x.time).filter(Boolean).reverse();
+    brLog(true,'Product instances',`${brInstances.length} frames · ${Date.now()-t0} ms`);
+
+    // Drop cached layers for frames that aged out of the window.
+    Object.keys(brLayers).forEach(t=>{
+      if(!brInstances.includes(t)){try{brMap.removeLayer(brLayers[t]);}catch(e){}delete brLayers[t];}
+    });
+
+    const sc=document.getElementById('br-scrub');
+    sc.max=brInstances.length-1;
+    const wasLatest=(brFrame>=brInstances.length-1)||!brPlay;
+    brFrame=wasLatest?brInstances.length-1:Math.min(brFrame,brInstances.length-1);
+
+    const p=BARON_PRODUCTS[brProduct]||{name:brProduct,cadence:'?'};
+    const spanMin=brInstances.length>1
+      ? Math.round((Date.parse(brInstances[brInstances.length-1])-Date.parse(brInstances[0]))/60000):0;
+    note.innerHTML=`<strong>${esc(p.name)}</strong> · ${brInstances.length} frames covering ${spanMin} min · `+
+      `updates ${esc(p.cadence)} · shading: ${brConfig==='Mask1-Mercator'?'rain / mix / snow':'reflectivity (dBZ)'} · `+
+      `tiles fetched browser→Baron, signature via your Worker.`;
+    if(meta)meta.textContent=`${brInstances.length} frames · updated ${new Date().toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})} CT`;
+    document.getElementById('br-prodname').textContent=p.name;
+    document.getElementById('br-prodcode').textContent=brProduct;
+
+    msg.style.display='none';
+    baronShowFrame(brFrame);
+    baronDrawOverlays();
+    brLoadLegend();
+    setTimeout(()=>{try{brMap.invalidateSize();}catch(e){}},80);
+  }catch(e){
+    brLog(false,'Baron radar',e.message||String(e));
+    brShowFailure(e.message==='NO_WORKER'?'NO_WORKER':'FETCH',e.message||String(e));
+    note.textContent='Baron radar unavailable — see the panel above.';
+    if(meta)meta.textContent='Error';
+  }
+}
+
+/* The Radar tab has no second source by design, so a failure has to be loud,
+   explain itself, and hand over a working link rather than showing a blank map. */
+function brShowFailure(kind,detail){
+  const msg=document.getElementById('baron-mapmsg');
+  const wrap=document.getElementById('baron-diag-wrap');
+  if(wrap)wrap.open=true;
+  if(!msg)return;
+  const nws='https://radar.weather.gov/station/KNQA/standard';
+  const nws2='https://radar.weather.gov/station/KGWX/standard';
+  const body = kind==='NO_WORKER' ? `
+      <h4>⚙️ Baron radar not configured yet</h4>
+      <p>The dashboard needs a signature endpoint before it can request tiles. The Baron API signs
+      every request with your <strong>secret</strong>, which cannot live in this file — this page is
+      public on GitHub Pages.</p>
+      <ol>
+        <li>Deploy <code>lcema-baron-worker.js</code>: <code>wrangler deploy</code></li>
+        <li>Set the secrets: <code>wrangler secret put BARON_KEY</code> and <code>wrangler secret put BARON_SECRET</code></li>
+        <li>Add your GitHub Pages origin to <code>ALLOWED_ORIGINS</code> in the Worker</li>
+        <li>Put the Worker URL into <code>BARON_CONFIG.sigUrl</code> near the top of this file's script block</li>
+      </ol>`
+    : `
+      <h4>⚠️ Baron radar unavailable</h4>
+      <p>Could not load radar from the Baron Weather API. Reported reason:
+      <code>${esc(detail||'unknown')}</code></p>
+      <p><strong>What that usually means:</strong> a <code>403</code> is an expired signature or a key
+      without access to this product — check the trial expiry date. A CORS or network error means the
+      Worker is unreachable. Expand the diagnostics below for the exact sequence.</p>`;
+  msg.style.display='flex';
+  msg.innerHTML=`<div class="br-fail" style="max-width:620px;text-align:left;">
+      ${body}
+      <p style="margin-bottom:6px;"><strong>Until this is fixed, use NWS radar directly:</strong></p>
+      <div class="br-fallback">
+        <a href="${nws}" target="_blank" rel="noopener">KNQA Memphis ↗</a>
+        <a class="alt" href="${nws2}" target="_blank" rel="noopener">KGWX Columbus AFB ↗</a>
+      </div>
+    </div>`;
+}
+
+async function baronShowFrame(i){
+  if(!brInstances.length||!brMap)return;
+  brFrame=Math.max(0,Math.min(brInstances.length-1,i));
+  const time=brInstances[brFrame];
+  let c;
+  try{ c=await brCreds(); }catch(e){ brShowFailure('FETCH',e.message); return; }
+
+  if(!brLayers[time])brLayers[time]=brTileLayer(time,c);
+  // Swap rather than stack: showing two frames at once would composite two
+  // different times into one picture.
+  Object.entries(brLayers).forEach(([t,l])=>{if(t!==time&&brMap.hasLayer(l))brMap.removeLayer(l);});
+  if(!brMap.hasLayer(brLayers[time]))brLayers[time].addTo(brMap);
+  brLayers[time].setOpacity(brOpacity);
+
+  const d=new Date(time);
+  const ageMin=Math.round((Date.now()-d.getTime())/60000);
+  const stale=ageMin>25;
+  const st=document.getElementById('br-stamp');
+  if(st){
+    st.className='br-stamp'+(stale?' stale':'');
+    st.innerHTML=`${esc(d.toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}))} CT`
+      +`<span class="age">${stale?'⚠ ':''}${ageMin} min old</span>`;
+  }
+  document.getElementById('br-frame').textContent=`frame ${brFrame+1}/${brInstances.length}`;
+  document.getElementById('br-scrub').value=brFrame;
+}
+
+function baronStep(n){baronStopPlay();baronShowFrame(brFrame+n);}
+function baronLatest(){baronStopPlay();baronShowFrame(brInstances.length-1);}
+function baronTogglePlay(){brPlay?baronStopPlay():baronStartPlay();}
+function baronStartPlay(){
+  if(brInstances.length<2)return;
+  document.getElementById('br-play').textContent='⏸ Pause';
+  brPlay=setInterval(()=>{
+    let n=brFrame+1;
+    // Hold the newest frame a beat so the loop reads as "…and this is now".
+    if(n>=brInstances.length){n=0;baronShowFrame(n);return;}
+    baronShowFrame(n);
+  },650);
+}
+function baronStopPlay(){
+  if(brPlay)clearInterval(brPlay);
+  brPlay=null;
+  const b=document.getElementById('br-play');
+  if(b)b.textContent='▶ Animate';
+}
+function baronSetOpacity(v){
+  brOpacity=Math.max(.2,Math.min(1,v/100));
+  Object.values(brLayers).forEach(l=>{try{l.setOpacity(brOpacity);}catch(e){}});
+}
+function baronSetProduct(code){
+  if(code===brProduct)return;
+  brProduct=code;baronStopPlay();
+  Object.values(brLayers).forEach(l=>{try{brMap.removeLayer(l);}catch(e){}});
+  brLayers={};
+  document.getElementById('br-p-std').classList.toggle('on',code==='C39-0x0302-0');
+  document.getElementById('br-p-15').classList.toggle('on',code==='C39-0x0302-0.15min');
+  baronLoad();
+}
+function baronSetConfig(cfg){
+  if(cfg===brConfig)return;
+  brConfig=cfg;baronStopPlay();
+  Object.values(brLayers).forEach(l=>{try{brMap.removeLayer(l);}catch(e){}});
+  brLayers={};
+  document.getElementById('br-c-std').classList.toggle('on',cfg==='Standard-Mercator');
+  document.getElementById('br-c-m1').classList.toggle('on',cfg==='Mask1-Mercator');
+  baronLoad();
+}
+function baronFit(){
+  if(!brMap)return;
+  brMap.setView([LAT,LON],9);
+}
+
+/* Warning polygons + Waze incidents drawn over the radar, from data the
+   dashboard has already fetched. No extra API calls. */
+function baronDrawOverlays(){
+  if(!brMap||!brWarnLayer)return;
+  brWarnLayer.clearLayers();brWazeLayer.clearLayers();
+
+  if(document.getElementById('br-ov-warn')?.checked){
+    let n=0;
+    countyAlerts.forEach(a=>{
+      const g=a.geometry;
+      if(!g)return;
+      const cat=alertCategory(a.properties.event);
+      const col=cat==='warning'?'#C8102E':cat==='watch'?'#F5C518':'#c85c00';
+      const rings=g.type==='Polygon'?[g.coordinates]:g.type==='MultiPolygon'?g.coordinates:null;
+      if(!rings)return;
+      rings.forEach(poly=>{
+        const latlngs=poly[0].map(p=>[p[1],p[0]]);
+        L.polygon(latlngs,{color:col,weight:2.5,fillColor:col,fillOpacity:.10,dashArray:cat==='watch'?'7 5':null})
+         .bindPopup(`<div class="wz-pop-t">${esc(a.properties.event||'Alert')}</div>
+            <div class="wz-pop-s">${esc(a.properties.headline||'')}</div>`)
+         .addTo(brWarnLayer);
+        n++;
+      });
+    });
+    if(n)brLog(true,'Warning overlay',`${n} polygon${n!==1?'s':''} from the Lafayette-filtered alert set`);
+  }
+
+  if(document.getElementById('br-ov-waze')?.checked){
+    wazeAlerts.forEach(a=>{
+      const loc=a.location;
+      if(!loc||loc.y==null||loc.x==null)return;
+      const t=wzType(a);
+      L.marker([loc.y,loc.x],{icon:L.divIcon({className:'wz-pin',iconSize:[24,24],iconAnchor:[12,12],
+        html:`<div class="wz-pin-in wz-c-${t.cls}" style="width:24px;height:24px;font-size:11px;">${t.ic}</div>`})})
+       .bindPopup(`<div class="wz-pop-t">${t.ic} ${esc(t.lbl)}</div><div class="wz-pop-s">${esc(wzPlace(a))}</div>`)
+       .addTo(brWazeLayer);
+    });
+  }
+}
+
+async function brLoadLegend(){
+  const el=document.getElementById('baron-legend');
+  if(!el)return;
+  try{
+    // Legends live on a static host and need no signature.
+    const d=await jget(`${BARON_CONFIG.legendHost}/${brProduct}/${brConfig}/legend.json`,10000,{headers:{}});
+    const entries=(d.palettes&&d.palettes[0]&&d.palettes[0].entries)||[];
+    if(!entries.length){el.innerHTML='';return;}
+    el.innerHTML=`<div class="br-lgd-h">${brConfig==='Mask1-Mercator'?'Precipitation type &amp; intensity':'Reflectivity (dBZ)'}</div>`
+      +`<div class="br-lgd">${entries.map(e=>{
+          const hex=String(e.color||'').slice(0,7);
+          const v=String(e.value||'').replace(' dBZ','');
+          return `<div class="c"><i style="background:${esc(hex)}"></i><span class="v">${esc(v)}</span></div>`;
+        }).join('')}</div>`;
+    brLog(true,'Legend',`${entries.length} colour stops`);
+  }catch(e){ el.innerHTML=''; brLog(false,'Legend',e.message); }
 }
 
 /* ── MEG PRODUCT CATALOG ── */
@@ -1170,15 +2106,241 @@ const PRODUCT_ICONS={
   TCM:'🌀',MIS:'📌',FZL:'❄️',AVA:'🏔️',AVW:'🏔️'
 };
 
+/* ═══════════════════════════════════════════════════════════════════
+   PLAIN-LANGUAGE PRODUCT DECODER (v23)
+
+   NWS text products are written for other meteorologists: WMO headers,
+   dot-delimited sections, hard wrapping at ~68 characters, and heavy
+   abbreviation. This turns one into something readable WITHOUT changing
+   what it says.
+
+   It is a deterministic reformatter, not a generative summary. It only:
+     1. strips the WMO/AWIPS routing header
+     2. splits on the product's own real section markers (.SHORT TERM...)
+     3. un-wraps hard-wrapped lines back into paragraphs
+     4. expands known abbreviations INLINE, keeping the original token
+        visible in a tooltip
+     5. lifts sentences that already contain impact language into a
+        "Key Lines" list — quoted from the product, never paraphrased
+   Nothing is invented, nothing is inferred, and the exact raw product is
+   always one click away. On a public-safety display that matters more
+   than fluency.
+   ═══════════════════════════════════════════════════════════════════ */
+
+// Expanded on exact standalone tokens only (\b…\b, case-sensitive uppercase).
+// A loose match would rewrite "ICE" inside "POLICE" and "MS" inside "TSTMS".
+const NWS_GLOSSARY={
+  MCS:'mesoscale convective system (a large organized storm cluster)',
+  MCV:'mesoscale convective vortex (spin left behind by a storm cluster)',
+  QLCS:'quasi-linear convective system (a squall line)',
+  CAPE:'CAPE (instability — storm fuel)',
+  SBCAPE:'surface-based CAPE (instability for storms rooted at the ground)',
+  MUCAPE:'most-unstable CAPE (instability for elevated storms)',
+  MLCAPE:'mixed-layer CAPE (instability averaged near the ground)',
+  CIN:'CIN (a warm cap holding storms down)',
+  LLJ:'low-level jet (strong winds just above the ground)',
+  SRH:'storm-relative helicity (low-level spin available to storms)',
+  EHI:'energy-helicity index (combined instability and spin)',
+  STP:'significant tornado parameter',
+  PWAT:'precipitable water (how much moisture is in the column)',
+  PW:'precipitable water',
+  QPF:'forecast rainfall amount',
+  PoP:'chance of precipitation',
+  POPS:'chances of precipitation',
+  POP:'chance of precipitation',
+  DPVA:'upper-level lift',
+  WAA:'warm air moving in',
+  CAA:'cold air moving in',
+  EML:'elevated mixed layer (a warm cap aloft)',
+  H5:'500 mb (mid-levels of the atmosphere)',
+  H7:'700 mb (lower-middle atmosphere)',
+  H85:'850 mb (just above the ground)',
+  SFC:'surface',
+  AOA:'at or above',
+  AOB:'at or below',
+  VFR:'VFR (clear flying conditions)',
+  MVFR:'MVFR (marginal flying conditions)',
+  IFR:'IFR (poor flying conditions)',
+  LIFR:'LIFR (very poor flying conditions)',
+  TAF:'terminal aerodrome forecast (airport forecast)',
+  TSRA:'thunderstorms with rain',
+  SHRA:'rain showers',
+  TSTM:'thunderstorm',
+  TSTMS:'thunderstorms',
+  SHWRS:'showers',
+  CIGS:'cloud ceilings',
+  VSBY:'visibility',
+  VIS:'visibility',
+  WND:'wind', WNDS:'winds',
+  TEMPS:'temperatures',
+  MSTR:'moisture',
+  CNTRL:'central',
+  THRU:'through',
+  DVLP:'develop',
+  DVLPG:'developing',
+  ISOLD:'isolated',
+  SCT:'scattered',
+  NUMRS:'numerous',
+  WDSPRD:'widespread',
+  RH:'relative humidity',
+  LCL:'lifted condensation level (cloud base height)',
+  CWA:'county warning area (this office’s coverage)',
+  WFO:'weather forecast office',
+  SPC:'Storm Prediction Center',
+  WPC:'Weather Prediction Center',
+  MRGL:'Marginal risk (1 of 5)',
+  SLGT:'Slight risk (2 of 5)',
+  ENH:'Enhanced risk (3 of 5)',
+  MDT:'Moderate risk (4 of 5)',
+  LSR:'local storm report',
+  HWO:'hazardous weather outlook',
+  AFD:'area forecast discussion',
+  KT:'knots', KTS:'knots',
+  MPH:'mph',
+  UTC:'UTC', Z:'UTC'
+};
+
+// Sentences carrying these already contain the operational point.
+const IMPACT_WORDS=/\b(tornado|tornadoes|damaging|destructive|significant|severe|hail|flash flood|flooding|life[- ]threatening|watch|warning|evacuat|power outage|wind gusts?|straight[- ]line|derecho|blizzard|ice storm|freezing rain|heat index|wind chill|record)\b/i;
+const TIMING_WORDS=/\b(this (morning|afternoon|evening|)|tonight|tomorrow|overnight|today|monday|tuesday|wednesday|thursday|friday|saturday|sunday|\b\d{1,2}\s?(am|pm)\b|early|late|by mid)\b/i;
+
+/* ONE combined alternation, longest key first, applied in a SINGLE pass.
+   A per-key loop is wrong here: many NWS tokens nest (SBCAPE contains CAPE,
+   TSTMS contains TSTM, MUCAPE contains CAPE), so a later pass would match
+   inside the title="..." attribute a previous pass had just written and
+   shred the markup. A single pass only ever scans the original text. */
+const DG_RE=new RegExp(
+  '(?<![A-Za-z0-9_])('+
+  Object.keys(NWS_GLOSSARY)
+    .sort((a,b)=>b.length-a.length||a.localeCompare(b))
+    .map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))
+    .join('|')+
+  ')(?![A-Za-z0-9_])','g');
+
+function dgExpand(text){
+  // Escape FIRST so nothing from the feed can become markup, then annotate.
+  return esc(text).replace(DG_RE,(m)=>{
+    const def=NWS_GLOSSARY[m];
+    if(!def)return m;
+    return`<span class="dg-x" title="${esc(def)}">${m}</span>`;
+  });
+}
+
+// NWS wraps at ~68 chars. Rejoin wrapped lines; a blank line or a line that
+// looks like a list item / header starts a new paragraph.
+function dgParagraphs(block){
+  const lines=block.replace(/\r/g,'').split('\n');
+  const paras=[];let cur=[];
+  const flush=()=>{if(cur.length){paras.push(cur.join(' ').replace(/\s+/g,' ').trim());cur=[];}};
+  for(let raw of lines){
+    const line=raw.replace(/\s+$/,'');
+    if(!line.trim()){flush();continue;}
+    // A short ALL-CAPS line, a bullet, or an indented label stands alone.
+    if(/^\s*[-*•]/.test(line)||/^[A-Z0-9 ()/&.,'-]{3,}:$/.test(line.trim())){flush();paras.push(line.trim());continue;}
+    cur.push(line.trim());
+  }
+  flush();
+  return paras.filter(Boolean);
+}
+
+function dgSentences(text){
+  return text.replace(/\s+/g,' ')
+             .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
+             .map(s=>s.trim())
+             .filter(s=>s.length>25&&s.length<420);
+}
+
+/* Returns {sections:[{title,paras}], key:[...], stripped:n} */
+function decodeProduct(code,text){
+  let t=String(text||'').replace(/\r/g,'');
+
+  // 1 — strip the WMO/AWIPS routing header: everything up to and including
+  //     the issuance timestamp line (e.g. "1230 PM CDT Mon Sep 1 2026").
+  const stampRe=/^\s*\d{1,4}\s?(AM|PM)\s+[A-Z]{2,4}\s+\w{3}\s+\w{3}\s+\d{1,2}\s+\d{4}\s*$/m;
+  const m=t.match(stampRe);
+  let header='';
+  if(m&&m.index<1200){header=t.slice(0,m.index+m[0].length).trim();t=t.slice(m.index+m[0].length);}
+  t=t.replace(/\n?\$\$[\s\S]*$/,'');   // $$ terminates the product
+
+  // 2 — split on the product's own section markers: ".SHORT TERM..." etc.
+  const secRe=/^\.([A-Z][A-Z0-9 ()/&.,'’-]{1,70}?)\.\.\.\s*/gm;
+  const sections=[];
+  let last=0,lastTitle=null,mm;
+  while((mm=secRe.exec(t))!==null){
+    if(lastTitle!==null)sections.push({title:lastTitle,body:t.slice(last,mm.index)});
+    else if(t.slice(0,mm.index).trim())sections.push({title:'Overview',body:t.slice(0,mm.index)});
+    lastTitle=mm[1].replace(/\.+$/,'').trim();
+    last=secRe.lastIndex;
+  }
+  if(lastTitle!==null)sections.push({title:lastTitle,body:t.slice(last)});
+  else if(t.trim())sections.push({title:code+' — Full Text',body:t});
+
+  const out=sections
+    .map(s=>({title:s.title.replace(/&&/g,'').trim(),
+              paras:dgParagraphs(s.body.replace(/^&&\s*$/gm,''))}))
+    .filter(s=>s.paras.length);
+
+  // 3 — Key Lines: sentences from the product that already carry impact
+  //     language. Quoted verbatim, ranked, capped at 6. Not paraphrase.
+  const scored=[];
+  for(const s of out){
+    for(const p of s.paras){
+      for(const sent of dgSentences(p)){
+        let score=0;
+        if(IMPACT_WORDS.test(sent))score+=3;
+        if(TIMING_WORDS.test(sent))score+=1;
+        if(/\b(expect|likely|possible|anticipate|potential|will|could)\b/i.test(sent))score+=1;
+        if(/\b(tornado|damaging|flash flood|life[- ]threatening|destructive)\b/i.test(sent))score+=3;
+        if(score>=3)scored.push({sent,score,sec:s.title});
+      }
+    }
+  }
+  scored.sort((a,b)=>b.score-a.score);
+  const seen=new Set(),key=[];
+  for(const k of scored){
+    const sig=k.sent.slice(0,60).toLowerCase();
+    if(seen.has(sig))continue;seen.add(sig);
+    key.push(k);
+    if(key.length>=6)break;
+  }
+  return{sections:out,key,header};
+}
+
+function renderDigest(code,text){
+  const d=decodeProduct(code,text);
+  if(!d.sections.length){
+    return`<div class="dg-empty">This product has no recognizable section structure to reformat.<br>
+      Switch to <strong>Exact product</strong> above to read it as issued.</div>`;
+  }
+  const keyHtml=d.key.length?`<div class="dg-key">
+      <div class="dg-key-h">🔑 Key lines — quoted directly from this product</div>
+      <ul>${d.key.map(k=>`<li>${dgExpand(k.sent)} <span style="color:var(--muted);font-size:10px;">— ${esc(k.sec)}</span></li>`).join('')}</ul>
+    </div>`:'';
+  const secHtml=d.sections.map(s=>`<div class="dg-sec">
+      <div class="dg-sec-h">${esc(s.title)}</div>
+      ${s.paras.map(p=>`<p>${dgExpand(p)}</p>`).join('')}
+    </div>`).join('');
+  return keyHtml+secHtml;
+}
+
+// Toggle between the digest and the exact issued text.
+function dgSetView(mode){
+  const dg=document.getElementById('dg-view'),raw=document.getElementById('dg-raw');
+  const bd=document.getElementById('dg-btn-digest'),br=document.getElementById('dg-btn-raw');
+  if(!dg||!raw)return;
+  const digest=mode!=='raw';
+  dg.hidden=!digest; raw.hidden=digest;
+  if(bd)bd.classList.toggle('on',digest);
+  if(br)br.classList.toggle('on',!digest);
+}
+
 async function loadProductTypes(){
   const list=document.getElementById('products-list');
   const meta=document.getElementById('products-meta');
   list.innerHTML='<div class="lmsg">Fetching MEG product type catalog...</div>';
   meta.textContent='';
   try{
-    const r=await fetch('https://api.weather.gov/products/locations/MEG/types',{headers:HDR});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
+    const d=await jget('https://api.weather.gov/products/locations/MEG/types',12000);
     const types=d['@graph']||d.productTypes||d.types||[];
     if(!types.length){
       list.innerHTML='<div class="no-alerts"><span class="sdot"></span>No product types available.</div>';
@@ -1224,44 +2386,64 @@ async function loadProduct(code,name){
   const viewer=document.getElementById('product-viewer');
   // Mark active in the list
   document.querySelectorAll('.product-item').forEach(el=>el.classList.remove('active'));
-  event.target.closest('.product-item')?.classList.add('active');
+  try{
+    const ev=(typeof window!=='undefined'&&window.event)?window.event:null;
+    if(ev&&ev.target&&ev.target.closest)ev.target.closest('.product-item')?.classList.add('active');
+  }catch(_){}
 
   viewer.innerHTML=`<div class="lmsg">Fetching latest ${code} from NWS Memphis...</div>`;
   try{
     // Get the list of recent products of this type from MEG
-    const r=await fetch(`https://api.weather.gov/products/types/${code}/locations/MEG`,{headers:HDR});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
+    const d=await jget(`https://api.weather.gov/products/types/${encodeURIComponent(code)}/locations/MEG`,12000);
     const products=d['@graph']||[];
     if(!products.length){
       viewer.innerHTML=`<div class="hazard-card">
         <div class="hazard-top"><span class="abadge b-other">${code}</span><span class="hazard-name">${name||PRODUCT_DESCRIPTIONS[code]||code}</span></div>
-        <div class="hazard-desc">No recent ${code} products issued by NWS Memphis. This product type may be event-driven and only issued during specific conditions (e.g., ${code}==='TOR'?'active tornado events':code==='SVR'?'active severe thunderstorm events':'relevant weather situations'}).</div>
+        <div class="hazard-desc">No recent ${esc(code)} products issued by NWS Memphis. This product type is event-driven and is only issued during ${esc(code==='TOR'?'active tornado events':code==='SVR'?'active severe thunderstorm events':code==='LSR'?'events with reported storm damage':code==='RFW'?'critical fire weather conditions':'the relevant weather situation')}.</div>
+        <div style="margin-top:8px;"><a class="alink" href="https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=${encodeURIComponent(code)}" target="_blank" rel="noopener">Check on weather.gov ↗</a></div>
       </div>`;
       return;
     }
     // Fetch the latest one
     const latest=products[0];
-    const r2=await fetch(latest['@id'],{headers:HDR});
-    const d2=await r2.json();
-    const issued=d2.issuanceTime?new Date(d2.issuanceTime).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'';
-    const text=d2.productText||'No text available.';
+    const d2=await jget(latest['@id'],12000);
+    const issued=d2.issuanceTime?new Date(d2.issuanceTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true})+' CT':'';
+    const text=d2.productText||'';
     const icon=PRODUCT_ICONS[code]||'📄';
+    const govLink=`https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=${encodeURIComponent(code)}`;
+    const safeName=(name||'').replace(/'/g,"\\'");
+
+    if(!text.trim()){
+      viewer.innerHTML=`<div class="no-alerts">${code} returned an empty product body. <a class="alink" href="${govLink}" target="_blank" rel="noopener">Open on weather.gov ↗</a></div>`;
+      return;
+    }
+
     viewer.innerHTML=`
       <div class="card" style="margin:0;">
         <div class="card-hdr">
-          <span class="card-title">${icon} ${code} — ${name||PRODUCT_DESCRIPTIONS[code]||'NWS Product'}</span>
+          <span class="card-title">${icon} ${esc(code)} — ${esc(name||PRODUCT_DESCRIPTIONS[code]||'NWS Product')}</span>
           <div class="card-actions">
-            <button class="btn" onclick="loadProduct('${code}','${(name||'').replace(/'/g,"\\'")}')">Refresh</button>
-            <a class="alink" href="https://forecast.weather.gov/product.php?site=MEG&issuedby=MEG&product=${code}" target="_blank">weather.gov ↗</a>
+            <button class="btn" onclick="loadProduct('${esc(code)}','${safeName}')">Refresh</button>
+            <a class="alink" href="${govLink}" target="_blank" rel="noopener">Exact product on weather.gov ↗</a>
           </div>
         </div>
-        <div class="afd-meta">Issued: <strong>${issued}</strong> · Product ID: ${d2.id||latest.id||'N/A'} · Office: NWS Memphis (MEG)</div>
-        ${products.length>1?`<div style="font-size:10px;color:var(--muted);margin-bottom:8px;">📚 ${products.length} recent ${code} product${products.length!==1?'s':''} available. Showing the most recent.</div>`:''}
-        <div class="afd-box" style="height:calc(100vh - 460px);min-height:400px;">${text}</div>
+        <div class="afd-meta">Issued: <strong>${esc(issued)}</strong> · Product ID: ${esc(d2.id||latest.id||'N/A')} · Office: NWS Memphis (MEG)</div>
+        ${products.length>1?`<div style="font-size:10px;color:var(--muted);margin-bottom:8px;">📚 ${products.length} recent ${esc(code)} product${products.length!==1?'s':''} available. Showing the most recent.</div>`:''}
+
+        <div class="dg-bar">
+          <span class="lbl">View</span>
+          <span class="dg-toggle">
+            <button id="dg-btn-digest" class="on" onclick="dgSetView('digest')">📖 Plain language</button>
+            <button id="dg-btn-raw" onclick="dgSetView('raw')">📄 Exact product</button>
+          </span>
+          <span class="dg-note">Reformatted, not rewritten — sections split, line wrapping removed, abbreviations expanded (hover any dotted term). Nothing is added or interpreted. <strong>Verify against the exact product before it drives a decision.</strong></span>
+        </div>
+
+        <div id="dg-view" class="dg-scroll">${renderDigest(code,text)}</div>
+        <div id="dg-raw" class="afd-box dg-scroll" hidden>${esc(text)}</div>
       </div>`;
   }catch(e){
-    viewer.innerHTML=`<div class="no-alerts">Unable to fetch ${code}: ${e.message}</div>`;
+    viewer.innerHTML=`<div class="no-alerts">Unable to fetch ${esc(code)}: ${esc(e.message)}</div>`;
   }
 }
 
@@ -1272,9 +2454,7 @@ async function loadRadarStatus(){
   body.innerHTML='<div class="lmsg">Fetching KNQA radar telemetry...</div>';
   meta.textContent='';
   try{
-    const r=await fetch('https://api.weather.gov/radar/stations/KNQA',{headers:HDR});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
+    const d=await jget('https://api.weather.gov/radar/stations/KNQA',12000);
     const p=d.properties||d;
 
     // Location
@@ -1328,7 +2508,7 @@ async function loadRadarStatus(){
       healthStatus=rdaMode.toUpperCase();healthColor='#c85c00';
     }
 
-    meta.textContent=`KNQA · Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})} CT`;
+    meta.textContent=`KNQA · Updated ${new Date().toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})} CT`;
 
     body.innerHTML=`
       <!-- HEALTH BANNER -->
@@ -1390,7 +2570,7 @@ async function loadRadarStatus(){
         </div>
         <div style="background:#fff;border:1px solid var(--border);padding:9px 12px;border-radius:8px;">
           <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;">Last Generation</div>
-          <div style="font-size:11px;font-weight:600;color:var(--text);margin-top:2px;">${rdaGenTime?new Date(rdaGenTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}):'—'}</div>
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-top:2px;">${rdaGenTime?new Date(rdaGenTime).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}):'—'}</div>
         </div>
       </div>
       ${rdaAlarmSummary?`<div style="background:#fff7d6;border:1px solid #fde68a;padding:9px 12px;border-radius:6px;font-size:11px;color:#92400e;margin-bottom:14px;"><strong>⚠ RDA Alarm Summary:</strong> ${rdaAlarmSummary}</div>`:''}
@@ -1428,7 +2608,7 @@ async function loadRadarStatus(){
           </div>
         `).join('')}
       </div>
-      ${pingTime?`<div style="font-size:10px;color:var(--muted);margin-bottom:14px;">Ping tested: ${new Date(pingTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})}</div>`:''}
+      ${pingTime?`<div style="font-size:10px;color:var(--muted);margin-bottom:14px;">Ping tested: ${new Date(pingTime).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})}</div>`:''}
       `:''}
 
       <!-- RAW METADATA -->
@@ -1456,7 +2636,9 @@ const METAR_STATIONS=[
   {icao:'KCBM',name:'Columbus AFB, MS',dist:95},
   {icao:'KJAN',name:'Jackson Intl, MS',dist:130},
   {icao:'KMKL',name:'McKellar-Sipes, TN',dist:60},
-  {icao:'KMCB',name:'McComb-Pike Co, MS',dist:210}
+  {icao:'KMCB',name:'McComb-Pike Co, MS',dist:210},
+  // v23 — added per request. Farthest station, so the distance sort puts it last.
+  {icao:'KATL',name:'Hartsfield-Jackson Atlanta Intl, GA',dist:330}
 ];
 
 // Convert Celsius to Fahrenheit
@@ -1477,16 +2659,14 @@ async function loadMETAR(){
   try{
     const results=await Promise.all(METAR_STATIONS.map(async s=>{
       try{
-        const r=await fetch(`https://api.weather.gov/stations/${s.icao}/observations/latest`,{headers:HDR});
-        if(!r.ok)return {station:s,error:'HTTP '+r.status};
-        const d=await r.json();
+        const d=await jget(`https://api.weather.gov/stations/${s.icao}/observations/latest?require_qc=false`,10000);
         return {station:s,data:d.properties||d};
       }catch(e){return {station:s,error:e.message};}
     }));
 
     const good=results.filter(r=>r.data&&!r.error);
     const bad=results.filter(r=>r.error);
-    meta.textContent=`${good.length} station${good.length!==1?'s':''} reporting · ${bad.length} unavailable · Updated ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})} CT`;
+    meta.textContent=`${good.length} station${good.length!==1?'s':''} reporting · ${bad.length} unavailable · Updated ${new Date().toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',hour12:true})} CT`;
 
     if(!good.length){
       body.innerHTML='<div class="no-alerts">No METAR observations available. Check network connection.</div>';return;
@@ -1498,7 +2678,7 @@ async function loadMETAR(){
     body.innerHTML=good.map(({station,data})=>{
       const obs=data;
       const time=obs.timestamp||obs.observationTime||'';
-      const obsFormatted=time?new Date(time).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'Unknown';
+      const obsFormatted=time?new Date(time).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'Unknown';
       const age=time?Math.round((Date.now()-new Date(time).getTime())/60000):null; // minutes
       const ageStr=age!=null?(age<60?`${age} min ago`:`${Math.round(age/60)} hr ago`):'';
       const ageCls=age!=null?(age<60?'#22c55e':age<180?'#f59e0b':'#c85c00'):'#6b7280';
@@ -1534,16 +2714,7 @@ async function loadMETAR(){
       }).join(', '):'';
       const rawMetar=obs.rawMessage||'';
 
-      // Weather icon
-      const cond=(conditions||'').toLowerCase();
-      let icon='🌡';
-      if(cond.includes('thunder'))icon='⛈️';
-      else if(cond.includes('rain')||cond.includes('shower'))icon='🌧️';
-      else if(cond.includes('snow'))icon='❄️';
-      else if(cond.includes('fog')||cond.includes('mist'))icon='🌫️';
-      else if(cond.includes('cloud')||cond.includes('overcast'))icon='☁️';
-      else if(cond.includes('partly')||cond.includes('scattered'))icon='⛅';
-      else if(cond.includes('clear')||cond.includes('sunny'))icon='☀️';
+      const icon=metarIcon(conditions);
 
       return`<div class="hazard-card" style="border-left-color:${age!=null&&age<60?'#22c55e':'var(--navy)'};">
         <div class="hazard-top">
@@ -1576,76 +2747,6 @@ async function loadMETAR(){
     }
   }catch(e){
     body.innerHTML=`<div class="no-alerts">Unable to fetch METAR data: ${e.message}</div>`;
-    meta.textContent='Error';
-  }
-}
-
-/* ── MEG OFFICE BRIEFING FEED ── */
-async function loadMEGBriefing(){
-  const body=document.getElementById('megbrief-body');
-  const meta=document.getElementById('megbrief-meta');
-  body.innerHTML='<div class="lmsg">Fetching MEG office briefings feed...</div>';
-  meta.textContent='';
-  try{
-    const r=await fetch('https://api.weather.gov/offices/MEG/briefing',{headers:{'Accept':'application/ld+json','User-Agent':'LafayetteCountyWeatherCommand/1.0'}});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
-    // The feed can return items in a few possible shapes: @graph array, briefing[], or a single object
-    let items=d['@graph']||d.briefing||d.briefings||[];
-    if(!items.length && d.id){items=[d];} // single item fallback
-    if(!items.length){
-      body.innerHTML='<div class="no-alerts"><span class="sdot"></span>No briefings currently published by NWS Memphis. Check back after the next scheduled briefing.</div>';
-      meta.textContent='0 briefings · Source: api.weather.gov';
-      return;
-    }
-    // Sort newest first if we have a date/issuanceTime field
-    items.sort((a,b)=>{
-      const da=new Date(a.issuanceTime||a.issued||a.date||a.updated||0).getTime();
-      const db=new Date(b.issuanceTime||b.issued||b.date||b.updated||0).getTime();
-      return db-da;
-    });
-    meta.textContent=`${items.length} briefing${items.length!==1?'s':''} · Source: MEG`;
-    body.innerHTML=items.slice(0,20).map((it,i)=>{
-      // Extract common fields across possible shapes
-      const id=it.id||it['@id']||'';
-      const title=it.title||it.name||it.subject||'MEG Office Briefing';
-      const issuedRaw=it.issuanceTime||it.issued||it.date||it.updated||'';
-      const issued=issuedRaw?new Date(issuedRaw).toLocaleString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}):'Unknown';
-      const summary=it.summary||it.description||it.content||it.text||'';
-      const downloadUrl=it.downloadUrl||it.download||it.url||(id?id.replace(/\/briefing.*/,'/briefing/download/')+(it.identifier||i):'');
-      const isLatest=i===0;
-      return `<div class="hazard-card" style="border-left-color:${isLatest?'var(--red)':'var(--navy)'};">
-        <div class="hazard-top">
-          ${isLatest?'<span class="abadge b-warning">LATEST</span>':`<span class="abadge b-other">#${i+1}</span>`}
-          <span class="hazard-name">${title}</span>
-        </div>
-        <div class="hazard-meta">
-          📅 Issued: <strong>${issued}</strong>${it.expirationTime?` · Expires: ${new Date(it.expirationTime).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true})}`:''}
-        </div>
-        ${summary?`<div class="hazard-desc" style="max-height:200px;overflow-y:auto;">${summary}</div>`:''}
-        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-          ${id?`<a class="alink" href="${id}" target="_blank">📄 View Metadata ↗</a>`:''}
-          ${downloadUrl?`<a class="btn-navy" style="text-decoration:none;padding:5px 12px;" href="${downloadUrl}" target="_blank" download>⬇ Download PDF</a>`:''}
-          ${isLatest?`<a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>⬇ Latest PDF (shortcut)</a>`:''}
-        </div>
-      </div>`;
-    }).join('');
-
-    // Also try to preview the latest PDF inline below the list
-    const previewHtml=`
-      <div class="card" style="margin-top:14px;">
-        <div class="card-hdr">
-          <span class="card-title">🔍 Latest Briefing — Inline Preview</span>
-          <a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>Open in new tab ↗</a>
-        </div>
-        <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);background:#525659;">
-          <iframe src="https://api.weather.gov/offices/MEG/briefing/download/latest?_=${Date.now()}" style="width:100%;height:600px;border:none;display:block;" title="Latest MEG Briefing Preview"></iframe>
-        </div>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;">💡 If the PDF doesn't render inline in your browser, use the download button above. Some browsers block cross-origin PDF embeds.</div>
-      </div>`;
-    body.insertAdjacentHTML('beforeend',previewHtml);
-  }catch(e){
-    body.innerHTML=`<div class="no-alerts">Unable to fetch MEG office briefings feed: ${e.message}<br><br><a class="alink" href="https://api.weather.gov/offices/MEG/briefing" target="_blank">Try the raw feed ↗</a> &nbsp;·&nbsp; <a class="alink" href="https://api.weather.gov/offices/MEG/briefing/download/latest" target="_blank" download>Download latest PDF ↗</a></div>`;
     meta.textContent='Error';
   }
 }
@@ -1897,7 +2998,120 @@ function renderWazeStats(){
     <div class="wz-stat"><div class="n">${worst?Math.round(worst/60):0}</div><div class="l">Worst Delay (min)</div></div>`;
 }
 
-/* ── Incident cards, grouped by severity band ── */
+/* ═══════════════════════════════════════════════════════════════════
+   ROAD GROUPING — collapse repeated streets (v23)
+   Waze reports per road SEGMENT, so one road with a problem along its
+   length (Grove Loop is the standing example) arrives as many separate
+   rows and buries everything else. These helpers roll repeats up under
+   one expandable heading.
+
+   Grouping rules, chosen so nothing operationally distinct gets merged:
+     · key = normalized road name + city. Abbeville's Main St never merges
+       with Oxford's Main St.
+     · Road-type suffixes are normalized (RD/ROAD, DR/DRIVE, HWY/HIGHWAY…)
+       so "Grove Loop" and "GROVE LOOP RD" land together.
+     · A LEADING directional is KEPT — N Lamar and S Lamar are genuinely
+       different roads and must not merge.
+     · A TRAILING direction-of-travel marker (W, EB, SB…) is stripped from
+       the key so both directions of MS-6 roll up as one road, but the full
+       original street string is preserved verbatim on every child row, so
+       which direction is affected is never lost.
+     · A road with only one report renders exactly as before — no group
+       chrome around a single item.
+   ═══════════════════════════════════════════════════════════════════ */
+const WZ_SUFFIX={ RD:'ROAD', DR:'DRIVE', ST:'STREET', AVE:'AVENUE', AV:'AVENUE',
+  BLVD:'BOULEVARD', LN:'LANE', CT:'COURT', PL:'PLACE', TER:'TERRACE', TRL:'TRAIL',
+  PKWY:'PARKWAY', PKY:'PARKWAY', HWY:'HIGHWAY', CIR:'CIRCLE', LP:'LOOP',
+  EXT:'EXTENSION', BYP:'BYPASS', SQ:'SQUARE', XING:'CROSSING', CRK:'CREEK',
+  CR:'COUNTY ROAD', 'CO RD':'COUNTY ROAD' };
+// Exact tokens only. A loose test would strip the "W" out of "W University Ave".
+const WZ_TRAVEL_DIR=new Set(['N','S','E','W','NE','NW','SE','SW','NB','SB','EB','WB']);
+
+function wzRoadKey(street,city){
+  let s=String(street||'').toUpperCase().trim();
+  if(!s)return ' UNNAMED|'+String(city||'').toUpperCase().trim();
+  s=s.replace(/[.,]/g,' ').replace(/\s+/g,' ').trim();
+  let tok=s.split(' ');
+  // strip a trailing direction-of-travel marker (may be doubled: "MS-6 W W")
+  while(tok.length>1&&WZ_TRAVEL_DIR.has(tok[tok.length-1]))tok.pop();
+  // normalize a trailing road-type abbreviation
+  if(tok.length>1&&WZ_SUFFIX[tok[tok.length-1]])tok[tok.length-1]=WZ_SUFFIX[tok[tok.length-1]];
+  // normalize route numbering: "MS 6" / "MS-6" / "MS6" -> "MS-6"
+  let norm=tok.join(' ')
+    .replace(/\b(I|US|MS|SR|HWY|HIGHWAY|CR|COUNTY ROAD)\s*-?\s*(\d+)\b/g,'$1-$2');
+  return norm+'|'+String(city||'').toUpperCase().trim();
+}
+// Display name for a group: the shortest original spelling seen, which is
+// almost always the cleanest ("Grove Loop" over "GROVE LOOP RD SEGMENT 3").
+function wzGroupName(items,getStreet){
+  const names=items.map(i=>String(getStreet(i)||'').trim()).filter(Boolean);
+  if(!names.length)return'Unnamed location';
+  let best=names[0];
+  for(const n of names)if(n.length<best.length)best=n;
+  return best;
+}
+// The set of canonical road-type words a key may end with.
+const WZ_ROADTYPE_WORDS=new Set(Object.values(WZ_SUFFIX).concat(
+  ['ROAD','DRIVE','STREET','AVENUE','BOULEVARD','LANE','COURT','PLACE','TERRACE',
+   'TRAIL','PARKWAY','HIGHWAY','CIRCLE','LOOP','EXTENSION','BYPASS','SQUARE',
+   'CROSSING','WAY','RUN','COVE','PIKE','ROW','PATH','BEND','RIDGE']));
+
+/* Waze emits the same road under more than one spelling — "Grove Loop" on one
+   segment and "GROVE LOOP RD" on the next. Normalizing suffixes alone leaves
+   those in two groups, so after the first pass we merge any key that is
+   exactly another key minus ONE trailing road-type word.
+     GROVE LOOP        ⊂ GROVE LOOP ROAD      → merged
+     OLD TAYLOR        ⊂ OLD TAYLOR ROAD      → merged
+     GROVE STREET      ⊄ GROVE LOOP ROAD      → left alone (different roads)
+   Only that exact one-token relationship merges, so distinct roads that merely
+   share a first word never collapse together. */
+function wzMergeSuffixVariants(map){
+  const keys=[...map.keys()];
+  const target=new Map(); // shortKey -> longKey it should fold into
+  for(const k of keys){
+    const [road,city]=k.split('|');
+    for(const other of keys){
+      if(other===k)continue;
+      const [oroad,ocity]=other.split('|');
+      if(ocity!==city)continue;
+      const t=oroad.split(' ');
+      if(t.length<2)continue;
+      if(!WZ_ROADTYPE_WORDS.has(t[t.length-1]))continue;
+      if(t.slice(0,-1).join(' ')===road){target.set(k,other);break;}
+    }
+  }
+  // Fold shorter into longer, keeping first-appearance order of the survivor.
+  for(const [from,to] of target){
+    if(!map.has(from)||!map.has(to))continue;
+    map.get(to).push(...map.get(from));
+    map.delete(from);
+  }
+  return map;
+}
+
+// Group a list into [{key,name,city,items}], preserving the input order of
+// first appearance — which is already severity-sorted by the callers.
+function wzGroupByRoad(list,getStreet,getCity){
+  // Remember each item's position in the caller's already-sorted list so the
+  // suffix merge above can't reorder severity within a group.
+  const ord=new Map();
+  list.forEach((it,i)=>ord.set(it,i));
+  let map=new Map();
+  for(const it of list){
+    const k=wzRoadKey(getStreet(it),getCity(it));
+    if(!map.has(k))map.set(k,[]);
+    map.get(k).push(it);
+  }
+  map=wzMergeSuffixVariants(map);
+  return[...map.entries()].map(([key,items])=>{
+    items.sort((a,b)=>(ord.get(a)??0)-(ord.get(b)??0));
+    return{key,items,
+      name:wzGroupName(items,getStreet),
+      city:String(getCity(items[0])||'').trim()};
+  });
+}
+
+/* ── Incident cards, grouped by severity band, then by road ── */
 function renderWazeAlerts(){
   const body=document.getElementById('waze-alerts');
   document.getElementById('waze-alert-ct').textContent=wazeAlerts.length?wazeAlerts.length+' active':'';
@@ -1915,16 +3129,53 @@ function renderWazeAlerts(){
   bands.forEach(b=>{
     const set=wazeAlerts.filter(b.f);
     if(!set.length)return;
-    html+=`<div class="wz-group"><div class="wz-ghead">${esc(b.k)}<span class="ct">${set.length}</span></div>
-      ${set.map(renderWazeAlert).join('')}</div>`;
+    const groups=wzGroupByRoad(set,a=>a.street,a=>a.city);
+    const roads=groups.filter(g=>g.items.length>1).length;
+    html+=`<div class="wz-group"><div class="wz-ghead">${esc(b.k)}<span class="ct">${set.length}</span>`+
+      `<span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted);font-size:9px;">on ${groups.length} road${groups.length!==1?'s':''}`+
+      (roads?` · ${roads} grouped`:'')+`</span>`+
+      `</div>${groups.map(renderWazeRoadGroup).join('')}</div>`;
   });
   body.innerHTML=html;
 }
 
-function renderWazeAlert(a){
+/* One road's worth of incident reports: a single card when there's one
+   report, an expandable rollup when the same road repeats. */
+function renderWazeRoadGroup(g){
+  if(g.items.length===1)return`<div class="wz-solo">${renderWazeAlert(g.items[0])}</div>`;
+
+  // Worst (lowest-rank) type drives the group's color stripe and badge.
+  const worst=g.items.reduce((m,a)=>{const t=wzType(a);return(m===null||t.rank<m.rank)?t:m;},null);
+  // Breakdown by label, most severe first — order of appearance is already sorted.
+  const byLbl=new Map();
+  g.items.forEach(a=>{const l=wzType(a).lbl;byLbl.set(l,(byLbl.get(l)||0)+1);});
+  const breakdown=[...byLbl.entries()].map(([l,n])=>`${n}× ${l}`).join(' · ');
+  const newest=Math.max(...g.items.map(a=>a.pubMillis||0));
+  const agency=g.items.filter(a=>String(a.reportByMunicipalityUser)==='true').length;
+
+  return`<details class="wz-rd s-${worst.cls}">
+    <summary>
+      <span class="wz-rd-car">▶</span>
+      <span class="wz-badge b-${worst.cls}">${worst.ic} ${esc(worst.lbl)}</span>
+      <span class="wz-rd-name">${esc(g.name)}</span>
+      ${g.city?`<span class="wz-sub">${esc(g.city)}</span>`:''}
+      <span class="wz-rd-ct">${g.items.length} reports</span>
+      <span class="wz-age">${esc(wzAgo(newest))}</span>
+      <span class="wz-rd-roll">${esc(breakdown)}${agency?` · <b>${agency} agency-reported</b>`:''} — tap to expand all ${g.items.length}</span>
+    </summary>
+    <div class="wz-rd-body">${g.items.map(a=>renderWazeAlert(a,g.name)).join('')}</div>
+  </details>`;
+}
+
+function renderWazeAlert(a,groupName){
   const t=wzType(a);
   const sub=wzSubtype(a.subtype);
   const loc=a.location||{};
+  // Inside a road group the heading already names the road. Only repeat the
+  // street line when this report's own spelling differs (e.g. a directional
+  // variant like "MS-6 W"), so the direction is never hidden by the rollup.
+  const place=wzPlace(a);
+  const sameAsGroup=groupName&&String(a.street||'').trim().toUpperCase()===String(groupName).trim().toUpperCase();
   const gm=(loc.y&&loc.x)?`https://www.google.com/maps?q=${loc.y},${loc.x}`:'';
   const wz=(loc.y&&loc.x)?`https://www.waze.com/live-map/directions?to=ll.${loc.y}%2C${loc.x}`:'';
   const rel=a.reliability??null, conf=a.confidence??null;
@@ -1935,7 +3186,7 @@ function renderWazeAlert(a){
       ${a.roadType&&WZ_ROAD[a.roadType]?`<span class="wz-sub">${esc(WZ_ROAD[a.roadType])}</span>`:''}
       <span class="wz-age">${esc(wzAgo(a.pubMillis))}</span>
     </div>
-    <div class="wz-street">${esc(wzPlace(a))}</div>
+    ${sameAsGroup?'':`<div class="wz-street">${esc(place)}</div>`}
     ${a.reportDescription&&a.reportDescription.trim()?`<div class="wz-desc">💬 ${esc(a.reportDescription.trim())}</div>`:''}
     <div class="wz-meta">
       <strong>Reported:</strong> ${esc(wzTime(a.pubMillis))}
@@ -1960,30 +3211,82 @@ function renderWazeJams(){
     body.innerHTML='<div class="no-alerts">No congestion detected on monitored segments.</div>';
     return;
   }
-  body.innerHTML=wazeJams.map(j=>{
-    const lv=Math.max(0,Math.min(5,j.level||0));
-    const col=JAM_HEX[lv];
-    const pct=Math.round((lv/5)*100);
-    const blocked=(j.delay??-1)<0;
-    const mid=Array.isArray(j.line)&&j.line.length?j.line[Math.floor(j.line.length/2)]:null;
-    return `<div class="wz-jam">
-      <div class="wz-jlvl" style="background:${col};">
-        <div class="v">${lv}</div><div class="k">${esc(JAM_LBL[lv])}</div>
+  // Group by road. A road split into many jammed segments (Grove Loop) becomes
+  // one rollup row showing the worst level and the TOTAL affected length,
+  // instead of a dozen near-identical rows crowding out other roads.
+  const groups=wzGroupByRoad(wazeJams,j=>j.street,j=>j.city);
+  // Group ordering must still be worst-first, same as the flat list was.
+  groups.sort((a,b)=>{
+    const lv=g=>Math.max(...g.items.map(j=>Math.max(0,Math.min(5,j.level||0))));
+    const blk=g=>g.items.some(j=>(j.delay??-1)<0)?1:0;
+    const dly=g=>Math.max(...g.items.map(j=>j.delay||0));
+    return blk(b)-blk(a)||lv(b)-lv(a)||dly(b)-dly(a);
+  });
+  const multi=groups.filter(g=>g.items.length>1).length;
+  document.getElementById('waze-jam-ct').textContent=
+    `${wazeJams.length} segments across ${groups.length} road${groups.length!==1?'s':''}`+
+    (multi?` · ${multi} grouped`:'');
+  body.innerHTML=groups.map(renderJamGroup).join('');
+}
+
+function renderJamRow(j,inGroup){
+  const lv=Math.max(0,Math.min(5,j.level||0));
+  const col=JAM_HEX[lv];
+  const pct=Math.round((lv/5)*100);
+  const blocked=(j.delay??-1)<0;
+  const mid=Array.isArray(j.line)&&j.line.length?j.line[Math.floor(j.line.length/2)]:null;
+  return `<div class="wz-jam">
+    <div class="wz-jlvl" style="background:${col};">
+      <div class="v">${lv}</div><div class="k">${esc(JAM_LBL[lv])}</div>
+    </div>
+    <div class="wz-jbody">
+      <div class="wz-jst">${esc(j.street||'Unnamed segment')}${(!inGroup&&j.city)?' · '+esc(j.city):''}</div>
+      <div class="wz-jmeta">
+        <strong>Speed:</strong> ${esc(wzSpd(j.speedKMH))} &nbsp;·&nbsp;
+        <strong>Length:</strong> ${esc(wzLen(j.length))} &nbsp;·&nbsp;
+        <strong>Delay:</strong> ${blocked?'<span style="color:var(--red);font-weight:700;">SEGMENT BLOCKED</span>':esc(wzDelay(j.delay))}
+        ${j.roadType&&WZ_ROAD[j.roadType]?` &nbsp;·&nbsp; ${esc(WZ_ROAD[j.roadType])}`:''}
+        &nbsp;·&nbsp; ${esc(wzAgo(j.pubMillis))}
+        ${mid?` &nbsp;·&nbsp; <a class="alink" href="#" onclick="wzZoomTo(${mid.y},${mid.x});return false;">Zoom map</a>`:''}
       </div>
-      <div class="wz-jbody">
-        <div class="wz-jst">${esc(j.street||'Unnamed segment')}${j.city?' · '+esc(j.city):''}</div>
-        <div class="wz-jmeta">
-          <strong>Speed:</strong> ${esc(wzSpd(j.speedKMH))} &nbsp;·&nbsp;
-          <strong>Length:</strong> ${esc(wzLen(j.length))} &nbsp;·&nbsp;
-          <strong>Delay:</strong> ${blocked?'<span style="color:var(--red);font-weight:700;">SEGMENT BLOCKED</span>':esc(wzDelay(j.delay))}
-          ${j.roadType&&WZ_ROAD[j.roadType]?` &nbsp;·&nbsp; ${esc(WZ_ROAD[j.roadType])}`:''}
-          &nbsp;·&nbsp; ${esc(wzAgo(j.pubMillis))}
-          ${mid?` &nbsp;·&nbsp; <a class="alink" href="#" onclick="wzZoomTo(${mid.y},${mid.x});return false;">Zoom map</a>`:''}
-        </div>
-        <div class="wz-jbar"><i style="width:${pct}%;background:${col};"></i></div>
-      </div>
-    </div>`;
-  }).join('');
+      <div class="wz-jbar"><i style="width:${pct}%;background:${col};"></i></div>
+    </div>
+  </div>`;
+}
+
+function renderJamGroup(g){
+  if(g.items.length===1)return`<div class="wz-solo">${renderJamRow(g.items[0],false)}</div>`;
+
+  const lvls=g.items.map(j=>Math.max(0,Math.min(5,j.level||0)));
+  const worst=Math.max(...lvls);
+  const col=JAM_HEX[worst];
+  const blocked=g.items.filter(j=>(j.delay??-1)<0).length;
+  const maxDelay=Math.max(...g.items.map(j=>j.delay||0));
+  const totalLen=g.items.reduce((a,j)=>a+(j.length||0),0);
+  const speeds=g.items.map(j=>j.speedKMH).filter(v=>v!=null);
+  const slowest=speeds.length?Math.min(...speeds):null;
+  const newest=Math.max(...g.items.map(j=>j.pubMillis||0));
+
+  return`<details class="wz-rd s-jam" style="border-left-color:${col};">
+    <summary>
+      <span class="wz-rd-car">▶</span>
+      <span class="wz-jlvl" style="background:${col};width:40px;height:34px;">
+        <div class="v" style="font-size:13px;">${worst}</div><div class="k">${esc(JAM_LBL[worst])}</div>
+      </span>
+      <span class="wz-rd-name">${esc(g.name)}</span>
+      ${g.city?`<span class="wz-sub">${esc(g.city)}</span>`:''}
+      <span class="wz-rd-ct">${g.items.length} segments</span>
+      <span class="wz-age">${esc(wzAgo(newest))}</span>
+      <span class="wz-rd-roll">
+        Worst <b>${esc(JAM_LBL[worst])}</b> &nbsp;·&nbsp;
+        Total affected <b>${esc(wzLen(totalLen))}</b> &nbsp;·&nbsp;
+        ${blocked?`<b style="color:var(--red);">${blocked} segment${blocked!==1?'s':''} BLOCKED</b>`:`Max delay <b>${esc(wzDelay(maxDelay))}</b>`}
+        ${slowest!=null?` &nbsp;·&nbsp; Slowest <b>${esc(wzSpd(slowest))}</b>`:''}
+        — tap to expand all ${g.items.length}
+      </span>
+    </summary>
+    <div class="wz-rd-body">${g.items.map(j=>renderJamRow(j,true)).join('')}</div>
+  </details>`;
 }
 
 /* ═══ WAZE LEAFLET MAP ═══ */
@@ -2094,35 +3397,54 @@ function buildTicker(){
     items.push({b:cat.toUpperCase(),cls:'tk-'+cat,t:`${p.event}${exp?' — until '+exp:''}`});
   });
 
-  // 2 — Waze road closures
-  wazeAlerts.filter(a=>a.type==='ROAD_CLOSED').forEach(a=>{
-    items.push({b:'Road Closed',cls:'tk-closed',t:wzPlace(a)+(a.reportDescription?' — '+a.reportDescription:'')+' · '+wzAgo(a.pubMillis)});
+  // 2 — Waze road closures, one entry per road (exact type match, not substring)
+  wzGroupByRoad(wazeAlerts.filter(a=>a.type==='ROAD_CLOSED'),a=>a.street,a=>a.city).forEach(g=>{
+    const a=g.items[0];
+    const more=g.items.length>1?` (+${g.items.length-1} more segments)`:'';
+    items.push({b:'Road Closed',cls:'tk-closed',
+      t:wzPlace(a)+(a.reportDescription?' — '+a.reportDescription:'')+more+' · '+wzAgo(a.pubMillis)});
   });
 
-  // 3 — Waze crashes
-  wazeAlerts.filter(a=>a.type==='ACCIDENT').forEach(a=>{
-    items.push({b:a.subtype==='ACCIDENT_MAJOR'?'Major Crash':'Crash',cls:'tk-traffic',
-      t:wzPlace(a)+' · '+wzAgo(a.pubMillis)});
+  // 3 — Waze crashes, one entry per road
+  wzGroupByRoad(wazeAlerts.filter(a=>a.type==='ACCIDENT'),a=>a.street,a=>a.city).forEach(g=>{
+    const major=g.items.some(a=>a.subtype==='ACCIDENT_MAJOR');
+    const more=g.items.length>1?` (${g.items.length} reports)`:'';
+    items.push({b:major?'Major Crash':'Crash',cls:'tk-traffic',
+      t:wzPlace(g.items[0])+more+' · '+wzAgo(g.items[0].pubMillis)});
   });
 
-  // 4 — SPC convective outlook (only when there's a real risk)
-  const si=window._spcIdx??0;
-  if(si>=1)items.push({b:'SPC Day 1',cls:si>=3?'tk-warning':'tk-spc',t:`${SPC_LABELS[si]} risk — ${SPC_DESC[si]}`});
-
-  // 5 — Waze hazards & weather hazards
-  wazeAlerts.filter(a=>{const c=wzType(a).cls;return c==='hazard';}).slice(0,6).forEach(a=>{
-    const sub=wzSubtype(a.subtype);
-    items.push({b:'Hazard',cls:'tk-advisory',
-      t:wzPlace(a)+(sub?' — '+sub:'')+(a.reportDescription?' ('+a.reportDescription+')':'')});
+  // 4 — SPC convective outlooks. Day 1 always when there's a risk; Days 2–3
+  //     only at Slight (2/5) or above, so the ticker doesn't fill with routine
+  //     marginal risks two days out. A failed fetch says so — never a silent 0.
+  const si=spcNow();
+  if(window._spcDay1Err)items.push({b:'SPC Day 1',cls:'tk-info',t:'Outlook unavailable — '+window._spcDay1Err});
+  else if(typeof si==='number'&&si>=1)items.push({b:'SPC Day 1',cls:si>=3?'tk-warning':'tk-spc',t:`${SPC_LABELS[si]} risk — ${SPC_DESC[si]}`});
+  [2,3].forEach(dn=>{
+    const r=spcOutlooks[dn];
+    if(r&&!r.err&&typeof r.idx==='number'&&r.idx>=2)
+      items.push({b:'SPC Day '+dn,cls:r.idx>=3?'tk-warning':'tk-spc',t:`${SPC_LABELS[r.idx]} risk — ${SPC_DESC[r.idx]}`});
   });
 
-  // 6 — Worst Waze congestion (level 3+ or fully blocked)
-  wazeJams.filter(j=>(j.level||0)>=3||(j.delay??-1)<0).slice(0,6).forEach(j=>{
-    const lv=Math.max(0,Math.min(5,j.level||0));
-    const blocked=(j.delay??-1)<0;
-    items.push({b:blocked?'Blocked':'Congestion',cls:blocked?'tk-closed':'tk-traffic',
-      t:`${j.street||'Segment'}${j.city?' ('+j.city+')':''} — ${JAM_LBL[lv]}, ${blocked?'segment blocked':wzDelay(j.delay)+' delay'} · ${wzSpd(j.speedKMH)}`});
-  });
+  // 5 — Waze hazards & weather hazards, one entry per road (v23) so a road
+  //     reported many times doesn't take over the crawl.
+  wzGroupByRoad(wazeAlerts.filter(a=>wzType(a).cls==='hazard'),a=>a.street,a=>a.city)
+    .slice(0,6).forEach(g=>{
+      const a=g.items[0],sub=wzSubtype(a.subtype);
+      const more=g.items.length>1?` (+${g.items.length-1} more on this road)`:'';
+      items.push({b:'Hazard',cls:'tk-advisory',
+        t:wzPlace(a)+(sub?' — '+sub:'')+(a.reportDescription?' ('+a.reportDescription+')':'')+more});
+    });
+
+  // 6 — Worst Waze congestion (level 3+ or fully blocked), rolled up per road
+  wzGroupByRoad(wazeJams.filter(j=>(j.level||0)>=3||(j.delay??-1)<0),j=>j.street,j=>j.city)
+    .slice(0,6).forEach(g=>{
+      const lv=Math.max(...g.items.map(j=>Math.max(0,Math.min(5,j.level||0))));
+      const blocked=g.items.some(j=>(j.delay??-1)<0);
+      const maxDelay=Math.max(...g.items.map(j=>j.delay||0));
+      const segs=g.items.length>1?` · ${g.items.length} segments`:'';
+      items.push({b:blocked?'Blocked':'Congestion',cls:blocked?'tk-closed':'tk-traffic',
+        t:`${g.name}${g.city?' ('+g.city+')':''} — ${JAM_LBL[lv]}, ${blocked?'road blocked':wzDelay(maxDelay)+' delay'}${segs}`});
+    });
 
   // 7 — Current conditions from the point forecast
   if(window._nowLine)items.push({b:'Oxford Now',cls:'tk-info',t:window._nowLine});
@@ -2133,6 +3455,11 @@ function buildTicker(){
 
   const html=items.map(i=>`<span class="tk"><span class="tk-b ${i.cls}">${esc(i.b)}</span><span class="tk-txt">${esc(i.t)}</span></span>`).join('');
   const track=document.getElementById('ticker-track');
+  // The ticker markup sits AFTER this script block, so on the very first
+  // synchronous pass the element does not exist yet. v21 threw a TypeError
+  // here on every single page load. Bail quietly; the async loaders each
+  // call buildTicker() again once the DOM is complete.
+  if(!track)return;
   // Duplicate the run so the -50% keyframe loops seamlessly
   track.innerHTML=html+html;
   const secs=Math.max(28,items.length*7);
@@ -2150,10 +3477,10 @@ function toggleTicker(){
 async function refreshAll(){
   const btn=document.getElementById('refresh-all-btn');
   btn.classList.add('spinning');btn.textContent='🔄 Refreshing...';
-  await Promise.all([loadAlerts(),loadCWAAlerts(),loadSPC(),loadForecast(),loadPointForecast(),loadAFD(),loadMesoscale(),loadWaze()]);
-  loadMEGBriefing();
+  await Promise.all([loadAlerts(),loadCWAAlerts(),loadSPC(),loadForecast(),loadCurrentConditions(),loadPointForecast(),loadMesoscale(),loadWaze()]);
   loadMETAR();
   loadRadarStatus();
+  baronLoad();
   loadProductTypes();
   buildTicker();
   btn.classList.remove('spinning');btn.textContent='🔄 Refresh All Data';
@@ -2164,18 +3491,31 @@ loadAlerts();
 loadCWAAlerts();
 loadSPC();
 loadForecast();
+loadCurrentConditions();
 loadPointForecast();
-loadAFD();
 loadMesoscale();
-loadMEGBriefing();
 loadMETAR();
 loadRadarStatus();
 loadProductTypes();
 loadWaze();
-buildTicker();
+baronLoad();
+
+// Ticker markup follows this script, so build it once the DOM is parsed.
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',buildTicker,{once:true});
+else buildTicker();
 
 // Waze publishes on a ~2 min cadence — poll to match, keeps the ticker current
 setInterval(()=>{loadWaze();},120000);
+// Current Conditions re-reads the latest surface observation every 3 minutes
+startObsAutoRefresh();
+
+// Baron radar: re-pull the instance list on the product's cadence, but only
+// while the Radar tab is actually visible — idle tabs should not spend
+// transactions from a metered trial key.
+setInterval(()=>{
+  const panel=document.getElementById('panel-radar');
+  if(panel&&panel.classList.contains('active')&&BARON_CONFIG.sigUrl&&!brPlay)baronLoad();
+},BARON_CONFIG.refreshMs);
 </script>
 <div class="ticker" id="ticker">
   <div class="ticker-lbl"><span class="pulse"></span>LCEMA Live</div>
