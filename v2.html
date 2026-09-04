@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lafayette County EMA — Weather Command Dashboard</title>
+<title>Lafayette County EMA — Emergency Operation Center</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -80,25 +80,25 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:v
 
 /* SPC */
 .spc-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:6px;}
-.spc-badge{border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid rgba(0,0,0,.07);}
+.spc-badge{border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--surface2-border);background:var(--surface2);}
 .spc-num{font-size:26px;font-weight:700;line-height:1;}
 .spc-lbl{font-size:8px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
 .spc-sub{font-size:9px;opacity:.8;text-align:center;}
-.s0{background:#e8f5e9;}.s0 .spc-num,.s0 .spc-lbl{color:#1b5e20;}
-.s1{background:#fffde7;}.s1 .spc-num,.s1 .spc-lbl{color:#5d4037;}
-.s2{background:#fff3e0;}.s2 .spc-num,.s2 .spc-lbl{color:#bf360c;}
-.s3{background:#fce4ec;}.s3 .spc-num,.s3 .spc-lbl{color:#880e4f;}
-.s4{background:#f3e5f5;}.s4 .spc-num,.s4 .spc-lbl{color:#4a148c;}
-.s5{background:#ffebee;}.s5 .spc-num,.s5 .spc-lbl{color:#b71c1c;}
+.s0{background:rgba(46,125,50,.18);border-color:rgba(102,187,106,.4);}.s0 .spc-num,.s0 .spc-lbl{color:#81c784;}
+.s1{background:rgba(245,197,24,.16);border-color:rgba(245,197,24,.45);}.s1 .spc-num,.s1 .spc-lbl{color:#f5c518;}
+.s2{background:rgba(230,126,34,.18);border-color:rgba(255,152,80,.45);}.s2 .spc-num,.s2 .spc-lbl{color:#ff9850;}
+.s3{background:rgba(216,27,96,.18);border-color:rgba(240,98,146,.45);}.s3 .spc-num,.s3 .spc-lbl{color:#f06292;}
+.s4{background:rgba(142,36,170,.18);border-color:rgba(186,104,200,.45);}.s4 .spc-num,.s4 .spc-lbl{color:#ba68c8;}
+.s5{background:rgba(198,40,40,.2);border-color:rgba(239,83,80,.5);}.s5 .spc-num,.s5 .spc-lbl{color:#ef5350;}
 
 /* FORECAST 5-DAY */
 .fc-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-.fc-card{background:var(--navy);border-radius:8px;padding:10px 8px;text-align:center;color:#fff;}
-.fc-day{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;}
+.fc-card{background:var(--lc-navy);border:1px solid var(--surface2-border);border-radius:8px;padding:10px 8px;text-align:center;color:#fff;}
+.fc-day{font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px;}
 .fc-icon{font-size:18px;margin-bottom:3px;}
 .fc-hi{font-size:20px;font-weight:700;color:var(--gold);line-height:1.1;}
-.fc-lo{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:4px;}
-.fc-desc{font-size:9px;color:rgba(255,255,255,.6);line-height:1.4;}
+.fc-lo{font-size:10px;color:rgba(255,255,255,.65);margin-bottom:4px;}
+.fc-desc{font-size:9px;color:rgba(255,255,255,.72);line-height:1.4;}
 .fc-risk{font-size:8px;font-weight:600;padding:2px 6px;border-radius:4px;margin-top:5px;display:inline-block;}
 .r-high{background:var(--red);color:#fff;}.r-mod{background:var(--amber);color:#fff;}.r-low{background:var(--green);color:#fff;}.r-none{background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);}
 
@@ -463,7 +463,7 @@ body{padding-bottom:46px;}
     <img class="lc-header__logo" src="ema-logo-white.png" alt="Lafayette County Emergency Management">
     <div class="lc-rule"></div>
     <div style="min-width:0">
-      <div class="lc-title">Weather Command Dashboard</div>
+      <div class="lc-title">Emergency Operation Center</div>
       <div class="lc-submeta">
         <span>Forecast authority: NWS Memphis (MEG)</span>
         <span class="sep">/</span>
@@ -1698,7 +1698,7 @@ async function loadPointForecast(){
       const ps=Date.parse(p.startTime),pe=Date.parse(p.endTime);
       const dtStart=p.startTime?new Date(p.startTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',month:'short',day:'numeric',hour:'numeric',hour12:true}):'';
       const dtEnd=p.endTime?new Date(p.endTime).toLocaleString('en-US',{timeZone:'America/Chicago',weekday:'short',hour:'numeric',hour12:true}):'';
-      const bgColor=p.isDaytime?'#fff':'#f8f9fb';
+      const bgColor=p.isDaytime?'var(--surface2)':'var(--card)';
       const riskStyle=risk.bg?`background:${risk.bg};color:${risk.color};`:'';
 
       /* ── extra detail chips from the raw grid ── */
